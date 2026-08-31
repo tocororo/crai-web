@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+
+const grupos = [
+  { icon: 'fas fa-robot', title: 'Grupo de IA y Robótica', desc: 'Desarrollamos sistemas inteligentes y robóticos para resolver problemas complejos en automatización, procesamiento de lenguaje natural y visión por computadora. Colaboramos con centros de investigación líderes a nivel global.' },
+  { icon: 'fas fa-dna', title: 'Grupo de Biotecnología', desc: 'Investigamos en ingeniería genética, bioprocesos y biomateriales para aplicaciones en salud, agricultura y medio ambiente. Nuestros hallazgos han sido publicados en revistas científicas de alto impacto.' },
+  { icon: 'fas fa-users', title: 'Grupo de Ciencias Sociales y Desarrollo', desc: 'Estudiamos fenómenos sociales contemporáneos para proponer soluciones basadas en evidencia que promuevan el desarrollo sostenible, la equidad y la inclusión en comunidades vulnerables.' },
+];
+
+const proyectos = [
+  { icon: 'fas fa-microchip', year: '2024-2027', title: 'Sistemas Autónomos para Industria 4.0', desc: 'Desarrollo de plataformas robóticas autónomas integradas con inteligencia artificial para optimizar procesos productivos en la industria manufacturera. Financiado por el Ministerio de Ciencia.' },
+  { icon: 'fas fa-leaf', year: '2024-2026', title: 'Biorremediación de Suelos Contaminados', desc: 'Uso de microorganismos modificados genéticamente para la recuperación de suelos afectados por metales pesados y compuestos petroquímicos. Proyecto en colaboración con el Instituto de Ciencias Ambientales.' },
+  { icon: 'fas fa-city', year: '2025-2028', title: 'Desarrollo Urbano Sostenible e Inclusivo', desc: 'Investigación interdisciplinaria sobre políticas públicas de desarrollo urbano que promuevan la sostenibilidad ambiental, la movilidad equitativa y la participación ciudadana en ciudades de América Latina.' },
+];
+
+const publicaciones = [
+  { icon: 'fas fa-file-alt', title: 'Deep Reinforcement Learning for Autonomous Navigation in Dynamic Environments', authors: 'García, M., Rodríguez, L., & Kim, J.', meta: 'IEEE Transactions on Robotics, 2026' },
+  { icon: 'fas fa-dna', title: 'Engineering Synthetic Microbial Consortia for Enhanced Biodegradation of Hydrocarbon Pollutants', authors: 'Martínez, P., López, A., & Chen, S.', meta: 'Nature Biotechnology, 2025' },
+  { icon: 'fas fa-chart-bar', title: 'Social Innovation and Inclusive Development: A Participatory Action Research Framework for Latin American Cities', authors: 'Hernández, R., Ferreira, T., & Osei, K.', meta: 'Journal of Social Policy & Development, 2026' },
+];
+
+const convocatorias = [
+  { icon: 'fas fa-trophy', badge: 'Hasta 50.000 €', title: 'Ayudas a Proyectos de Investigación Joven', desc: 'Dirigido a investigadores emergentes para desarrollar proyectos innovadores con una duración máxima de 24 meses. Incluye financiación para equipamiento, personal y movilidad.' },
+  { icon: 'fas fa-globe', badge: 'Hasta 200.000 €', title: 'Convocatoria de Innovación Social', desc: 'Proyectos interdisciplinarios que aborden desafíos sociales como desigualdad, cambio climático y salud comunitaria. Se valorará el impacto social y la participación de actores locales.' },
+  { icon: 'fas fa-exchange-alt', badge: 'Hasta 15.000 €', title: 'Becas de Movilidad Internacional', desc: 'Apoyo a investigadores para estancias cortas en centros de excelencia internacional. Las solicitudes se evalúan de forma continua hasta agotar el presupuesto disponible.' },
+];
+---
+
+<BaseLayout title="Investigación – CRAI" description="Investigación e Innovación en el CRAI. Grupos de investigación, proyectos activos, publicaciones científicas y convocatorias.">
+  <PageHero
+    badgeIcon="fa-flask"
+    badge="Investigación"
+    breadcrumb="Ciencia Abierta"
+    title="Investigación e Innovación"
+    subtitle="Generamos conocimiento que transforma la sociedad"
+  />
+
+  <!-- Grupos de Investigación -->
+  <Section id="grupos" title="Grupos de Investigación" subtitle="Nuestros equipos multidisciplinarios trabajan en las fronteras del conocimiento">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {grupos.map((g) => (
+        <div class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary-500/10 text-xl text-primary-500">
+            <i class={g.icon}></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-text dark:text-white">{g.title}</h3>
+          <p class="mt-3 text-sm text-text-secondary dark:text-gray-300">{g.desc}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Proyectos Activos -->
+  <Section id="proyectos" title="Proyectos Activos" subtitle="Proyectos de investigación financiados y en curso" light>
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {proyectos.map((p) => (
+        <div class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+          <div class="mb-3 flex items-center gap-3">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-500/10 text-lg text-primary-500">
+              <i class={p.icon}></i>
+            </div>
+            <span class="text-xs bg-primary-500/10 text-primary-500 rounded-full px-3 py-1 font-semibold">{p.year}</span>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-text dark:text-white">{p.title}</h3>
+          <p class="mt-3 text-sm text-text-secondary dark:text-gray-300">{p.desc}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Publicaciones Recientes -->
+  <Section id="publicaciones" title="Publicaciones Recientes" subtitle="Artículos científicos y contribuciones académicas de nuestros investigadores">
+    <div class="flex flex-col gap-6">
+      {publicaciones.map((pub) => (
+        <div class="reveal flex items-start gap-4 rounded-xl border border-border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary-400/10 text-xl text-secondary-400">
+            <i class={pub.icon}></i>
+          </div>
+          <div>
+            <h4 class="font-heading text-base font-bold text-text dark:text-white">{pub.title}</h4>
+            <p class="mt-1 text-sm text-text-secondary dark:text-gray-400">{pub.authors}</p>
+            <p class="mt-1 text-xs font-semibold text-primary-500">{pub.meta}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Convocatorias Abiertas -->
+  <Section id="convocatorias" title="Convocatorias Abiertas" subtitle="Oportunidades de financiación para proyectos de investigación e innovación" light>
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {convocatorias.map((c) => (
+        <div class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+          <div class="mb-3 flex items-center gap-3">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-500/10 text-lg text-primary-500">
+              <i class={c.icon}></i>
+            </div>
+            <span class="text-xs bg-secondary-400 text-white rounded-full px-3 py-1 font-semibold">{c.badge}</span>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-text dark:text-white">{c.title}</h3>
+          <p class="mt-3 text-sm text-text-secondary dark:text-gray-300">{c.desc}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Repositorio Científico -->
+  <section class="section-crai">
+    <div class="container-crai">
+      <div class="bg-primary-600 text-white rounded-2xl p-8 sm:p-12">
+        <div class="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-10">
+          <div class="shrink-0">
+            <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15 text-3xl backdrop-blur">
+              <i class="fas fa-database"></i>
+            </div>
+          </div>
+          <div class="flex-1">
+            <h2 class="font-heading text-2xl font-extrabold sm:text-3xl">Repositorio Científico (RC)</h2>
+            <p class="mt-3 max-w-2xl text-white/80">Accede a tesis, artículos, memorias y producciones científicas de nuestra comunidad investigadora. El repositorio alberga miles de documentos en acceso abierto.</p>
+            <div class="mt-6 flex w-full max-w-lg items-center gap-3">
+              <div class="relative flex-1">
+                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-white/50"></i>
+                <input type="text" placeholder="Buscar en el Repositorio Científico..." class="w-full rounded-lg bg-white/15 py-3 pl-11 pr-4 text-white placeholder-white/50 backdrop-blur outline-none ring-1 ring-white/20 focus:ring-2 focus:ring-white/50" disabled aria-label="Buscar en el Repositorio Científico (próximamente)" />
+              </div>
+              <span class="hidden rounded-full bg-white/15 px-4 py-3 text-xs font-semibold sm:inline-block">Próximamente</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

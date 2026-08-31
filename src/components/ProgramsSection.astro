@@ -1,0 +1,23 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+}
+const { title = 'Programas Destacados', subtitle = 'Descubre nuestra oferta académica de excelencia en todas las áreas del conocimiento' } = Astro.props;
+---
+
+<section class="section-crai bg-surface-2 dark:bg-slate-800/40" aria-labelledby="programas-title">
+  <div class="container-crai">
+    <h2 class="section-title" id="programas-title">{title}</h2>
+    <div class="mx-auto my-4 h-1 w-20 rounded bg-secondary-400" aria-hidden="true"></div>
+    <p class="section-subtitle">{subtitle}</p>
+
+    <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <slot />
+    </div>
+
+    <div class="mt-10 text-center">
+      <a href="/estudios" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> Ver toda la oferta</a>
+    </div>
+  </div>
+</section>

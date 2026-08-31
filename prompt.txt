@@ -1,0 +1,65 @@
+Necesito que crees un proyecto web completo usando Astro como generador de sitios estáticos y Decap CMS para la gestión de contenido. El proyecto debe partir de un diseño HTML estático que te proporcionaré y debes migrarlo a un sitio dinámico con contenido editable desde el panel de administración.
+
+## REQUISITOS DEL PROYECTO
+
+### 1. Tecnologías a utilizar
+- **Astro** (última versión estable) como framework
+- **Decap CMS** (antes Netlify CMS) para la edición de contenido
+- **TypeScript** para el código (opcional pero recomendado)
+- **Tailwind CSS** o **CSS Modules** para los estilos (elige el que mejor se adapte al diseño proporcionado)
+
+### 2. Estructura del proyecto
+Crear un proyecto Astro con la siguiente estructura:
+mi-proyecto/
+├── public/
+│ └── images/ # Imágenes estáticas
+├── src/
+│ ├── components/ # Componentes de Astro reutilizables
+│ ├── layouts/ # Layouts para las páginas
+│ ├── pages/ # Páginas del sitio
+│ │ └── admin/ # Ruta para el CMS (opcional si usas integración)
+│ ├── content/ # Content Collections de Astro
+│ │ ├── config.ts # Esquema de las colecciones
+│ │ ├── blog/ # Entradas de blog (si aplica)
+│ │ └── pages/ # Páginas editables (sobre nosotros, contacto, etc.)
+│ └── styles/ # Archivos de estilos globales
+├── astro.config.mjs # Configuración de Astro
+├── package.json
+└── .env # Variables de entorno (si es necesario)
+
+
+### 3. Migración del diseño HTML estático
+
+**Diseño proporcionado revisar en el directorio:**
+/home/reinier/Trabajo/Project/crai-web-astro-decapCMS/crai-upr
+
+**Instrucciones para la migración:**
+
+1. **Analiza el HTML proporcionado** e identifica las secciones principales (header, hero, servicios, equipo, testimonios, footer, etc.).
+
+2. **Crea componentes de Astro** para cada sección reutilizable:
+   - `Header.astro`
+   - `Hero.astro`
+   - `Services.astro`
+   - `Team.astro`
+   - `Testimonials.astro`
+   - `Footer.astro`
+
+3. **Define el esquema de contenido** en `src/content/config.ts` basado en las secciones identificadas:
+   - Para páginas como "Sobre Nosotros", "Contacto", etc., usa colecciones de tipo "page".
+   - Para el blog o noticias, usa colecciones de tipo "blog" con campos: título, fecha, autor, cuerpo (markdown), imagen destacada.
+   - Para secciones como "Servicios" o "Equipo", crea colecciones separadas si son dinámicas.
+
+4. **Reemplaza el contenido estático** por datos dinámicos provenientes de Decap CMS:
+   - Usa `Astro.glob()` para cargar las colecciones de contenido.
+   - Renderiza los datos en los componentes correspondientes.
+
+5. **Mantén los estilos originales** (CSS/Tailwind) pero adapta las clases para que funcionen con Astro.
+
+### 4. Configuración de Decap CMS
+
+**Instalación y configuración:**
+
+1. Instala la integración de Decap CMS para Astro:
+   ```bash
+   npx astro add astro-decap

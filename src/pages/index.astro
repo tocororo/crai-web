@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import NewsSection from '../components/NewsSection.astro';
+import ProgramsSection from '../components/ProgramsSection.astro';
+import StatsSection from '../components/StatsSection.astro';
+import EventsSection from '../components/EventsSection.astro';
+import { getCollection } from 'astro:content';
+import { formatDate, getSiteConfig } from '../lib/content';
+
+const config = await getSiteConfig();
+const noticias = (await getCollection('noticias', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 6);
+const programas = (await getCollection('programas')).filter((p) => p.data.featured).slice(0, 4);
+const eventos = (await getCollection('eventos')).filter((e) => e.data.featured).slice(0, 3);
+const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const stats = estadisticas.map((s) => ({ value: s.data.value, suffix: s.data.suffix, label: s.data.label }));
+---
+
+<BaseLayout title={`${config?.siteName ?? 'CRAI'} - Centro de Recursos para el Aprendizaje y la Investigación`} description={config?.description}>
+  <Hero stats={stats} />
+
+  <NewsSection>
+    {noticias.map((n) => (
+      <article class="card-hover reveal group overflow-hidden rounded-xl border border-border bg-white dark:border-slate-700 dark:bg-slate-800">
+        <div class="flex h-11 items-center justify-center bg-primary-500 text-2xl text-white">
+          <i class={n.data.icon ?? 'fas fa-newspaper'}></i>
+        </div>
+        <div class="p-5">
+          <span class="text-xs font-semibold uppercase text-secondary-500">{n.data.category}</span>
+          <h3 class="mt-2 font-heading text-lg font-bold text-text group-hover:text-primary-500 dark:text-white">
+            <a href={`/actualidad/${n.id}`}>{n.data.title}</a>
+          </h3>
+          <p class="mt-2 text-sm text-text-secondary line-clamp-3 dark:text-gray-300">{n.data.description}</p>
+          <time class="mt-3 block text-xs text-text-secondary dark:text-gray-400">{formatDate(n.data.pubDate)}</time>
+        </div>
+      </article>
+    ))}
+  </NewsSection>
+
+  <ProgramsSection>
+    {programas.map((p) => (
+      <article class="card-hover reveal rounded-xl border border-border bg-white p-6 text-center dark:border-slate-700 dark:bg-slate-800">
+        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
+          <i class={p.data.icon}></i>
+        </div>
+        <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">{p.data.title}</h3>
+        <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">{p.data.description}</p>
+      </article>
+    ))}
+  </ProgramsSection>
+
+  <StatsSection stats={stats} />
+
+  <EventsSection events={eventos.map((e) => ({ day: e.data.day, month: e.data.month, location: e.data.location, time: e.data.time, title: e.data.title }))} />
+</BaseLayout>

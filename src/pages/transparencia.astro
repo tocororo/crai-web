@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import { getCollection } from 'astro:content';
+
+const stats = (await getCollection('estadisticas')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+const informes = [
+  { title: 'Informe Anual 2025', desc: 'Memoria completa de actividades, logros académicos, financieros y de gestión correspondiente al ejercicio 2025.', meta: 'PDF · 4.2 MB' },
+  { title: 'Informe Financiero Q1 2026', desc: 'Reporte trimestral detallado de ingresos, egresos, ejecución presupuestaria y proyecciones financieras.', meta: 'PDF · 2.8 MB' },
+  { title: 'Informe de Gestión', desc: 'Detalle de la gestión administrativa, indicadores de desempeño y cumplimiento de objetivos estratégicos.', meta: 'PDF · 3.5 MB' },
+  { title: 'Plan Estratégico 2025-2030', desc: 'Hoja de ruta institucional con objetivos, metas e iniciativas estratégicas para los próximos cinco años.', meta: 'PDF · 6.1 MB' },
+];
+
+const normativas = [
+  { icon: 'fa-gavel', title: 'Estatuto Universitario', desc: 'Documento fundamental que establece la estructura, gobierno y funcionamiento de la Universidad.' },
+  { icon: 'fa-shield-alt', title: 'Política de Calidad', desc: 'Marco de aseguramiento de la calidad académica y administrativa para la mejora continua institucional.' },
+  { icon: 'fa-balance-scale', title: 'Código de Ética', desc: 'Principios y valores que guían la conducta de todos los miembros de la comunidad universitaria.' },
+  { icon: 'fa-file-contract', title: 'Reglamento Académico', desc: 'Normas que regulan los procesos de admisión, matrícula, evaluación, titulación y demás aspectos académicos.' },
+  { icon: 'fa-users', title: 'Política de Equidad e Inclusión', desc: 'Compromiso institucional con la igualdad de oportunidades, la diversidad y la no discriminación.' },
+  { icon: 'fa-leaf', title: 'Política Ambiental', desc: 'Lineamientos para la gestión ambiental sostenible y la responsabilidad ecológica institucional.' },
+];
+
+const datosAbiertos = [
+  { icon: 'fa-database', title: 'Catálogo de Datos', desc: 'Explora nuestro catálogo de conjuntos de datos abiertos sobre indicadores académicos, financieros y de gestión disponibles en formatos reutilizables.' },
+  { icon: 'fa-code-branch', title: 'API de Datos Abiertos', desc: 'Accede a nuestra API pública para consultar datos institucionales de forma programática con documentación completa y ejemplos de uso.' },
+  { icon: 'fa-chart-pie', title: 'Visualizaciones', desc: 'Dashboards interactivos con visualizaciones dinámicas de los principales indicadores institucionales actualizados en tiempo real.' },
+  { icon: 'fa-license', title: 'Licencias y Condiciones', desc: 'Los datos abiertos de la universidad se publican bajo licencia Creative Commons Attribution 4.0 International.' },
+];
+---
+
+<BaseLayout title="Transparencia – CRAI" description="Portal de Transparencia del CRAI. Accede a informes financieros, normativas, datos abiertos y estadísticas institucionales.">
+  <PageHero
+    badgeIcon="fa-balance-scale"
+    badge="Rendición de Cuentas"
+    breadcrumb="Transparencia"
+    title="Transparencia Institucional"
+    subtitle="Compromiso con la rendición de cuentas y el acceso a la información"
+  />
+
+  <!-- Informes -->
+  <Section id="informes" title="Informes Institucionales" subtitle="Accede a nuestros informes oficiales y documentos de gestión institucional">
+    <div class="grid gap-4 md:grid-cols-2">
+      {informes.map((inf) => (
+        <div class="card-hover reveal flex flex-col gap-4 rounded-xl border border-border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+          <div class="flex items-start gap-4">
+            <i class="fas fa-file-pdf text-2xl text-red-500"></i>
+            <div>
+              <h3 class="font-heading font-bold text-text dark:text-white">{inf.title}</h3>
+              <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">{inf.desc}</p>
+              <p class="mt-2 text-xs text-text-secondary dark:text-gray-400"><i class="fas fa-file-pdf mr-1"></i>{inf.meta}</p>
+            </div>
+          </div>
+          <a href="#" class="inline-flex items-center gap-2 self-start text-sm font-semibold text-primary-500 transition-colors hover:text-primary-600"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Normativas -->
+  <Section id="normativas" title="Normativas y Políticas" subtitle="Marco normativo y políticas institucionales que rigen nuestra actividad universitaria" light>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {normativas.map((n) => (
+        <div class="card-hover reveal flex flex-col rounded-xl border border-border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-500/10 text-primary-500">
+            <i class={`fas ${n.icon} text-lg`}></i>
+          </div>
+          <h3 class="font-heading font-bold text-text dark:text-white">{n.title}</h3>
+          <p class="mt-2 flex-1 text-sm text-text-secondary dark:text-gray-300">{n.desc}</p>
+          <a href="#" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary-500 transition-colors hover:text-primary-600">Ver <i class="fas fa-arrow-right"></i></a>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Datos Abiertos -->
+  <Section id="datos" title="Datos Abiertos" subtitle="Información pública disponible para su reutilización y análisis">
+    <div class="grid gap-6 md:grid-cols-2">
+      {datosAbiertos.map((d) => (
+        <div class="card-hover reveal flex flex-col rounded-xl border border-border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-500/10 text-primary-500">
+            <i class={`fas ${d.icon} text-lg`}></i>
+          </div>
+          <h3 class="font-heading font-bold text-text dark:text-white">{d.title}</h3>
+          <p class="mt-2 flex-1 text-sm text-text-secondary dark:text-gray-300">{d.desc}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-8 text-center">
+      <a href="#" class="btn btn-primary"><i class="fas fa-download mr-2"></i>Acceder al Portal de Datos Abiertos</a>
+    </div>
+  </Section>
+
+  <!-- Estadísticas -->
+  <section id="estadisticas" class="bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 py-16 text-white" aria-labelledby="estadisticas-title">
+    <div class="container-crai">
+      <h2 class="font-heading text-3xl font-extrabold sm:text-4xl" id="estadisticas-title">Estadísticas Institucionales</h2>
+      <div class="my-4 h-1 w-20 rounded bg-secondary-400" aria-hidden="true"></div>
+      <p class="max-w-2xl text-white/80">Datos actualizados que reflejan nuestra dimensión y alcance institucional</p>
+      <div class="mt-10 grid gap-8 md:grid-cols-4">
+        {stats.map((s) => (
+          <div class="reveal flex flex-col items-center text-center">
+            <span class="font-heading text-4xl font-extrabold text-secondary-400">
+              <span data-count={s.data.value}>0</span>{s.data.suffix}
+            </span>
+            <span class="mt-2 text-sm text-white/80">{s.data.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

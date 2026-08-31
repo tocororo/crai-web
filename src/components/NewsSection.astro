@@ -1,0 +1,25 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  icon?: string;
+  submitLabel?: string;
+}
+const { title = 'Noticias Destacadas', subtitle = 'Mantente al día con las últimas novedades de nuestra comunidad universitaria' } = Astro.props;
+---
+
+<section class="section-crai" aria-labelledby="noticias-title">
+  <div class="container-crai">
+    <h2 class="section-title" id="noticias-title">{title}</h2>
+    <div class="mx-auto my-4 h-1 w-20 rounded bg-secondary-400" aria-hidden="true"></div>
+    <p class="section-subtitle">{subtitle}</p>
+
+    <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <slot />
+    </div>
+
+    <div class="mt-10 text-center">
+      <a href="/actualidad" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Ver todas las noticias</a>
+    </div>
+  </div>
+</section>

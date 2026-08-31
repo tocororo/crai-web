@@ -1,0 +1,136 @@
+backend:
+  name: git-gateway
+  branch: main
+  # Para habilitarlo necesitas Netlify Identity o Git Gateway.
+  # También puedes usar `local_backend: true` en desarrollo con el servidor proxy de Decap.
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "config"
+    label: "Configuración Global"
+    folder: "src/content/config"
+    create: false
+    format: "yaml"
+    fields:
+      - { label: "Nombre del sitio", name: "siteName", widget: "string" }
+      - { label: "Subtítulo del sitio", name: "siteSubtitle", widget: "string" }
+      - { label: "Logo", name: "logo", widget: "image" }
+      - { label: "Descripción", name: "description", widget: "text" }
+      - label: "Contacto"
+        name: "contact"
+        widget: "object"
+        fields:
+          - { label: "Dirección", name: "address", widget: "string" }
+          - { label: "Teléfono", name: "phone", widget: "string" }
+          - { label: "Correo", name: "email", widget: "string" }
+      - label: "Redes Sociales"
+        name: "social"
+        widget: "object"
+        fields:
+          - { label: "Facebook", name: "facebook", widget: "string", required: false }
+          - { label: "Twitter / X", name: "twitter", widget: "string", required: false }
+          - { label: "Instagram", name: "instagram", widget: "string", required: false }
+          - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
+          - { label: "YouTube", name: "youtube", widget: "string", required: false }
+      - label: "Navegación"
+        name: "navigation"
+        widget: "list"
+        fields:
+          - { label: "Etiqueta", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+          - label: "Submenú"
+            name: "children"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Etiqueta", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+      - label: "Pie de página"
+        name: "footer"
+        widget: "object"
+        fields:
+          - { label: "Descripción", name: "description", widget: "text" }
+          - { label: "Título enlaces rápidos", name: "quickLinksTitle", widget: "string" }
+
+  - name: "noticias"
+    label: "Noticias / Blog"
+    folder: "src/content/noticias"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Resumen", name: "description", widget: "text" }
+      - { label: "Fecha de publicación", name: "pubDate", widget: "datetime" }
+      - { label: "Autor", name: "author", widget: "string" }
+      - { label: "Categoría", name: "category", widget: "string", default: "Noticias" }
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string", default: "fas fa-newspaper" }
+      - { label: "Contenido", name: "body", widget: "markdown" }
+      - { label: "Borrador", name: "draft", widget: "boolean", default: false }
+
+  - name: "eventos"
+    label: "Eventos"
+    folder: "src/content/eventos"
+    create: true
+    format: "yaml"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Día", name: "day", widget: "string" }
+      - { label: "Mes", name: "month", widget: "string" }
+      - { label: "Ubicación", name: "location", widget: "string" }
+      - { label: "Hora", name: "time", widget: "string" }
+      - { label: "Destacado", name: "featured", widget: "boolean", default: false }
+
+  - name: "programas"
+    label: "Programas Académicos"
+    folder: "src/content/programas"
+    create: true
+    format: "yaml"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "description", widget: "text" }
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - label: "Categoría"
+        name: "category"
+        widget: "select"
+        options: ["grado", "posgrado", "doctorado"]
+      - { label: "Duración", name: "duration", widget: "string", required: false }
+      - { label: "Modalidad", name: "modality", widget: "string", required: false }
+      - { label: "Destacado", name: "featured", widget: "boolean", default: false }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "equipo"
+    label: "Equipo / Autoridades"
+    folder: "src/content/equipo"
+    create: true
+    format: "yaml"
+    fields:
+      - { label: "Nombre", name: "name", widget: "string" }
+      - { label: "Cargo", name: "position", widget: "string" }
+      - { label: "Biografía", name: "bio", widget: "text", required: false }
+      - { label: "Foto", name: "photo", widget: "image", required: false }
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string", required: false }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "testimonios"
+    label: "Testimonios"
+    folder: "src/content/testimonios"
+    create: true
+    format: "yaml"
+    fields:
+      - { label: "Autor", name: "author", widget: "string" }
+      - { label: "Rol", name: "role", widget: "string" }
+      - { label: "Cita", name: "quote", widget: "text" }
+      - { label: "Calificación (1-5)", name: "rating", widget: "number", default: 5 }
+
+  - name: "estadisticas"
+    label: "Estadísticas"
+    folder: "src/content/estadisticas"
+    create: true
+    format: "yaml"
+    fields:
+      - { label: "Valor", name: "value", widget: "number" }
+      - { label: "Sufijo", name: "suffix", widget: "string", default: "+" }
+      - { label: "Etiqueta", name: "label", widget: "string" }
+      - { label: "Orden", name: "order", widget: "number", required: false }

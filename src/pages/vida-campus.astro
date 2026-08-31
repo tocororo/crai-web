@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import { getCollection } from 'astro:content';
+
+const testimonios = (await getCollection('testimonios'));
+
+const actividades = [
+  { icon: 'fas fa-music', title: 'Música y Coros', desc: 'Forma parte de nuestro coro universitario, banda sinfónica o agrupaciones musicales. Organizamos conciertos y festivales durante todo el año.' },
+  { icon: 'fas fa-theater-masks', title: 'Teatro y Artes Escénicas', desc: 'El grupo de teatro universitario produce obras clásicas y contemporáneas. También ofrecemos talleres de danza, expresión corporal y performance.' },
+  { icon: 'fas fa-paint-brush', title: 'Artes Visuales', desc: 'Galerías de arte, exposiciones estudiantiles, talleres de pintura, escultura, fotografía y arte digital en nuestros espacios culturales.' },
+  { icon: 'fas fa-book-open', title: 'Letras y Literatura', desc: 'Círculos de lectura, talleres literarios, recitales de poesía y encuentros con autores nacionales e internacionales para fomentar el amor por la literatura.' },
+];
+
+const deportes = [
+  { icon: 'fas fa-futbol', title: 'Fútbol', desc: 'Ligas internas, torneos interuniversitarios y selección representativa con entrenamiento profesional.' },
+  { icon: 'fas fa-basketball-ball', title: 'Baloncesto', desc: 'Canchas techadas con piso de madera, torneos regulares y equipo competitivo en categoría universitaria.' },
+  { icon: 'fas fa-swimmer', title: 'Natación', desc: 'Piscina olímpica climatizada, clases para todos los niveles y equipo de natación competitiva.' },
+  { icon: 'fas fa-dumbbell', title: 'Gimnasio', desc: 'Gimnasio completamente equipado con máquinas modernas, pesas libres y clases dirigidas de fitness y yoga.' },
+  { icon: 'fas fa-running', title: 'Atletismo', desc: 'Pista de atletismo sintética, entrenamiento en todas las disciplinas y participación en competencias nacionales.' },
+  { icon: 'fas fa-volleyball-ball', title: 'Voleibol', desc: 'Canchas al aire libre y techadas, ligas mixtas y equipo femenino y masculino de alto rendimiento.' },
+  { icon: 'fas fa-bicycle', title: 'Ciclismo', desc: 'Club de ciclismo con rutas programadas, bicicletas compartidas en campus y competencias recreativas.' },
+  { icon: 'fas fa-heart', title: 'Yoga y Meditación', desc: 'Espacios de bienestar con clases de yoga, meditación guiada y mindfulness para el manejo del estrés académico.' },
+];
+
+const servicios = [
+  { icon: 'fas fa-book', title: 'Biblioteca', desc: 'Biblioteca central con más de 100,000 volúmenes, salas de estudio, hemeroteca, acceso a bases de datos digitales y préstamo interbibliotecario.' },
+  { icon: 'fas fa-utensils', title: 'Comedor Universitario', desc: 'Comedor con menús balanceados y nutritivos a precios accesibles. Opciones vegetarianas y para necesidades dietéticas especiales.' },
+  { icon: 'fas fa-hospital', title: 'Servicio de Salud', desc: 'Centro de salud universitario con atención médica primaria, enfermería, servicios de odontología y campañas de prevención.' },
+  { icon: 'fas fa-brain', title: 'Orientación Psicológica', desc: 'Servicio gratuito de atención psicológica, consejería y talleres de desarrollo personal para apoyar tu salud mental y emocional.' },
+  { icon: 'fas fa-bus', title: 'Transporte', desc: 'Rutas de transporte universitario que conectan el campus con las principales zonas de la ciudad. Horarios amplios y paradas seguras.' },
+  { icon: 'fas fa-bed', title: 'Residencias', desc: 'Residencias universitarias dentro del campus con habitaciones amuebladas, áreas comunes, internet, lavandería y seguridad 24/7.' },
+  { icon: 'fas fa-briefcase', title: 'Bolsa de Trabajo', desc: 'Bolsa de empleo con prácticas profesionales, pasantías y ofertas laborales de empresas aliadas. Asesoría en elaboración de CV y preparación de entrevistas.' },
+  { icon: 'fas fa-users', title: 'Actividades Extraacadémicas', desc: 'Talleres, clubes estudiantiles, conferencias, seminarios y actividades recreativas que complementan tu formación y enriquecen tu experiencia universitaria.' },
+];
+
+const galeria = [
+  'Campus Central',
+  'Biblioteca',
+  'Actividades Deportivas',
+  'Eventos Culturales',
+  'Laboratorios',
+  'Residencias',
+  'Áreas Verdes',
+  'Graduaciones',
+];
+---
+
+<BaseLayout title="Vida en el Campus – CRAI" description="Descubre la vida universitaria en el CRAI: actividades culturales, deportes, voluntariado y servicios para estudiantes.">
+  <PageHero
+    badgeIcon="fa-heart"
+    badge="Comunidad"
+    breadcrumb="Vida en el Campus"
+    title="Vida en el Campus"
+    subtitle="Más que estudios, una experiencia transformadora"
+  />
+
+  <!-- Actividades Culturales -->
+  <Section id="culturales" title="Actividades Culturales" subtitle="El arte y la cultura son parte esencial de la formación integral de nuestros estudiantes">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {actividades.map((a) => (
+        <div class="card-hover reveal flex flex-col items-center rounded-xl border border-border bg-white p-8 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+          <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary-500/10 text-3xl text-primary-500">
+            <i class={a.icon}></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-text dark:text-white">{a.title}</h3>
+          <p class="mt-3 text-sm text-text-secondary dark:text-gray-300">{a.desc}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Deportes y Recreación -->
+  <Section id="deportes" title="Deportes y Recreación" subtitle="Promovemos un estilo de vida activo y saludable con instalaciones deportivas de primer nivel" light>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {deportes.map((d) => (
+        <div class="card-hover reveal flex flex-col items-center rounded-xl border border-border bg-white p-8 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+          <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-secondary-400/10 text-3xl text-secondary-400">
+            <i class={d.icon}></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-text dark:text-white">{d.title}</h3>
+          <p class="mt-3 text-sm text-text-secondary dark:text-gray-300">{d.desc}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Servicios al Estudiante -->
+  <Section id="servicios" title="Servicios al Estudiante" subtitle="Contamos con todos los servicios que necesitas para tu bienestar y desarrollo integral">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {servicios.map((s) => (
+        <div class="card-hover reveal flex flex-col items-center rounded-xl border border-border bg-white p-8 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+          <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary-500/10 text-3xl text-primary-500">
+            <i class={s.icon}></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-text dark:text-white">{s.title}</h3>
+          <p class="mt-3 text-sm text-text-secondary dark:text-gray-300">{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Galería -->
+  <Section id="galeria" title="Galería de Fotos" subtitle="Momentos que capturan la esencia de la vida en nuestro campus" light>
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+      {galeria.map((g) => (
+        <div class="reveal flex aspect-square flex-col items-center justify-center rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-400/20 text-center">
+          <i class="fas fa-image mb-2 text-3xl text-primary-500/50"></i>
+          <span class="text-sm font-semibold text-text-secondary dark:text-gray-300">{g}</span>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Testimonios -->
+  <Section id="testimonios" title="Testimonios de Estudiantes" subtitle="Conoce las experiencias de quienes forman parte de nuestra comunidad">
+    <div class="grid gap-6 md:grid-cols-2">
+      {testimonios.map((t) => (
+        <div class="reveal rounded-xl border border-border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+          <blockquote class="text-sm leading-relaxed text-text-secondary dark:text-gray-300">
+            "{t.data.quote}"
+          </blockquote>
+          <div class="mt-4">
+            <p class="font-heading font-bold text-text dark:text-white">{t.data.author}</p>
+            <p class="text-sm text-text-secondary">{t.data.role}</p>
+            <div class="mt-2 flex gap-0.5">
+              {Array.from({ length: t.data.rating }).map(() => (
+                <i class="fas fa-star text-secondary-400 text-sm"></i>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Section>
+</BaseLayout>

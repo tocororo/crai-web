@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import { getCollection } from 'astro:content';
+
+const programas = (await getCollection('programas')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const grado = programas.filter((p) => p.data.category === 'grado');
+const posgrado = programas.filter((p) => p.data.category === 'posgrado');
+const doctorado = programas.filter((p) => p.data.category === 'doctorado');
+---
+
+<BaseLayout
+  title="Oferta Académica - CRAI"
+  description="Explora la oferta académica del CRAI: programas de grado, posgrado y doctorado en todas las áreas del conocimiento."
+>
+  <PageHero
+    badgeIcon="fa-graduation-cap"
+    badge="Oferta Académica"
+    breadcrumb="Estudios"
+    title="Programas de Estudio"
+    subtitle="Programas de excelencia para tu futuro profesional"
+  />
+
+  <!-- Programas de Grado -->
+  <Section id="grado" title="Programas de Grado" subtitle="Formación integral para los futuros profesionales" light>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {grado.map((p) => (
+        <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+          <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
+            <i class={`fas ${p.data.icon}`}></i>
+          </div>
+          <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">{p.data.title}</h3>
+          <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">{p.data.description}</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {p.data.duration && (
+              <span class="text-xs rounded-full bg-surface-2 px-3 py-1 dark:bg-slate-700">{p.data.duration}</span>
+            )}
+            {p.data.modality && (
+              <span class="text-xs rounded-full bg-surface-2 px-3 py-1 dark:bg-slate-700">{p.data.modality}</span>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Posgrado -->
+  <Section id="posgrado" title="Programas de Posgrado" subtitle="Especialización y maestrías para el desarrollo profesional avanzado">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {posgrado.map((p) => (
+        <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+          <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
+            <i class={`fas ${p.data.icon}`}></i>
+          </div>
+          <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">{p.data.title}</h3>
+          <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">{p.data.description}</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {p.data.duration && (
+              <span class="text-xs rounded-full bg-surface-2 px-3 py-1 dark:bg-slate-700">{p.data.duration}</span>
+            )}
+            {p.data.modality && (
+              <span class="text-xs rounded-full bg-surface-2 px-3 py-1 dark:bg-slate-700">{p.data.modality}</span>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Doctorados -->
+  <Section id="doctorado" title="Doctorados" subtitle="Investigación de alto nivel para la generación de conocimiento original" light>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {doctorado.map((p) => (
+        <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+          <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
+            <i class={`fas ${p.data.icon}`}></i>
+          </div>
+          <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">{p.data.title}</h3>
+          <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">{p.data.description}</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {p.data.duration && (
+              <span class="text-xs rounded-full bg-surface-2 px-3 py-1 dark:bg-slate-700">{p.data.duration}</span>
+            )}
+            {p.data.modality && (
+              <span class="text-xs rounded-full bg-surface-2 px-3 py-1 dark:bg-slate-700">{p.data.modality}</span>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Programas de Intercambio -->
+  <Section id="intercambio" title="Programas de Intercambio" subtitle="Amplía tus horizontes académicos y culturales en universidades de todo el mundo">
+    <div class="grid gap-6 sm:grid-cols-2">
+      <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+        <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
+          <i class="fas fa-globe-americas"></i>
+        </div>
+        <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">Internacionalización</h3>
+        <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">Contamos con convenios con más de 50 universidades en América, Europa, Asia y Oceanía. Nuestros estudiantes pueden cursar uno o dos semestres en el extranjero con reconocimiento académico pleno.</p>
+      </article>
+
+      <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+        <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
+          <i class="fas fa-handshake"></i>
+        </div>
+        <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">Convenios Bilaterales</h3>
+        <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">Acuerdos de cooperación académica con instituciones de prestigio internacional que permiten el intercambio de estudiantes, docentes e investigadores.</p>
+      </article>
+
+      <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+        <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
+          <i class="fas fa-language"></i>
+        </div>
+        <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">Inmersión Lingüística</h3>
+        <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">Programas diseñados para el aprendizaje de idiomas en países nativos, con cursos intensivos y experiencia cultural completa.</p>
+      </article>
+
+      <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+        <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
+          <i class="fas fa-award"></i>
+        </div>
+        <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">Becas Internacionales</h3>
+        <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">Programa de becas y ayudas económicas para facilitar la movilidad estudiantil, garantizando igualdad de oportunidades para todos.</p>
+      </article>
+    </div>
+  </Section>
+</BaseLayout>

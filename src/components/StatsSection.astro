@@ -1,0 +1,27 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  stats: { value: number; suffix: string; label: string }[];
+}
+const { title = 'La Universidad en Cifras', subtitle = 'Más de cinco décadas formando profesionales que transforman el mundo', stats = [] } = Astro.props;
+---
+
+<section class="section-crai bg-primary-700 text-white" aria-labelledby="stats-title">
+  <div class="container-crai">
+    <h2 class="section-title !text-white" id="stats-title">{title}</h2>
+    <div class="mx-auto my-4 h-1 w-20 rounded bg-secondary-400" aria-hidden="true"></div>
+    <p class="section-subtitle !text-white/80">{subtitle}</p>
+
+    <div class="mt-10 grid grid-cols-2 gap-8 md:grid-cols-4">
+      {stats.map((s) => (
+        <div class="reveal text-center">
+          <div class="font-heading text-4xl font-extrabold text-secondary-300 sm:text-5xl">
+            <span data-count={s.value}>0</span><span>{s.suffix}</span>
+          </div>
+          <div class="mt-2 text-sm text-white/80 sm:text-base">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

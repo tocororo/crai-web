@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+
+const steps = [
+  {
+    number: 1,
+    icon: 'fa-search',
+    title: 'Investigación de Programas',
+    description: 'Explora nuestra oferta académica y encuentra el programa que mejor se alinee con tus intereses y metas profesionales.',
+  },
+  {
+    number: 2,
+    icon: 'fa-file-alt',
+    title: 'Preparación de Documentos',
+    description: 'Reúne todos los documentos requeridos: certificados de estudios, identificación oficial, ensayos y cartas de recomendación.',
+  },
+  {
+    number: 3,
+    icon: 'fa-laptop',
+    title: 'Presentación de Solicitud',
+    description: 'Completa el formulario de solicitud en línea y sube los documentos requeridos en nuestro portal de admisiones.',
+  },
+  {
+    number: 4,
+    icon: 'fa-handshake',
+    title: 'Entrevista y Admisión',
+    description: 'Si tu solicitud es preseleccionada, serás contactado para una entrevista. Recibirás la notificación de admisión por correo electrónico.',
+  },
+];
+
+const requisitosGrado = [
+  'Título de educación secundaria o equivalente',
+  'Certificado de notas oficial',
+  'Documento de identidad oficial',
+  'Ensayo personal',
+  'Carta de recomendación',
+  'Examen de admisión',
+];
+
+const requisitosPosgrado = [
+  'Título universitario oficial',
+  'Certificado de notas de grado',
+  'Currículum vitae actualizado',
+  'Propuesta de investigación',
+  'Dos cartas de recomendación',
+  'Entrevista personal',
+];
+
+const requisitosDoctorado = [
+  'Título de maestría o equivalente',
+  'Certificado de notas de posgrado',
+  'Currículum vitae académico',
+  'Anteproyecto de tesis doctoral',
+  'Tres cartas de recomendación',
+  'Entrevista con el comité académico',
+];
+
+const becas = [
+  { icon: 'fa-star', title: 'Beca al Mérito Académico', description: 'Otorgada a estudiantes con expedientes académicos sobresalientes. Cubre hasta el 100% de la matrícula durante toda la carrera.' },
+  { icon: 'fa-users', title: 'Beca Socioeconómica', description: 'Dirigida a estudiantes con limitaciones económicas que demuestren alto potencial académico. Incluye apoyo para matrícula y materiales.' },
+  { icon: 'fa-running', title: 'Beca Deportiva', description: 'Para atletas de alto rendimiento que representen a la universidad en competencias oficiales. Cubre matrícula y alojamiento.' },
+  { icon: 'fa-globe-americas', title: 'Beca de Internacionalización', description: 'Apoyo económico para estudiantes que participen en programas de intercambio o movilidad académica en universidades extranjeras.' },
+  { icon: 'fa-lightbulb', title: 'Beca de Investigación', description: 'Destinada a estudiantes de posgrado y doctorado que desarrollen proyectos de investigación innovadores con impacto social.' },
+  { icon: 'fa-hand-holding-heart', title: 'Programa de Ayuda Financiera', description: 'Planes de pago flexibles y préstamos universitarios con tasas preferenciales para garantizar el acceso a la educación superior.' },
+];
+
+const calendario = [
+  { evento: 'Apertura de inscripciones', inicio: '1 de febrero de 2026', cierre: '31 de mayo de 2026' },
+  { evento: 'Envío de documentos', inicio: '1 de febrero de 2026', cierre: '15 de junio de 2026' },
+  { evento: 'Examen de admisión', inicio: '15 de marzo de 2026', cierre: '30 de junio de 2026' },
+  { evento: 'Entrevistas', inicio: '1 de abril de 2026', cierre: '15 de julio de 2026' },
+  { evento: 'Publicación de resultados', inicio: '1 de agosto de 2026', cierre: '—' },
+  { evento: 'Matrícula', inicio: '15 de agosto de 2026', cierre: '31 de agosto de 2026' },
+  { evento: 'Inicio de clases', inicio: '1 de septiembre de 2026', cierre: '—' },
+];
+
+const faq = [
+  { q: '¿Cuándo abre el período de inscripciones?', a: 'El período de inscripciones abre el 1 de febrero de cada año y se extiende hasta el 31 de mayo. Te recomendamos presentar tu solicitud lo antes posible, ya que algunos programas tienen cupos limitados.' },
+  { q: '¿Qué documentos necesito presentar?', a: 'Los documentos varían según el nivel académico. En general, necesitarás tu título o certificado de estudios, documento de identidad, ensayo personal y cartas de recomendación. Consulta la sección de Requisitos por Nivel para más detalles.' },
+  { q: '¿Hay examen de admisión?', a: 'Sí, para ingresar a programas de grado es necesario presentar el examen de admisión general. Para posgrado y doctorado, la evaluación incluye la revisión del expediente académico y una entrevista personal.' },
+  { q: '¿Ofrecen becas deportivas?', a: 'Sí, contamos con un programa de becas deportivas para atletas de alto rendimiento. Cubren matrícula y alojamiento, y requieren que el becado represente a la universidad en competencias oficiales.' },
+  { q: '¿Puedo transferirme de otra universidad?', a: 'Sí, aceptamos transferencias de otras instituciones de educación superior. Debes presentar tus certificados de notas, los programas de estudios cursados y someterte a una evaluación de convalidación de materias.' },
+];
+---
+
+<BaseLayout title="Admisión - CRAI" description="Proceso de admisión al CRAI. Conoce los pasos, requisitos, calendario académico y opciones de becas disponibles.">
+  <PageHero
+    badgeIcon="fa-user-graduate"
+    badge="Proceso de Ingreso"
+    breadcrumb="Admisión"
+    title="Proceso de Admisión"
+    subtitle="Tu futuro comienza aquí. Te guiamos en cada paso del proceso"
+  />
+
+  <Section id="pasos" title="Pasos para tu Admisión" subtitle="Sigue estos sencillos pasos para completar tu proceso de admisión">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {steps.map((step) => (
+        <div class="rounded-xl border border-border bg-white p-6 text-center dark:border-slate-700 dark:bg-slate-800">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary-500 font-heading text-2xl font-extrabold text-white">
+            {step.number}
+          </div>
+          <div class="mx-auto mt-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary-500/10 text-xl text-primary-500">
+            <i class={`fas ${step.icon}`}></i>
+          </div>
+          <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">{step.title}</h3>
+          <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">{step.description}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="calendario" title="Calendario Académico" subtitle="Fechas clave para el próximo ciclo académico" light>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left">
+        <thead>
+          <tr class="bg-primary-500 text-white">
+            <th class="px-4 py-3 font-semibold">Evento</th>
+            <th class="px-4 py-3 font-semibold">Fecha de Inicio</th>
+            <th class="px-4 py-3 font-semibold">Fecha de Cierre</th>
+          </tr>
+        </thead>
+        <tbody>
+          {calendario.map((row) => (
+            <tr class="border-b border-border dark:border-slate-700">
+              <td class="px-4 py-3 text-text dark:text-gray-200">{row.evento}</td>
+              <td class="px-4 py-3 text-text-secondary dark:text-gray-300">{row.inicio}</td>
+              <td class="px-4 py-3 text-text-secondary dark:text-gray-300">{row.cierre}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  <Section id="requisitos" title="Requisitos por Nivel" subtitle="Cada nivel académico tiene requisitos específicos. Consulta los detalles a continuación">
+    <div class="grid gap-6 md:grid-cols-3">
+      <div class="rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+        <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <h3 class="mt-4 text-center font-heading text-lg font-bold text-text dark:text-white">Grado</h3>
+        <ul class="mt-4 space-y-2">
+          {requisitosGrado.map((item) => (
+            <li class="flex items-start gap-2 text-sm text-text-secondary dark:text-gray-300">
+              <i class="fas fa-check-circle mt-0.5 text-primary-500"></i>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+        <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <h3 class="mt-4 text-center font-heading text-lg font-bold text-text dark:text-white">Posgrado</h3>
+        <ul class="mt-4 space-y-2">
+          {requisitosPosgrado.map((item) => (
+            <li class="flex items-start gap-2 text-sm text-text-secondary dark:text-gray-300">
+              <i class="fas fa-check-circle mt-0.5 text-primary-500"></i>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+        <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
+          <i class="fas fa-flask"></i>
+        </div>
+        <h3 class="mt-4 text-center font-heading text-lg font-bold text-text dark:text-white">Doctorado</h3>
+        <ul class="mt-4 space-y-2">
+          {requisitosDoctorado.map((item) => (
+            <li class="flex items-start gap-2 text-sm text-text-secondary dark:text-gray-300">
+              <i class="fas fa-check-circle mt-0.5 text-primary-500"></i>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="becas" title="Becas y Ayudas Financieras" subtitle="Ofrecemos diversas opciones para hacer tu educación accesible" light>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {becas.map((beca) => (
+        <div class="rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+          <div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-500/10 text-xl text-primary-500">
+            <i class={`fas ${beca.icon}`}></i>
+          </div>
+          <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">{beca.title}</h3>
+          <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">{beca.description}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="faq" title="Preguntas Frecuentes" subtitle="Resolvemos tus dudas sobre el proceso de admisión">
+    <div class="mx-auto max-w-3xl space-y-4">
+      {faq.map((item) => (
+        <details class="rounded-xl border border-border bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
+          <summary class="cursor-pointer font-semibold text-text dark:text-white">{item.q}</summary>
+          <p class="mt-3 text-sm text-text-secondary dark:text-gray-300">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </Section>
+
+  <section class="section-crai">
+    <div class="container-crai">
+      <div class="rounded-2xl bg-primary-500 p-8 text-white md:flex md:items-center md:justify-between">
+        <div>
+          <h2 class="font-heading text-2xl font-extrabold">¿Listo para comenzar tu futuro?</h2>
+          <p class="mt-2 text-white/80">Inscríbete ahora en el proceso de admisión y da el primer paso hacia tu carrera profesional.</p>
+        </div>
+        <div class="mt-6 md:mt-0">
+          <a href="#" class="inline-block rounded-lg bg-white px-6 py-3 font-semibold !text-primary-600 transition-colors hover:bg-gray-100">Solicitar Admisión</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

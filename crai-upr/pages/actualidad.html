@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actualidad - Universidad del Futuro</title>
+  <meta name="description" content="Mantente informado de las últimas noticias, eventos y avisos oficiales de la Universidad del Futuro.">
+  <meta name="keywords" content="noticias, eventos, actualidad, universidad, academia, investigación, cultura, avisos">
+  <meta property="og:title" content="Actualidad - Universidad del Futuro">
+  <meta property="og:description" content="Noticias, eventos y avisos oficiales de nuestra comunidad universitaria">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.universidaddelfuturo.edu/actualidad">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.universidaddelfuturo.edu/actualidad">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://crai.org",
+    "@type": "CollegeOrUniversity",
+    "name": "CRAI",
+    "description": "Centro de Recurso para el Aprendizaje y la Investigación",
+    "foundingDate": "1965",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "País"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header class="header" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="logo" aria-label="Universidad del Futuro - Inicio">
+        <div class="logo-img" aria-hidden="true">UF</div>
+        <div class="logo-text">
+          Universidad del Futuro
+          <span>Excelencia con compromiso social</span>
+        </div>
+      </a>
+
+      <nav class="nav" role="navigation" aria-label="Navegación principal">
+        <ul class="nav-list" id="nav-list" role="menubar">
+          <li role="none"><a href="../index.html" role="menuitem">Inicio</a></li>
+          <li role="none"><a href="la-universidad.html" role="menuitem">La Universidad</a></li>
+          <li role="none"><a href="estudios.html" role="menuitem">Estudios</a></li>
+          <li role="none"><a href="admision.html" role="menuitem">Admisión</a></li>
+          <li role="none"><a href="investigacion.html" role="menuitem">Investigación</a></li>
+          <li role="none"><a href="vida-campus.html" role="menuitem">Vida en el Campus</a></li>
+          <li role="none"><a href="actualidad.html" role="menuitem" class="active">Actualidad</a></li>
+          <li role="none"><a href="transparencia.html" role="menuitem">Transparencia</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="quick-access">
+          <a href="#" aria-label="Campus Virtual">Campus Virtual</a>
+          <a href="#" aria-label="Correo institucional">Correo</a>
+          <a href="#" aria-label="Biblioteca">Biblioteca</a>
+        </div>
+        <button class="search-toggle" id="search-toggle" aria-label="Abrir buscador" aria-expanded="false">
+          <i class="fas fa-search"></i>
+        </button>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar modo claro/oscuro">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar" id="search-bar" role="search" aria-label="Buscador interno">
+      <div class="container">
+        <input type="search" id="search-input" placeholder="Buscar en el sitio..." aria-label="Buscar">
+        <button type="button" aria-label="Iniciar búsqueda"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN CONTENT
+       ============================================================ -->
+  <main id="main-content">
+
+    <!-- PAGE HERO -->
+    <section class="page-hero" aria-label="Noticias y Eventos">
+      <div class="container">
+        <h1>Noticias y Eventos</h1>
+        <p>Mantente informado de todo lo que sucede en nuestra comunidad</p>
+      </div>
+    </section>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <div class="container">
+        <ul>
+          <li><a href="../index.html">Inicio</a></li>
+          <li class="current" aria-current="page">Actualidad</li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- BLOG SECTION -->
+    <section class="section" aria-labelledby="blog-title">
+      <div class="container">
+        <h2 class="section-title" id="blog-title">Actualidad Universitaria</h2>
+        <div class="section-divider" aria-hidden="true"></div>
+        <p class="section-subtitle">Noticias, eventos académicos, culturales y avisos oficiales de nuestra comunidad</p>
+
+        <!-- Category Filter -->
+        <div class="news-filter" role="group" aria-label="Filtrar noticias por categoría">
+          <button class="news-filter-btn active" data-filter="all">Todas</button>
+          <button class="news-filter-btn" data-filter="academia">Academia</button>
+          <button class="news-filter-btn" data-filter="investigacion">Investigación</button>
+          <button class="news-filter-btn" data-filter="cultura">Cultura</button>
+        </div>
+
+        <div class="blog-grid">
+          <!-- Main Posts Area -->
+          <div class="blog-posts">
+            <article class="news-card reveal" data-category="academia">
+              <div class="news-card-img">
+                <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
+                <span class="date-badge">20 Jun 2026</span>
+              </div>
+              <div class="news-card-body">
+                <span class="news-category">Academia</span>
+                <h3><a href="#">Nuevos programas de posgrado para el próximo semestre</a></h3>
+                <p>La Universidad del Futuro anuncia la apertura de cuatro nuevos programas de maestría en áreas estratégicas como ciencia de datos, energías renovables, neurociencia y derecho digital.</p>
+                <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+              </div>
+            </article>
+
+            <article class="news-card reveal" data-category="investigacion">
+              <div class="news-card-img">
+                <i class="fas fa-microscope" aria-hidden="true"></i>
+                <span class="date-badge">12 Jun 2026</span>
+              </div>
+              <div class="news-card-body">
+                <span class="news-category">Investigación</span>
+                <h3><a href="#">Investigadores publican estudio sobre biotecnología marina</a></h3>
+                <p>Un equipo multidisciplinario de investigadores publicó un innovador estudio en la revista científica internacional Marine Biotechnology sobre aplicaciones sostenibles de recursos marinos.</p>
+                <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+              </div>
+            </article>
+
+            <article class="news-card reveal" data-category="cultura">
+              <div class="news-card-img">
+                <i class="fas fa-palette" aria-hidden="true"></i>
+                <span class="date-badge">5 Jun 2026</span>
+              </div>
+              <div class="news-card-body">
+                <span class="news-category">Cultura</span>
+                <h3><a href="#">Festival de arte y cultura universitaria 2026</a></h3>
+                <p>Más de 200 artistas estudiantiles se darán cita en la edición anual del Festival Cultural, que incluirá exposiciones, conciertos, teatro y danza durante una semana completa.</p>
+                <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+              </div>
+            </article>
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="sidebar" role="complementary" aria-label="Información complementaria">
+
+            <!-- Categorías -->
+            <div class="sidebar-card">
+              <h3><i class="fas fa-tags" aria-hidden="true"></i> Categorías</h3>
+              <ul class="sidebar-categories">
+                <li><a href="#" data-category="academia">Academia <span>(12)</span></a></li>
+                <li><a href="#" data-category="investigacion">Investigación <span>(8)</span></a></li>
+                <li><a href="#" data-category="cultura">Cultura <span>(6)</span></a></li>
+                <li><a href="#" data-category="deportes">Deportes <span>(4)</span></a></li>
+                <li><a href="#" data-category="internacional">Internacional <span>(5)</span></a></li>
+              </ul>
+            </div>
+
+            <!-- Eventos -->
+            <div class="sidebar-card">
+              <h3><i class="fas fa-calendar-alt" aria-hidden="true"></i> Próximos Eventos</h3>
+              <div class="calendar-event">
+                <div class="calendar-event-date">
+                  <span class="calendar-day">28</span>
+                  <span class="calendar-month">Jun</span>
+                </div>
+                <div class="calendar-event-info">
+                  <h4>Conferencia: Inteligencia Artificial en la Educación</h4>
+                  <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Auditorio Central</p>
+                  <p><i class="fas fa-clock" aria-hidden="true"></i> 10:00 - 12:00</p>
+                </div>
+              </div>
+              <div class="calendar-event">
+                <div class="calendar-event-date">
+                  <span class="calendar-day">5</span>
+                  <span class="calendar-month">Jul</span>
+                </div>
+                <div class="calendar-event-info">
+                  <h4>Torneo Deportivo Interfacultades</h4>
+                  <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Complejo Deportivo</p>
+                  <p><i class="fas fa-clock" aria-hidden="true"></i> 8:00 - 18:00</p>
+                </div>
+              </div>
+              <div class="calendar-event">
+                <div class="calendar-event-date">
+                  <span class="calendar-day">12</span>
+                  <span class="calendar-month">Jul</span>
+                </div>
+                <div class="calendar-event-info">
+                  <h4>Feria de Vinculación Laboral</h4>
+                  <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Explanada Principal</p>
+                  <p><i class="fas fa-clock" aria-hidden="true"></i> 9:00 - 17:00</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Avisos Oficiales -->
+            <div class="sidebar-card">
+              <h3><i class="fas fa-bullhorn" aria-hidden="true"></i> Avisos Oficiales</h3>
+              <ul class="sidebar-avisos">
+                <li>
+                  <i class="fas fa-exclamation-circle" aria-hidden="true" style="color: var(--secondary);"></i>
+                  <a href="#">Calendario académico 2026-2 publicado</a>
+                </li>
+                <li>
+                  <i class="fas fa-exclamation-circle" aria-hidden="true" style="color: var(--secondary);"></i>
+                  <a href="#">Convocatoria de becas vigente hasta el 15 de julio</a>
+                </li>
+                <li>
+                  <i class="fas fa-exclamation-circle" aria-hidden="true" style="color: var(--secondary);"></i>
+                  <a href="#">Suspensión de actividades por mantenimiento programado</a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="sidebar-card sidebar-newsletter">
+              <h3><i class="fas fa-envelope-open-text" aria-hidden="true"></i> Boletín Informativo</h3>
+              <p>Recibe las últimas noticias y eventos directamente en tu correo electrónico.</p>
+              <form class="newsletter-form" id="newsletter-form">
+                <label for="newsletter-email" class="sr-only">Correo electrónico</label>
+                <input type="email" id="newsletter-email" placeholder="Tu correo electrónico" required>
+                <button type="submit" class="btn btn-gold" style="width: 100%;"><i class="fas fa-paper-plane"></i> Suscribirse</button>
+              </form>
+            </div>
+
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <h3>Universidad del Futuro</h3>
+          <p>Institución de educación superior comprometida con la excelencia académica, la investigación innovadora y el desarrollo social sostenible.</p>
+          <ul class="footer-contact">
+            <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Av. Universitaria 123, Campus Central</li>
+            <li><i class="fas fa-phone" aria-hidden="true"></i> +1 (555) 123-4567</li>
+            <li><i class="fas fa-envelope" aria-hidden="true"></i> info@universidaddelfuturo.edu</li>
+          </ul>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Enlaces Rápidos</h3>
+          <ul class="footer-links">
+            <li><a href="la-universidad.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> La Universidad</a></li>
+            <li><a href="estudios.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Programas</a></li>
+            <li><a href="admision.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Admisión</a></li>
+            <li><a href="investigacion.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Investigación</a></li>
+            <li><a href="vida-campus.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Vida en el Campus</a></li>
+            <li><a href="actualidad.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Actualidad</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Servicios</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Campus Virtual</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Correo Institucional</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Biblioteca Digital</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Portal del Estudiante</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Portal del Docente</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Bolsa de Trabajo</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Transparencia</h3>
+          <ul class="footer-links">
+            <li><a href="transparencia.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Informes Financieros</a></li>
+            <li><a href="transparencia.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Normativas</a></li>
+            <li><a href="transparencia.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Datos Abiertos</a></li>
+            <li><a href="transparencia.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Estadísticas</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Política de Privacidad</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Aviso Legal</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Universidad del Futuro. Todos los derechos reservados.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Aviso Legal</a>
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Mapa del Sitio</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Volver arriba">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- Cookie Consent -->
+  <div class="cookie-consent" id="cookie-consent">
+    <div class="container">
+      <p>Este sitio utiliza cookies para mejorar tu experiencia. Al continuar navegando aceptas nuestra <a href="#">política de cookies</a>.</p>
+      <div class="cookie-buttons">
+        <button class="btn btn-primary" id="cookie-accept">Aceptar</button>
+        <button class="btn btn-secondary" id="cookie-decline">Rechazar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>
