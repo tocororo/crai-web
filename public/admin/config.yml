@@ -67,6 +67,7 @@ collections:
       - { label: "Fecha de publicación", name: "pubDate", widget: "datetime" }
       - { label: "Autor", name: "author", widget: "string" }
       - { label: "Categoría", name: "category", widget: "string", default: "Noticias" }
+      - { label: "Foto de portada", name: "heroImage", widget: "image", required: false }
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string", default: "fas fa-newspaper" }
       - { label: "Contenido", name: "body", widget: "markdown" }
       - { label: "Borrador", name: "draft", widget: "boolean", default: false }
