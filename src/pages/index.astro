@@ -1,57 +1,163 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import NewsSection from '../components/NewsSection.astro';
-import ProgramsSection from '../components/ProgramsSection.astro';
-import StatsSection from '../components/StatsSection.astro';
-import EventsSection from '../components/EventsSection.astro';
 import { getCollection } from 'astro:content';
 import { formatDate, getSiteConfig } from '../lib/content';
 
 const config = await getSiteConfig();
 const noticias = (await getCollection('noticias', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 6);
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const programas = (await getCollection('programas')).filter((p) => p.data.featured).slice(0, 4);
 const eventos = (await getCollection('eventos')).filter((e) => e.data.featured).slice(0, 3);
 const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
-const stats = estadisticas.map((s) => ({ value: s.data.value, suffix: s.data.suffix, label: s.data.label }));
 ---
 
 <BaseLayout title={`${config?.siteName ?? 'CRAI'} - Centro de Recursos para el Aprendizaje y la Investigación`} description={config?.description}>
-  <Hero stats={stats} />
-
-  <NewsSection>
-    {noticias.map((n) => (
-      <article class="card-hover reveal group overflow-hidden rounded-xl border border-border bg-white dark:border-slate-700 dark:bg-slate-800">
-        <div class="flex h-11 items-center justify-center bg-primary-500 text-2xl text-white">
-          <i class={n.data.icon ?? 'fas fa-newspaper'}></i>
+  <!-- HERO -->
+  <section class="hero" aria-label="Bienvenida">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-symbols" aria-hidden="true">
+      <img src="/images/upr/icon-book.svg" class="hero-symbol hs-book" alt="" />
+      <img src="/images/upr/icon-graduation.svg" class="hero-symbol hs-graduation" alt="" />
+      <img src="/images/upr/icon-search.svg" class="hero-symbol hs-search" alt="" />
+      <img src="/images/upr/icon-lightbulb.svg" class="hero-symbol hs-lightbulb" alt="" />
+      <img src="/images/upr/icon-atom.svg" class="hero-symbol hs-atom" alt="" />
+      <img src="/images/upr/icon-potion.svg" class="hero-symbol hs-potion" alt="" />
+      <img src="/images/upr/icon-pencil.svg" class="hero-symbol hs-pencil" alt="" />
+      <img src="/images/upr/icon-brain.svg" class="hero-symbol hs-brain" alt="" />
+      <img src="/images/upr/icon-globe.svg" class="hero-symbol hs-globe" alt="" />
+      <img src="/images/upr/icon-calculator.svg" class="hero-symbol hs-calculator" alt="" />
+      <img src="/images/upr/icon-microscope.svg" class="hero-symbol hs-microscope" alt="" />
+      <img src="/images/upr/icon-dna.svg" class="hero-symbol hs-dna" alt="" />
+    </div>
+    <div class="hero-particles" aria-hidden="true">
+      <div class="hero-particle" style="--x:15%;--y:20%;--s:60px;--d:0s;"></div>
+      <div class="hero-particle" style="--x:80%;--y:30%;--s:40px;--d:2s;"></div>
+      <div class="hero-particle" style="--x:25%;--y:70%;--s:50px;--d:4s;"></div>
+      <div class="hero-particle" style="--x:70%;--y:65%;--s:35px;--d:1s;"></div>
+      <div class="hero-particle" style="--x:50%;--y:15%;--s:45px;--d:3s;"></div>
+      <div class="hero-particle" style="--x:10%;--y:50%;--s:30px;--d:5s;"></div>
+      <div class="hero-particle" style="--x:90%;--y:55%;--s:55px;--d:2.5s;"></div>
+      <div class="hero-particle" style="--x:45%;--y:85%;--s:25px;--d:4.5s;"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge-wrapper">
+        <span class="hero-badge"><i class="fas fa-flask"></i> Conocimiento que transforma la sociedad</span>
+      </div>
+      <h1 class="hero-title">Centro de Recursos <br><span class="hero-title-accent"> para la Investigación y el Aprendizaje</span></h1>
+      <p class="hero-subtitle">Accede a recursos académicos, tecnología de vanguardia y apoyo especializado para potenciar tu investigación y formación.</p>
+      <div class="hero-actions">
+        <a href="/estudios" class="btn btn-primary btn-lg"><i class="fas fa-graduation-cap"></i> Explora Programas</a>
+        <a href="/investigacion" class="btn btn-outline btn-lg"><i class="fas fa-flask"></i> Investigación</a>
+      </div>
+      <div class="hero-search-quick">
+        <i class="fas fa-search"></i>
+        <span>Busca en 8,000+ recursos académicos</span>
+      </div>
+    </div>
+    <div class="hero-stats" aria-label="Estadísticas institucionales">
+      {estadisticas.map((s) => (
+        <div class="hero-stat">
+          <div class="hero-stat-icon"><i class="fas fa-chart-line"></i></div>
+          <span class="hero-stat-number" data-target={s.data.value}>0</span>
+          <span class="hero-stat-label">{s.data.label}</span>
         </div>
-        <div class="p-5">
-          <span class="text-xs font-semibold uppercase text-secondary-500">{n.data.category}</span>
-          <h3 class="mt-2 font-heading text-lg font-bold text-text group-hover:text-primary-500 dark:text-white">
-            <a href={`/actualidad/${n.id}`}>{n.data.title}</a>
-          </h3>
-          <p class="mt-2 text-sm text-text-secondary line-clamp-3 dark:text-gray-300">{n.data.description}</p>
-          <time class="mt-3 block text-xs text-text-secondary dark:text-gray-400">{formatDate(n.data.pubDate)}</time>
+      ))}
+    </div>
+  </section>
+
+  <!-- NOTICIAS - CARRUSEL -->
+  <section class="section" aria-labelledby="noticias-title">
+    <div class="container">
+      <h2 class="section-title" id="noticias-title">Noticias Destacadas</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Mantente al día con las últimas novedades de nuestra comunidad universitaria</p>
+      <div class="carousel" id="news-carousel">
+        <div class="carousel-progress" aria-hidden="true"></div>
+        <div class="carousel-track" id="news-track">
+          {noticias.map((n) => (
+            <div class="carousel-slide">
+              <article class="news-card">
+                <div class="news-card-img">
+                  <i class={n.data.icon ?? 'fas fa-newspaper'} aria-hidden="true"></i>
+                  <span class="date-badge">{formatDate(n.data.pubDate)}</span>
+                </div>
+                <div class="news-card-body">
+                  <h3><a href={`/actualidad/${n.id}`}>{n.data.title}</a></h3>
+                  <p>{n.data.description}</p>
+                  <a href={`/actualidad/${n.id}`} class="read-more">Leer más <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                </div>
+              </article>
+            </div>
+          ))}
         </div>
-      </article>
-    ))}
-  </NewsSection>
+        <button class="carousel-btn carousel-prev" id="news-prev" aria-label="Noticia anterior">
+          <i class="fas fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button class="carousel-btn carousel-next" id="news-next" aria-label="Noticia siguiente">
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </button>
+        <div class="carousel-dots" id="news-dots"></div>
+      </div>
+    </div>
+  </section>
 
-  <ProgramsSection>
-    {programas.map((p) => (
-      <article class="card-hover reveal rounded-xl border border-border bg-white p-6 text-center dark:border-slate-700 dark:bg-slate-800">
-        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
-          <i class={p.data.icon}></i>
-        </div>
-        <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">{p.data.title}</h3>
-        <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">{p.data.description}</p>
-      </article>
-    ))}
-  </ProgramsSection>
+  <!-- PROGRAMAS DESTACADOS -->
+  <section class="section" style="background: var(--bg-light);" aria-labelledby="programas-title">
+    <div class="container">
+      <h2 class="section-title" id="programas-title">Programas Destacados</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Descubre nuestra oferta académica de excelencia en todas las áreas del conocimiento</p>
+      <div class="programs-grid">
+        {programas.map((p) => (
+          <div class="program-card reveal">
+            <div class="program-icon"><i class={p.data.icon}></i></div>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <StatsSection stats={stats} />
+  <!-- DATOS RÁPIDOS -->
+  <section class="stats-section" aria-labelledby="stats-title">
+    <div class="container">
+      <h2 class="section-title" style="color: var(--text-light);" id="stats-title">La Universidad en Cifras</h2>
+      <div class="section-divider" style="background: var(--secondary);" aria-hidden="true"></div>
+      <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Más de cinco décadas formando profesionales que transforman el mundo</p>
+      <div class="stats-grid">
+        {estadisticas.map((s) => (
+          <div class="stat-item reveal">
+            <span class="stat-number" data-target={s.data.value}>0</span><span class="stat-plus">{s.data.suffix}</span>
+            <span class="stat-label">{s.data.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <EventsSection events={eventos.map((e) => ({ day: e.data.day, month: e.data.month, location: e.data.location, time: e.data.time, title: e.data.title }))} />
+  <!-- EVENTOS -->
+  <section class="section" aria-labelledby="eventos-title">
+    <div class="container">
+      <h2 class="section-title" id="eventos-title">Próximos Eventos</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">No te pierdas las actividades académicas, culturales y deportivas de nuestra comunidad</p>
+      <div class="events-grid">
+        {eventos.map((e) => (
+          <div class="event-card reveal">
+            <div class="event-date">
+              <span class="day">{e.data.day}</span>
+              <span class="month">{e.data.month}</span>
+            </div>
+            <div class="event-info">
+              <h4>{e.data.title}</h4>
+              <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> {e.data.location}</p>
+              <p><i class="fas fa-clock" aria-hidden="true"></i> {e.data.time}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 </BaseLayout>

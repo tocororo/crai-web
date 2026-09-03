@@ -15,7 +15,7 @@ const hasAdmin = currentPath.startsWith('/admin');
 ---
 
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,30 +27,42 @@ const hasAdmin = currentPath.startsWith('/admin');
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
-<body class="bg-surface dark:bg-slate-900">
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-primary-500 focus:px-4 focus:py-2 focus:text-white">Saltar al contenido principal</a>
+<body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-  {!hasAdmin && <Header />}
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  {!hasAdmin && <Header currentPath={currentPath} />}
 
   <main id="main-content">
     <slot />
   </main>
 
   {!hasAdmin && <Footer />}
-  {!hasAdmin && <button id="back-to-top" class="fixed bottom-6 right-6 z-40 hidden h-12 w-12 items-center justify-center rounded-full bg-primary-500 text-white shadow-lg transition-opacity hover:bg-primary-600" aria-label="Volver arriba"><i class="fas fa-arrow-up"></i></button>}
+  {!hasAdmin && (
+    <button class="back-to-top" id="back-to-top" aria-label="Volver arriba">
+      <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+  )}
 
-  <div id="cookie-consent" class="fixed bottom-0 left-0 right-0 z-50 hidden border-t border-border bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800">
-    <div class="container-crai flex flex-col items-center justify-between gap-4 py-4 sm:flex-row">
-      <p class="text-sm text-text-secondary dark:text-gray-300">Este sitio utiliza cookies para mejorar tu experiencia. Al continuar navegando aceptas nuestra <a href="#" class="text-primary-500">política de cookies</a>.</p>
-      <div class="flex gap-2">
-        <button id="cookie-accept" class="btn btn-primary !py-2 !text-sm">Aceptar</button>
-        <button id="cookie-decline" class="btn btn-secondary !py-2 !text-sm">Rechazar</button>
+  {!hasAdmin && (
+    <div class="cookie-consent" id="cookie-consent">
+      <div class="container">
+        <p>Este sitio utiliza cookies para mejorar tu experiencia. Al continuar navegando aceptas nuestra <a href="#">política de cookies</a>.</p>
+        <div class="cookie-buttons">
+          <button class="btn btn-primary" id="cookie-accept">Aceptar</button>
+          <button class="btn btn-secondary" id="cookie-decline">Rechazar</button>
+        </div>
       </div>
     </div>
-  </div>
+  )}
 
-  <script>
-    import '../../src/scripts/main.js';
-  </script>
+  {!hasAdmin && (
+    <script>
+      import '../scripts/main.js';
+    </script>
+  )}
 </body>
 </html>

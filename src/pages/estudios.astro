@@ -1,130 +1,96 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import Section from '../components/Section.astro';
 import { getCollection } from 'astro:content';
 
 const programas = (await getCollection('programas')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
-const grado = programas.filter((p) => p.data.category === 'grado');
-const posgrado = programas.filter((p) => p.data.category === 'posgrado');
-const doctorado = programas.filter((p) => p.data.category === 'doctorado');
+
+const categoryLabel: Record<string, string> = {
+  grado: 'Grado',
+  posgrado: 'Posgrado',
+  doctorado: 'Doctorado',
+};
+
+const intercambio = [
+  { icon: 'fas fa-globe-americas', title: 'Internacionalización', desc: 'Contamos con convenios con más de 50 universidades en América, Europa, Asia y Oceanía. Nuestros estudiantes pueden cursar uno o dos semestres en el extranjero con reconocimiento académico pleno.' },
+  { icon: 'fas fa-handshake', title: 'Convenios Bilaterales', desc: 'Acuerdos de cooperación académica con instituciones de prestigio internacional que permiten el intercambio de estudiantes, docentes e investigadores.' },
+  { icon: 'fas fa-language', title: 'Inmersión Lingüística', desc: 'Programas diseñados para el aprendizaje de idiomas en países nativos, con cursos intensivos y experiencia cultural completa.' },
+  { icon: 'fas fa-award', title: 'Becas Internacionales', desc: 'Programa de becas y ayudas económicas para facilitar la movilidad estudiantil, garantizando igualdad de oportunidades para todos.' },
+];
 ---
 
-<BaseLayout
-  title="Oferta Académica - CRAI"
-  description="Explora la oferta académica del CRAI: programas de grado, posgrado y doctorado en todas las áreas del conocimiento."
->
+<BaseLayout title="Oferta Académica - CRAI" description="Explora la oferta académica del CRAI: programas de grado, posgrado y doctorado en todas las áreas del conocimiento.">
   <PageHero
     badgeIcon="fa-graduation-cap"
     badge="Oferta Académica"
-    breadcrumb="Estudios"
     title="Programas de Estudio"
     subtitle="Programas de excelencia para tu futuro profesional"
+    crumb="Estudios"
   />
 
-  <!-- Programas de Grado -->
-  <Section id="grado" title="Programas de Grado" subtitle="Formación integral para los futuros profesionales" light>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {grado.map((p) => (
-        <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
-          <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
-            <i class={`fas ${p.data.icon}`}></i>
-          </div>
-          <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">{p.data.title}</h3>
-          <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">{p.data.description}</p>
-          <div class="mt-4 flex flex-wrap gap-2">
-            {p.data.duration && (
-              <span class="text-xs rounded-full bg-surface-2 px-3 py-1 dark:bg-slate-700">{p.data.duration}</span>
-            )}
-            {p.data.modality && (
-              <span class="text-xs rounded-full bg-surface-2 px-3 py-1 dark:bg-slate-700">{p.data.modality}</span>
-            )}
-          </div>
-        </article>
-      ))}
+  <!-- Program Search -->
+  <section class="section section-search" aria-labelledby="search-title">
+    <div class="container">
+      <h2 class="section-title" id="search-title">Busca tu programa ideal</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <div class="search-controls">
+        <div class="search-box">
+          <input type="text" id="program-search-input" placeholder="Buscar programas..." aria-label="Buscar programas académicos" />
+          <button id="program-search-btn" aria-label="Buscar"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">Todos</button>
+          <button class="filter-btn" data-filter="grado">Grado</button>
+          <button class="filter-btn" data-filter="posgrado">Posgrado</button>
+          <button class="filter-btn" data-filter="doctorado">Doctorado</button>
+        </div>
+      </div>
     </div>
-  </Section>
+  </section>
 
-  <!-- Posgrado -->
-  <Section id="posgrado" title="Programas de Posgrado" subtitle="Especialización y maestrías para el desarrollo profesional avanzado">
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {posgrado.map((p) => (
-        <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
-          <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
-            <i class={`fas ${p.data.icon}`}></i>
+  <!-- Program Listing -->
+  <section id="grado" class="section" style="background: var(--bg-light);" aria-labelledby="programas-title">
+    <div class="container">
+      <h2 class="section-title" id="programas-title">Nuestros Programas</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Más de 45 programas diseñados para impulsar tu carrera profesional</p>
+      <div class="program-list">
+        {programas.map((p) => (
+          <div class="program-list-item reveal" data-category={p.data.category}>
+            <div class="program-list-icon"><i class={`fas ${p.data.icon}`}></i></div>
+            <div class="program-list-body">
+              <h3>{p.data.title}</h3>
+              <p>{p.data.description}</p>
+              <div class="program-meta">
+                <span><i class="fas fa-graduation-cap" aria-hidden="true"></i> {categoryLabel[p.data.category]}</span>
+                {p.data.duration && <span><i class="far fa-clock" aria-hidden="true"></i> {p.data.duration}</span>}
+                {p.data.modality && <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> {p.data.modality}</span>}
+              </div>
+            </div>
           </div>
-          <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">{p.data.title}</h3>
-          <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">{p.data.description}</p>
-          <div class="mt-4 flex flex-wrap gap-2">
-            {p.data.duration && (
-              <span class="text-xs rounded-full bg-surface-2 px-3 py-1 dark:bg-slate-700">{p.data.duration}</span>
-            )}
-            {p.data.modality && (
-              <span class="text-xs rounded-full bg-surface-2 px-3 py-1 dark:bg-slate-700">{p.data.modality}</span>
-            )}
-          </div>
-        </article>
-      ))}
+        ))}
+      </div>
     </div>
-  </Section>
-
-  <!-- Doctorados -->
-  <Section id="doctorado" title="Doctorados" subtitle="Investigación de alto nivel para la generación de conocimiento original" light>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {doctorado.map((p) => (
-        <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
-          <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
-            <i class={`fas ${p.data.icon}`}></i>
-          </div>
-          <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">{p.data.title}</h3>
-          <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">{p.data.description}</p>
-          <div class="mt-4 flex flex-wrap gap-2">
-            {p.data.duration && (
-              <span class="text-xs rounded-full bg-surface-2 px-3 py-1 dark:bg-slate-700">{p.data.duration}</span>
-            )}
-            {p.data.modality && (
-              <span class="text-xs rounded-full bg-surface-2 px-3 py-1 dark:bg-slate-700">{p.data.modality}</span>
-            )}
-          </div>
-        </article>
-      ))}
-    </div>
-  </Section>
+  </section>
 
   <!-- Programas de Intercambio -->
-  <Section id="intercambio" title="Programas de Intercambio" subtitle="Amplía tus horizontes académicos y culturales en universidades de todo el mundo">
-    <div class="grid gap-6 sm:grid-cols-2">
-      <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
-        <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
-          <i class="fas fa-globe-americas"></i>
-        </div>
-        <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">Internacionalización</h3>
-        <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">Contamos con convenios con más de 50 universidades en América, Europa, Asia y Oceanía. Nuestros estudiantes pueden cursar uno o dos semestres en el extranjero con reconocimiento académico pleno.</p>
-      </article>
-
-      <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
-        <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
-          <i class="fas fa-handshake"></i>
-        </div>
-        <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">Convenios Bilaterales</h3>
-        <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">Acuerdos de cooperación académica con instituciones de prestigio internacional que permiten el intercambio de estudiantes, docentes e investigadores.</p>
-      </article>
-
-      <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
-        <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
-          <i class="fas fa-language"></i>
-        </div>
-        <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">Inmersión Lingüística</h3>
-        <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">Programas diseñados para el aprendizaje de idiomas en países nativos, con cursos intensivos y experiencia cultural completa.</p>
-      </article>
-
-      <article class="card-hover reveal rounded-xl border border-border bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
-        <div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500/10 text-2xl text-primary-500">
-          <i class="fas fa-award"></i>
-        </div>
-        <h3 class="mt-4 font-heading text-lg font-bold text-text dark:text-white">Becas Internacionales</h3>
-        <p class="mt-2 text-sm text-text-secondary dark:text-gray-300">Programa de becas y ayudas económicas para facilitar la movilidad estudiantil, garantizando igualdad de oportunidades para todos.</p>
-      </article>
+  <section class="section" id="intercambio" aria-labelledby="intercambio-title">
+    <div class="container">
+      <h2 class="section-title" id="intercambio-title">Programas de Intercambio</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Amplía tus horizontes académicos y culturales en universidades de todo el mundo</p>
+      <div class="content-grid">
+        {intercambio.map((i) => (
+          <div class="content-card reveal">
+            <div class="content-card-icon"><i class={i.icon}></i></div>
+            <h3>{i.title}</h3>
+            <p>{i.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="text-center" style="margin-top: 2rem;">
+        <a href="#" class="btn btn-gold"><i class="fas fa-globe"></i> Más información sobre intercambios</a>
+      </div>
     </div>
-  </Section>
+  </section>
 </BaseLayout>

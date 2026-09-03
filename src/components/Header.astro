@@ -8,119 +8,75 @@ const siteName = config?.siteName ?? 'CRAI';
 const siteSubtitle = config?.siteSubtitle ?? '';
 const { currentPath = '' } = Astro.props;
 
+const pathWithoutHash = currentPath.split('#')[0].replace(/\/$/, '') || '/';
 const isActive = (url: string) => {
-  if (url === '/') return currentPath === '/';
-  return currentPath.startsWith(url.split('#')[0]);
+  const u = url.split('#')[0].replace(/\/$/, '') || '/';
+  return pathWithoutHash === u;
+};
+const hasChildrenActive = (item: { url: string; children?: { url: string }[] }) => {
+  if (isActive(item.url)) return true;
+  return (item.children ?? []).some((c) => isActive(c.url));
 };
 ---
 
-<header class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur shadow-sm dark:bg-slate-900/95">
-  <div class="header-inner" id="site-header">
-    <div class="container-crai flex items-center justify-between gap-4 py-3">
-      <a href="/" class="flex items-center gap-3" aria-label="CRAI - Inicio">
-        {logo && <img src={logo} alt="Logo CRAI" class="h-12 w-auto object-contain" />}
-        <span class="leading-tight">
-          <span class="block font-heading text-xl font-extrabold text-primary-500">{siteName}</span>
-          <span class="block max-w-[220px] text-[11px] text-text-secondary dark:text-gray-300">{siteSubtitle}</span>
-        </span>
-      </a>
-
-      <nav class="hidden lg:block" role="navigation" aria-label="Navegación principal">
-        <ul class="flex items-center gap-1">
-          {nav.map((item) => (
-            <li class="group relative">
-              <a
-                href={item.url}
-                class={`flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
-                  isActive(item.url)
-                    ? 'text-primary-500'
-                    : 'text-text hover:text-primary-500 dark:text-gray-200'
-                }`}
-              >
-                {item.label}
-                {item.children && (
-                  <i class="fas fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
-                )}
-              </a>
-              {item.children && (
-                <ul class="invisible absolute left-0 top-full z-50 min-w-[220px] translate-y-2 rounded-xl border border-border bg-white p-2 opacity-0 shadow-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-slate-700 dark:bg-slate-800">
-                  {item.children.map((child) => (
-                    <li>
-                      <a
-                        href={child.url}
-                        class="block rounded-lg px-3 py-2 text-sm text-text transition-colors hover:bg-surface-2 hover:text-primary-500 dark:text-gray-200 dark:hover:bg-slate-700"
-                      >
-                        {child.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <div class="flex items-center gap-3">
-        <div class="hidden xl:flex items-center gap-4 text-xs font-semibold text-text-secondary dark:text-gray-300">
-          <a href="#" class="hover:text-primary-500">Campus Virtual</a>
-          <a href="#" class="hover:text-primary-500">Correo</a>
-          <a href="#" class="hover:text-primary-500">Biblioteca</a>
-        </div>
-        <button id="search-toggle" class="btn rounded-full p-2 text-text-secondary hover:text-primary-500 dark:text-gray-300" aria-label="Abrir buscador" aria-expanded="false">
-          <i class="fas fa-search"></i>
-        </button>
-        <button id="theme-toggle" class="btn rounded-full p-2 text-text-secondary hover:text-primary-500 dark:text-gray-300" aria-label="Cambiar modo claro/oscuro">
-          <i class="fas fa-moon"></i>
-        </button>
-        <button id="menu-toggle" class="btn rounded-full p-2 text-text-secondary hover:text-primary-500 lg:hidden" aria-label="Abrir menú" aria-expanded="false">
-          <i class="fas fa-bars"></i>
-        </button>
+<header class="header" role="banner">
+  <div class="header-inner">
+    <a href="/" class="logo" aria-label="CRAI - Inicio">
+      <div class="logo-img" aria-hidden="true">{logo && <img src={logo} alt="Logo CRAI" />}</div>
+      <div class="logo-text">
+        {siteName}
+        <span>{siteSubtitle}</span>
       </div>
-    </div>
+    </a>
 
-    <div id="mobile-menu" class="hidden border-t border-border lg:hidden dark:border-slate-700">
-      <ul class="container-crai space-y-1 py-4">
+    <nav class="nav" role="navigation" aria-label="Navegación principal">
+      <ul class="nav-list" id="nav-list" role="menubar">
         {nav.map((item) => (
-          <li>
-            <a href={item.url} class="block rounded-lg px-3 py-2 font-semibold text-text hover:text-primary-500 dark:text-gray-200">
+          <li
+            role="none"
+            class:list={[{ 'has-dropdown': item.children?.length }, { active: hasChildrenActive(item) }]}
+          >
+            <a href={item.url} role="menuitem">
               {item.label}
+              {item.children && <i class="fas fa-chevron-down dropdown-arrow" aria-hidden="true"></i>}
             </a>
             {item.children && (
-              <ul class="ml-4 mt-1 space-y-1">
+              <ul class="dropdown" role="menu">
                 {item.children.map((child) => (
-                  <li>
-                    <a href={child.url} class="block rounded-lg px-3 py-1.5 text-sm text-text-secondary hover:text-primary-500 dark:text-gray-300">
-                      {child.label}
-                    </a>
-                  </li>
+                  <li role="none"><a href={child.url} role="menuitem">{child.label}</a></li>
                 ))}
               </ul>
             )}
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
 
-    <div id="search-bar" class="hidden border-t border-border bg-white dark:border-slate-700 dark:bg-slate-900">
-      <div class="container-crai flex items-center gap-3 py-4" role="search" aria-label="Buscador interno">
-        <i class="fas fa-search text-text-secondary"></i>
-        <input
-          type="search"
-          id="search-input"
-          placeholder="Buscar páginas, publicaciones científicas..."
-          class="w-full bg-transparent outline-none text-text placeholder:text-text-secondary dark:text-gray-200"
-          autocomplete="off"
-          spellcheck="false"
-        />
-        <button id="search-clear" class="text-text-secondary hover:text-red-500" aria-label="Limpiar búsqueda">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <p class="container-crai pb-4 text-xs text-text-secondary dark:text-gray-400">
-        Busca en <strong>páginas del CRAI</strong> y en el <strong>Repositorio Científico (RC)</strong>
-      </p>
-      <div id="search-results" class="container-crai pb-4"></div>
+    <div class="header-actions">
+      <button class="search-toggle" id="search-toggle" aria-label="Abrir buscador" aria-expanded="false">
+        <i class="fas fa-search"></i>
+      </button>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar modo claro/oscuro">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar" id="search-bar" role="search" aria-label="Buscador interno">
+    <div class="container">
+      <i class="fas fa-search search-icon" id="search-icon" aria-hidden="true"></i>
+      <input type="search" id="search-input" placeholder="Buscar páginas, publicaciones científicas..." aria-label="Buscar" autocomplete="off" spellcheck="false" />
+      <button class="search-clear" id="search-clear" aria-label="Limpiar búsqueda">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="search-hint">
+      <span>Busca en <strong>páginas del CRAI</strong> y en el <strong>Repositorio Científico (RC)</strong></span>
+    </div>
+    <div class="search-results" id="search-results"></div>
   </div>
 </header>

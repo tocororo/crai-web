@@ -1,10 +1,17 @@
+---
+const title = 'Panel de administración - CRAI';
+const description = 'Panel de administración del sitio CRAI';
+---
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
-  <title>Panel de administración - CRAI</title>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   <style>
     html, body { height: 100%; margin: 0; }
     body {
@@ -32,6 +39,6 @@
     <div class="spinner"></div>
     <p>Cargando panel de administración...</p>
   </div>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script is:inline src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>

@@ -1,12 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import Section from '../components/Section.astro';
 import { getCollection } from 'astro:content';
+import { formatDate } from '../lib/content';
 
-const noticias = (await getCollection('noticias', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const eventos = await getCollection('eventos');
+const noticias = (await getCollection('noticias', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const eventos = (await getCollection('eventos'));
 
 const avisos = [
   'Calendario académico 2026-2 publicado',
@@ -14,82 +13,108 @@ const avisos = [
   'Suspensión de actividades por mantenimiento programado',
 ];
 
-const formatDate = (d: Date | string) => new Date(d).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+const categorias = [
+  { key: 'academia', label: 'Academia', count: 12 },
+  { key: 'investigacion', label: 'Investigación', count: 8 },
+  { key: 'cultura', label: 'Cultura', count: 6 },
+  { key: 'deportes', label: 'Deportes', count: 4 },
+  { key: 'internacional', label: 'Internacional', count: 5 },
+];
 ---
 
 <BaseLayout title="Actualidad – CRAI" description="Noticias, eventos académicos, culturales y avisos oficiales de nuestra comunidad universitaria.">
   <PageHero
-    badgeIcon="fa-bullhorn"
-    badge="Actualidad"
-    breadcrumb="Actualidad"
+    badge=""
     title="Noticias y Eventos"
     subtitle="Mantente informado de todo lo que sucede en nuestra comunidad"
+    crumb="Actualidad"
   />
 
-  <!-- Noticias -->
-  <Section id="noticias" title="Actualidad Universitaria" subtitle="Noticias, eventos académicos, culturales y avisos oficiales de nuestra comunidad">
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {noticias.map((n) => (
-        <article class="card-hover reveal flex flex-col overflow-hidden rounded-xl border border-border bg-white dark:border-slate-700 dark:bg-slate-800">
-          <div class="bg-primary-500 text-white flex h-11 items-center justify-center text-2xl">
-            <i class={n.data.icon}></i>
-          </div>
-          <div class="flex flex-1 flex-col p-6">
-            <span class="text-xs font-semibold uppercase text-secondary-500">{n.data.category}</span>
-            <h3 class="mt-2 font-heading text-lg font-bold text-text dark:text-white">
-              <a href={`/actualidad/${n.id}`} class="hover:text-primary-600 transition-colors">{n.data.title}</a>
-            </h3>
-            <p class="mt-3 line-clamp-3 text-sm text-text-secondary dark:text-gray-300">{n.data.description}</p>
-            <p class="mt-auto pt-4 text-xs text-text-secondary dark:text-gray-400">{formatDate(n.data.pubDate)}</p>
-          </div>
-        </article>
-      ))}
-    </div>
-  </Section>
+  <!-- BLOG SECTION -->
+  <section class="section" aria-labelledby="blog-title">
+    <div class="container">
+      <h2 class="section-title" id="blog-title">Actualidad Universitaria</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Noticias, eventos académicos, culturales y avisos oficiales de nuestra comunidad</p>
 
-  <!-- Eventos -->
-  <Section id="eventos" title="Próximos Eventos" subtitle="No te pierdas las actividades programadas por nuestra comunidad" light>
-    <div class="grid gap-6 md:grid-cols-3">
-      {eventos.map((e) => (
-        <div class="card-hover reveal flex gap-4 rounded-xl border border-border bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
-          <div class="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-xl bg-primary-500 text-white">
-            <span class="text-2xl font-extrabold leading-none">{e.data.day}</span>
-            <span class="text-xs uppercase">{e.data.month}</span>
-          </div>
-          <div>
-            <h3 class="font-heading font-bold text-text dark:text-white">{e.data.title}</h3>
-            <p class="mt-2 text-sm text-text-secondary dark:text-gray-300"><i class="fas fa-map-marker-alt mr-1 text-primary-500"></i>{e.data.location}</p>
-            <p class="mt-1 text-sm text-text-secondary dark:text-gray-300"><i class="fas fa-clock mr-1 text-primary-500"></i>{e.data.time}</p>
-          </div>
+      <!-- Category Filter -->
+      <div class="news-filter" role="group" aria-label="Filtrar noticias por categoría">
+        <button class="news-filter-btn active" data-filter="all">Todas</button>
+        <button class="news-filter-btn" data-filter="academia">Academia</button>
+        <button class="news-filter-btn" data-filter="investigacion">Investigación</button>
+        <button class="news-filter-btn" data-filter="cultura">Cultura</button>
+      </div>
+
+      <div class="blog-grid">
+        <!-- Main Posts Area -->
+        <div class="blog-posts">
+          {noticias.map((n) => (
+            <article class="news-card reveal" data-category={n.data.category.toLowerCase()}>
+              <div class="news-card-img">
+                <i class={n.data.icon ?? 'fas fa-newspaper'} aria-hidden="true"></i>
+                <span class="date-badge">{formatDate(n.data.pubDate)}</span>
+              </div>
+              <div class="news-card-body">
+                <span class="news-category">{n.data.category}</span>
+                <h3><a href={`/actualidad/${n.id}`}>{n.data.title}</a></h3>
+                <p>{n.data.description}</p>
+                <a href={`/actualidad/${n.id}`} class="read-more">Leer más <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+              </div>
+            </article>
+          ))}
         </div>
-      ))}
-    </div>
-  </Section>
 
-  <!-- Avisos Oficiales -->
-  <Section id="avisos" title="Avisos Oficiales" subtitle="Información institucional de interés general para la comunidad">
-    <div class="mx-auto max-w-3xl">
-      <ul class="space-y-4">
-        {avisos.map((a) => (
-          <li class="flex items-start gap-3 rounded-r-xl border-l-4 border-secondary-400 bg-white p-4 dark:bg-slate-800">
-            <i class="fas fa-exclamation-circle mt-0.5 text-secondary-400"></i>
-            <span class="text-text dark:text-gray-200">{a}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </Section>
+        <!-- Sidebar -->
+        <aside class="sidebar" role="complementary" aria-label="Información complementaria">
+          <div class="sidebar-card">
+            <h3><i class="fas fa-tags" aria-hidden="true"></i> Categorías</h3>
+            <ul class="sidebar-categories">
+              {categorias.map((c) => (
+                <li><a href="#" data-category={c.key}>{c.label} <span>({c.count})</span></a></li>
+              ))}
+            </ul>
+          </div>
 
-  <!-- Newsletter -->
-  <Section id="newsletter" title="Boletín Informativo">
-    <div class="bg-primary-600 rounded-2xl p-8 text-center text-white">
-      <i class="fas fa-envelope-open-text mb-4 text-4xl text-white/80"></i>
-      <h3 class="font-heading text-2xl font-bold">Recibe las últimas noticias y eventos</h3>
-      <p class="mx-auto mt-3 max-w-xl text-white/80">Suscríbete para recibir noticias, eventos y avisos directamente en tu correo electrónico.</p>
-      <form class="mx-auto mt-6 flex max-w-md flex-col gap-3 sm:flex-row" onsubmit="return false;">
-        <input type="email" placeholder="Tu correo electrónico" class="flex-1 rounded-lg border-0 bg-white/10 px-4 py-3 text-white placeholder-white/70 outline-none ring-white/30 focus:ring-2" />
-        <button type="submit" class="rounded-lg bg-white px-6 py-3 font-heading font-semibold text-primary-600 transition-opacity hover:opacity-90"><i class="fas fa-paper-plane mr-2"></i>Suscribirse</button>
-      </form>
+          <div class="sidebar-card">
+            <h3><i class="fas fa-calendar-alt" aria-hidden="true"></i> Próximos Eventos</h3>
+            {eventos.slice(0, 3).map((e) => (
+              <div class="calendar-event">
+                <div class="cal-date">
+                  <span class="day">{e.data.day}</span>
+                  <span class="month">{e.data.month}</span>
+                </div>
+                <div class="cal-event-info">
+                  <h4>{e.data.title}</h4>
+                  <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> {e.data.location}</p>
+                  <p><i class="fas fa-clock" aria-hidden="true"></i> {e.data.time}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="sidebar-card">
+            <h3><i class="fas fa-bullhorn" aria-hidden="true"></i> Avisos Oficiales</h3>
+            <ul class="sidebar-avisos">
+              {avisos.map((a) => (
+                <li>
+                  <i class="fas fa-exclamation-circle" aria-hidden="true" style="color: var(--secondary);"></i>
+                  <a href="#">{a}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="sidebar-card sidebar-newsletter">
+            <h3><i class="fas fa-envelope-open-text" aria-hidden="true"></i> Boletín Informativo</h3>
+            <p>Recibe las últimas noticias y eventos directamente en tu correo electrónico.</p>
+            <form class="newsletter-form" id="newsletter-form">
+              <label for="newsletter-email" class="sr-only">Correo electrónico</label>
+              <input type="email" id="newsletter-email" placeholder="Tu correo electrónico" required />
+              <button type="submit" class="btn btn-gold" style="width: 100%;"><i class="fas fa-paper-plane"></i> Suscribirse</button>
+            </form>
+          </div>
+        </aside>
+      </div>
     </div>
-  </Section>
+  </section>
 </BaseLayout>

@@ -1,8 +1,10 @@
 backend:
-  name: git-gateway
+  name: proxy
+  proxy_url: http://localhost:8081/api/v1
   branch: main
-  # Para habilitarlo necesitas Netlify Identity o Git Gateway.
-  # También puedes usar `local_backend: true` en desarrollo con el servidor proxy de Decap.
+  # Backend local (decap-server): guarda los cambios directamente en tu repositorio
+  # git local haciendo commits. No requiere Netlify ni credenciales externas.
+  # Para publicar desde el navegador directo a GitHub necesitarías Netlify Identity / Git Gateway.
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"

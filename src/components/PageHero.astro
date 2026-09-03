@@ -2,26 +2,30 @@
 interface Props {
   badgeIcon?: string;
   badge?: string;
-  breadcrumb: string;
   title: string;
   subtitle?: string;
+  crumb: string;
+  parentLabel?: string;
+  parentUrl?: string;
 }
-const { badgeIcon = 'fa-university', badge = 'Centro de Recursos', breadcrumb, title, subtitle } = Astro.props;
+const { badgeIcon = 'fa-university', badge = 'Centro de Recursos', title, subtitle, crumb, parentLabel = 'Inicio', parentUrl = '/' } = Astro.props;
 ---
 
-<section class="bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 py-14 text-white">
-  <div class="container-crai">
-    <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold backdrop-blur">
-      <i class={`fas ${badgeIcon}`}></i> {badge}
-    </span>
-    <h1 class="mt-4 font-heading text-3xl font-extrabold sm:text-5xl">{title}</h1>
-    {subtitle && <p class="mt-4 max-w-2xl text-white/80">{subtitle}</p>}
-    <nav class="mt-6" aria-label="Breadcrumb">
-      <ol class="flex items-center gap-2 text-sm text-white/80">
-        <li><a href="/" class="hover:text-white"><i class="fas fa-home mr-1"></i>Inicio</a></li>
-        <li><i class="fas fa-chevron-right text-[10px] text-white/50"></i></li>
-        <li aria-current="page" class="text-secondary-300">{breadcrumb}</li>
-      </ol>
-    </nav>
+<section class="page-hero" aria-label={title}>
+  <div class="container">
+  {badge ? (
+    <span class="page-hero-badge"><i class={`fas ${badgeIcon}`} aria-hidden="true"></i> {badge}</span>
+  ) : null}
+    <h1>{title}</h1>
+    {subtitle && <p>{subtitle}</p>}
   </div>
 </section>
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <div class="container">
+    <ul>
+      <li><a href={parentUrl}>{parentLabel}</a></li>
+      <li class="current" aria-current="page">{crumb}</li>
+    </ul>
+  </div>
+</nav>
