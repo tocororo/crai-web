@@ -15,6 +15,8 @@ collections:
     folder: "src/content/config"
     create: false
     format: "yaml"
+    extension: "yaml"
+    identifier_field: "siteName"
     fields:
       - { label: "Nombre del sitio", name: "siteName", widget: "string" }
       - { label: "Subtítulo del sitio", name: "siteSubtitle", widget: "string" }
@@ -77,6 +79,7 @@ collections:
     folder: "src/content/eventos"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Día", name: "day", widget: "string" }
@@ -90,6 +93,7 @@ collections:
     folder: "src/content/programas"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Descripción", name: "description", widget: "text" }
@@ -109,6 +113,7 @@ collections:
     create: true
     identifier_field: "name"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Nombre", name: "name", widget: "string" }
       - { label: "Cargo", name: "position", widget: "string" }
@@ -123,6 +128,7 @@ collections:
     create: true
     identifier_field: "author"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Autor", name: "author", widget: "string" }
       - { label: "Rol", name: "role", widget: "string" }
@@ -135,6 +141,7 @@ collections:
     create: true
     identifier_field: "label"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Valor", name: "value", widget: "number" }
       - { label: "Sufijo", name: "suffix", widget: "string", default: "+" }
@@ -146,6 +153,7 @@ collections:
     folder: "src/content/timeline"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Año", name: "year", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
@@ -157,6 +165,7 @@ collections:
     folder: "src/content/mvv"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
@@ -169,6 +178,7 @@ collections:
     create: true
     identifier_field: "level"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Nivel", name: "level", widget: "number" }
       - { label: "Nodos", name: "nodes", widget: "list" }
@@ -180,6 +190,7 @@ collections:
     create: true
     identifier_field: "name"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Nombre", name: "name", widget: "string" }
@@ -191,6 +202,7 @@ collections:
     folder: "src/content/acreditaciones"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
@@ -203,6 +215,7 @@ collections:
     create: true
     identifier_field: "label"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Valor", name: "target", widget: "number" }
       - { label: "Sufijo", name: "suffix", widget: "string", default: "+" }
@@ -214,6 +227,7 @@ collections:
     folder: "src/content/admision-pasos"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Número de paso", name: "number", widget: "number" }
       - { label: "Icono (clase fa-*)", name: "icon", widget: "string" }
@@ -226,6 +240,7 @@ collections:
     folder: "src/content/admision-requisitos"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Icono (clase fa-*)", name: "icon", widget: "string" }
@@ -241,6 +256,7 @@ collections:
     folder: "src/content/becas"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase fa-*)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
@@ -253,6 +269,7 @@ collections:
     create: true
     identifier_field: "evento"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Evento", name: "evento", widget: "string" }
       - { label: "Fecha de inicio", name: "inicio", widget: "string" }
@@ -265,6 +282,7 @@ collections:
     create: true
     identifier_field: "question"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Pregunta", name: "question", widget: "string" }
       - { label: "Respuesta", name: "answer", widget: "text" }
@@ -275,6 +293,7 @@ collections:
     folder: "src/content/investigacion-grupos"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Área", name: "area", widget: "string" }
@@ -287,6 +306,7 @@ collections:
     folder: "src/content/investigacion-proyectos"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Área / Periodo", name: "area", widget: "string" }
@@ -299,6 +319,7 @@ collections:
     folder: "src/content/publicaciones"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
@@ -311,6 +332,7 @@ collections:
     folder: "src/content/transferencia"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Área", name: "area", widget: "string" }
@@ -323,6 +345,7 @@ collections:
     folder: "src/content/convocatorias"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Área / Monto", name: "area", widget: "string" }
@@ -335,6 +358,7 @@ collections:
     folder: "src/content/colaboraciones"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Área / Región", name: "area", widget: "string" }
@@ -347,6 +371,7 @@ collections:
     folder: "src/content/intercambio"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
@@ -359,6 +384,7 @@ collections:
     create: true
     identifier_field: "texto"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Texto del aviso", name: "texto", widget: "string" }
       - { label: "Orden", name: "order", widget: "number", required: false }
@@ -369,6 +395,7 @@ collections:
     create: true
     identifier_field: "label"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Clave", name: "key", widget: "string" }
       - { label: "Etiqueta", name: "label", widget: "string" }
@@ -380,6 +407,7 @@ collections:
     folder: "src/content/informes"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
@@ -391,6 +419,7 @@ collections:
     folder: "src/content/normativas"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
@@ -402,6 +431,7 @@ collections:
     folder: "src/content/datos-abiertos"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
@@ -413,6 +443,7 @@ collections:
     folder: "src/content/declaraciones"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
