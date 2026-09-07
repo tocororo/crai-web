@@ -1,0 +1,11 @@
+title: "Posgrado"
+icon: "fa-book-open"
+nivel: "posgrado"
+requisitos:
+  - "Título universitario oficial"
+  - "Certificado de notas de grado"
+  - "Currículum vitae actualizado"
+  - "Propuesta de investigación"
+  - "Dos cartas de recomendación"
+  - "Entrevista personal"
+order: 2

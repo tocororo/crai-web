@@ -7,19 +7,8 @@ import { formatDate } from '../lib/content';
 const noticias = (await getCollection('noticias', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const eventos = (await getCollection('eventos'));
 
-const avisos = [
-  'Calendario académico 2026-2 publicado',
-  'Convocatoria de becas vigente hasta el 15 de julio',
-  'Suspensión de actividades por mantenimiento programado',
-];
-
-const categorias = [
-  { key: 'academia', label: 'Academia', count: 12 },
-  { key: 'investigacion', label: 'Investigación', count: 8 },
-  { key: 'cultura', label: 'Cultura', count: 6 },
-  { key: 'deportes', label: 'Deportes', count: 4 },
-  { key: 'internacional', label: 'Internacional', count: 5 },
-];
+const avisos = (await getCollection('avisos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const categorias = (await getCollection('categorias-noticias')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 ---
 
 <BaseLayout title="Actualidad – CRAI" description="Noticias, eventos académicos, culturales y avisos oficiales de nuestra comunidad universitaria.">
@@ -76,7 +65,7 @@ const categorias = [
             <h3><i class="fas fa-tags" aria-hidden="true"></i> Categorías</h3>
             <ul class="sidebar-categories">
               {categorias.map((c) => (
-                <li><a href="#" data-category={c.key}>{c.label} <span>({c.count})</span></a></li>
+                <li><a href="#" data-category={c.data.key}>{c.data.label} <span>({c.data.count})</span></a></li>
               ))}
             </ul>
           </div>
@@ -104,7 +93,7 @@ const categorias = [
               {avisos.map((a) => (
                 <li>
                   <i class="fas fa-exclamation-circle" aria-hidden="true" style="color: var(--secondary);"></i>
-                  <a href="#">{a}</a>
+                  <a href="#">{a.data.texto}</a>
                 </li>
               ))}
             </ul>

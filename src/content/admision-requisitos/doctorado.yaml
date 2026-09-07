@@ -1,0 +1,11 @@
+title: "Doctorado"
+icon: "fa-flask"
+nivel: "doctorado"
+requisitos:
+  - "Título de maestría o equivalente"
+  - "Certificado de notas de posgrado"
+  - "Currículum vitae académico"
+  - "Anteproyecto de tesis doctoral"
+  - "Tres cartas de recomendación"
+  - "Entrevista con el comité académico"
+order: 3

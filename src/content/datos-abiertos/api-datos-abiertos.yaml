@@ -1,0 +1,4 @@
+icon: "fas fa-code-branch"
+title: "API de Datos Abiertos"
+desc: "Accede a nuestra API pública para consultar datos institucionales de forma programática con documentación completa y ejemplos de uso."
+order: 2
