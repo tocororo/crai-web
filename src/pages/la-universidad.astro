@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
 const equipo = (await getCollection('equipo')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
@@ -19,23 +18,32 @@ const timeline = [
 ];
 
 const mvv = [
-  { icon: 'fas fa-bullseye', title: 'Misión', desc: 'Formar profesionales íntegros, competentes y comprometidos con el desarrollo sostenible de la sociedad, mediante una educación de excelencia que integra la docencia, la investigación y la extensión universitaria.' },
-  { icon: 'fas fa-eye', title: 'Visión', desc: 'Ser una universidad de referencia internacional reconocida por su calidad académica, su contribución al avance del conocimiento y su impacto positivo en la transformación social hacia un futuro más equitativo y sostenible.' },
-  { icon: 'fas fa-heart', title: 'Valores', desc: 'Excelencia, ética, inclusión, innovación, responsabilidad social, respeto a la diversidad, compromiso con la verdad y el pensamiento crítico como pilares de nuestra comunidad universitaria.' },
+  { icon: 'fas fa-bullseye', title: 'Misión', desc: 'Contribuir en la transformación de la calidad y la pertinencia de los procesos sustantivos de la universidad, mediante el empleo intensivo de la información científico y tecnológica, servicios para el desempeño de actividades docentes de aprendizaje y de investigación, y como copartícipe en la formación continua de los egresados, tributando al fortalecimiento de la labor político ideológica con los profesores y estudiantes en la comunidad universitaria y su entorno social.' },
+  { icon: 'fas fa-eye', title: 'Visión', desc: 'Ser el ecosistema inteligente y dinamizador del conocimiento en la universidad pinareña, reconocido por su excelencia, innovación y pertinencia social, donde la información científico-tecnológica se transforma en soluciones concretas para los desafíos del progreso sostenible de nuestro territorio.' },
+  { icon: 'fas fa-heart', title: 'Valores', desc: 'Responsabilidad, Ética.' },
 ];
 
 const organigrama = [
   { level: 1, nodes: ['Vicerrectoría'] },
   { level: 2, nodes: ['Dirección CRAI'] },
-  { level: 3, nodes: ['Departamento Docente Ciencias de la Información', 'Departamento de Sistema tecnologías de la Información', 'Subdirección Bibliotecas'] },
-  { level: 4, nodes: ['Biblioteca Hermanos Saíz', 'Biblioteca Nancy Uranga', 'Rafael M. Mendive',] },
-  ]
+  {
+    level: 3,
+    nodes: [
+      'Departamento Docente Ciencias de la Información',
+      'Departamento de Sistema tecnologías de la Información',
+      {
+        label: 'Subdirección Bibliotecas',
+        children: ['Biblioteca Hermanos Saíz', 'Biblioteca Nancy Uranga', 'Rafael M. Mendive'],
+      },
+    ],
+  },
+];
 
 const campus = [
-  { icon: 'fas fa-university', name: 'Campus Central', desc: 'Av. Universitaria 123, Ciudad Capital. Edificio principal con aulas modernas, auditorio, laboratorios y biblioteca central.' },
-  { icon: 'fas fa-leaf', name: 'Campus Norte', desc: 'Carretera Norte km 8, Ciudad Industrial. Enfocado en programas de ingeniería y ciencias aplicadas.' },
-  { icon: 'fas fa-tree', name: 'Campus Sur', desc: 'Av. del Bosque 456, Zona Sur. Especializado en ciencias biológicas, ambientales y agropecuarias.' },
-  { icon: 'fas fa-globe-americas', name: 'Sede Internacional', desc: 'Calle del Saber 789, Distrito Internacional. Centro de posgrado y programas de cooperación global.' },
+  { icon: 'fas fa-university', name: 'Dirección Biblioteca Hermanos Saiz Montes de Oca', desc: 'Calle José Martí No 300, Barrio Segundo Sur, e/27 de Noviembre y González Alcorta, Pinar del Río, Cuba.', geo: 'C878%2BQ4Q', default: true },
+  { icon: 'fas fa-futbol', name: 'Dirección Biblioteca Nancy Uranga Romagoza', desc: 'Calle Capitán San Luis s/n, Pinar del Río, Cuba.', geo: 'C8C5%2BWFH' },
+  { icon: 'fas fa-chalkboard-teacher', name: 'Dirección Biblioteca “Rafael María Mendive”', desc: 'Calle Los Pinos final, esquina avenida Borrego. Reparto Hermanos Cruz, Pinar del Río, Cuba.', geo: 'C8FF%2BVJM' },
+  //{ icon: 'fas fa-globe-americas', name: 'Sede Internacional', desc: 'Calle del Saber 789, Distrito Internacional. Centro de posgrado y programas de cooperación global.' },
 ];
 
 const acreditaciones = [
@@ -56,13 +64,54 @@ const stats = [
 ---
 
 <BaseLayout title="La Universidad – CRAI" description="Conoce la historia, misión, visión, valores y autoridades del CRAI.">
-  <PageHero
-    badgeIcon="fa-university"
-    badge="Centro de Recursos"
-    title="CRAI"
-    subtitle="Conoce nuestra historia, misión y valores"
-    crumb="Sobre Nosotros"
-  />
+  <!-- HERO MODERNO S/FOTO -->
+  <section class="hero hero--compact" aria-label="La Universidad">
+    <div class="hero-bg hero-bg--plain"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-symbols" aria-hidden="true">
+      <img src="/images/upr/icon-book.svg" class="hero-symbol hs-book" alt="" />
+      <img src="/images/upr/icon-graduation.svg" class="hero-symbol hs-graduation" alt="" />
+      <img src="/images/upr/icon-search.svg" class="hero-symbol hs-search" alt="" />
+      <img src="/images/upr/icon-lightbulb.svg" class="hero-symbol hs-lightbulb" alt="" />
+      <img src="/images/upr/icon-atom.svg" class="hero-symbol hs-atom" alt="" />
+      <img src="/images/upr/icon-potion.svg" class="hero-symbol hs-potion" alt="" />
+      <img src="/images/upr/icon-pencil.svg" class="hero-symbol hs-pencil" alt="" />
+      <img src="/images/upr/icon-brain.svg" class="hero-symbol hs-brain" alt="" />
+      <img src="/images/upr/icon-globe.svg" class="hero-symbol hs-globe" alt="" />
+      <img src="/images/upr/icon-calculator.svg" class="hero-symbol hs-calculator" alt="" />
+      <img src="/images/upr/icon-microscope.svg" class="hero-symbol hs-microscope" alt="" />
+      <img src="/images/upr/icon-dna.svg" class="hero-symbol hs-dna" alt="" />
+    </div>
+    <div class="hero-particles" aria-hidden="true">
+      <div class="hero-particle" style="--x:15%;--y:20%;--s:60px;--d:0s;"></div>
+      <div class="hero-particle" style="--x:80%;--y:30%;--s:40px;--d:2s;"></div>
+      <div class="hero-particle" style="--x:25%;--y:70%;--s:50px;--d:4s;"></div>
+      <div class="hero-particle" style="--x:70%;--y:65%;--s:35px;--d:1s;"></div>
+      <div class="hero-particle" style="--x:50%;--y:15%;--s:45px;--d:3s;"></div>
+      <div class="hero-particle" style="--x:10%;--y:50%;--s:30px;--d:5s;"></div>
+      <div class="hero-particle" style="--x:90%;--y:55%;--s:55px;--d:2.5s;"></div>
+      <div class="hero-particle" style="--x:45%;--y:85%;--s:25px;--d:4.5s;"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge-wrapper">
+        <span class="hero-badge">
+          <img src="/images/305464304_448374310649340_2984277522454001566_n-Photoroom.png" alt="Logo UPR" class="univ-hero-logo" />
+          Centro de Recursos
+        </span>
+      </div>
+      <h1 class="hero-title univ-hero-title">Universidad de Pinar del Río <br><span class="univ-hero-accent">CRAI</span></h1>
+      <p class="hero-subtitle">Conoce nuestra historia, misión, visión, valores y autoridades de nuestro centro.</p>
+    </div>
+  </section>
+
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        <li class="current" aria-current="page">Sobre Nosotros</li>
+      </ul>
+    </div>
+  </nav>
 
   <!-- HISTORIA / TIMELINE -->
   <section id="historia" class="section" aria-labelledby="historia-title">
@@ -131,9 +180,21 @@ const stats = [
       <div class="org-chart">
         {organigrama.map((level) => (
           <div class="org-level">
-            {level.nodes.map((node) => (
-              <div class:list={['org-node', level.level === 1 && 'level-1']}>{node}</div>
-            ))}
+            {level.nodes.map((node) => {
+              if (typeof node === 'object') {
+                return (
+                  <div class="org-branch">
+                    <div class:list={['org-node', 'org-node-branch', level.level === 1 && 'level-1']}>{node.label}</div>
+                    <div class="org-children">
+                      {node.children.map((child) => (
+                        <div class="org-node org-child">{child}</div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              return <div class:list={['org-node', level.level === 1 && 'level-1']}>{node}</div>;
+            })}
           </div>
         ))}
       </div>
@@ -146,14 +207,25 @@ const stats = [
       <h2 class="section-title" id="campus-title">Campus y Sedes</h2>
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Nuestras instalaciones están distribuidas estratégicamente para brindar cobertura nacional</p>
-      <div class="map-placeholder" aria-label="Mapa de campus y sedes">
-        <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
-        <p>Mapa interactivo de campus y sedes</p>
-        <span style="font-size: 0.85rem;">Campus Central · Campus Norte · Campus Sur · Sede Internacional</span>
+      <div style="margin-top: 8px;">
+        <iframe
+          id="campus-map"
+          class="campus-map"
+          src="https://www.google.com/maps?q=C878%2BQ4Q%2C%20Pinar%20del%20R%C3%ADo%2C%20Cuba&z=16&hl=es&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+          title="Mapa de la Universidad de Pinar del Río"></iframe>
       </div>
       <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 32px;">
         {campus.map((c) => (
-          <div class="mvv-card reveal" style="text-align: left;">
+          <div
+            class={`mvv-card reveal campus-card${c.default ? ' campus-active' : ''}`}
+            style="text-align: left;"
+            role="button"
+            tabindex="0"
+            data-campus-geo={c.geo}
+            data-campus-name={c.name}>
             <h3 style="color: var(--primary); font-family: var(--font-title);"><i class={c.icon} aria-hidden="true" style="color: var(--secondary);"></i> {c.name}</h3>
             <p style="font-size: 0.9rem; color: var(--text-secondary);">{c.desc}</p>
           </div>
@@ -166,7 +238,7 @@ const stats = [
   <!-- DATOS RÁPIDOS -->
   <section class="stats-section" aria-labelledby="stats-title">
     <div class="container">
-      <h2 class="section-title" style="color: var(--text-light);" id="stats-title">La Universidad en Cifras</h2>
+      <h2 class="section-title section-title--light" id="stats-title">La Universidad en Cifras</h2>
       <div class="section-divider" style="background: var(--secondary);" aria-hidden="true"></div>
       <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Más de cinco décadas formando profesionales que transforman el mundo</p>
       <div class="stats-grid">
@@ -180,3 +252,30 @@ const stats = [
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const mapFrame = document.getElementById('campus-map');
+  const cards = Array.from(document.querySelectorAll('[data-campus-geo]'));
+
+  const PLACE = '%2C%20Pinar%20del%20R%C3%ADo%2C%20Cuba';
+
+  function showPlace(card) {
+    const geo = card.getAttribute('data-campus-geo');
+    if (!geo) return;
+    mapFrame.setAttribute(
+      'src',
+      `https://www.google.com/maps?q=${geo}${PLACE}&z=16&hl=es&output=embed`
+    );
+    cards.forEach((c) => c.classList.toggle('campus-active', c === card));
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener('click', () => showPlace(card));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showPlace(card);
+      }
+    });
+  });
+</script>

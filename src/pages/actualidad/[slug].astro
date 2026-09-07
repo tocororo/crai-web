@@ -53,7 +53,7 @@ const related = (await getCollection('noticias', ({ data }) => !data.draft && da
 
         {entry.data.heroImage && (
           <figure class="article-hero">
-            <img src={entry.data.heroImage.src} alt={entry.data.title} loading="eager" />
+            <img src={entry.data.heroImage} alt={entry.data.title} loading="eager" />
           </figure>
         )}
 

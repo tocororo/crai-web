@@ -79,7 +79,11 @@ const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.dat
             <div class="carousel-slide">
               <article class="news-card">
                 <div class="news-card-img">
-                  <i class={n.data.icon ?? 'fas fa-newspaper'} aria-hidden="true"></i>
+                  {n.data.heroImage ? (
+                    <img src={n.data.heroImage} alt={n.data.title} loading="lazy" />
+                  ) : (
+                    <i class={n.data.icon ?? 'fas fa-newspaper'} aria-hidden="true"></i>
+                  )}
                   <span class="date-badge">{formatDate(n.data.pubDate)}</span>
                 </div>
                 <div class="news-card-body">
@@ -102,12 +106,12 @@ const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.dat
     </div>
   </section>
 
-  <!-- PROGRAMAS DESTACADOS -->
+  <!-- Servicios -->
   <section class="section" style="background: var(--bg-light);" aria-labelledby="programas-title">
     <div class="container">
-      <h2 class="section-title" id="programas-title">Programas Destacados</h2>
+      <h2 class="section-title" id="programas-title">Servicios</h2>
       <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">Descubre nuestra oferta académica de excelencia en todas las áreas del conocimiento</p>
+      <p class="section-subtitle">Descubre nuestros servicios de excelencia </p>
       <div class="programs-grid">
         {programas.map((p) => (
           <div class="program-card reveal">
@@ -123,7 +127,7 @@ const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.dat
   <!-- DATOS RÁPIDOS -->
   <section class="stats-section" aria-labelledby="stats-title">
     <div class="container">
-      <h2 class="section-title" style="color: var(--text-light);" id="stats-title">La Universidad en Cifras</h2>
+      <h2 class="section-title section-title--light" id="stats-title">El CRAI en Cifras</h2>
       <div class="section-divider" style="background: var(--secondary);" aria-hidden="true"></div>
       <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Más de cinco décadas formando profesionales que transforman el mundo</p>
       <div class="stats-grid">

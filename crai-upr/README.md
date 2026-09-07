@@ -16,7 +16,6 @@ crai-upr/
 │   ├── estudios.html              # Oferta académica con filtros
 │   ├── admision.html              # Proceso de admisión, FAQ, formulario
 │   ├── investigacion.html         # Grupos y proyectos de investigación
-│   ├── vida-campus.html           # Servicios, galería, testimonios
 │   ├── actualidad.html            # Noticias, eventos, newsletter
 │   └── transparencia.html         # Informes, normativas, datos abiertos
 ├── assets/

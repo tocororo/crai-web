@@ -127,6 +127,19 @@ collections:
       - { label: "Cita", name: "quote", widget: "text" }
       - { label: "Calificación (1-5)", name: "rating", widget: "number", default: 5 }
 
+  - name: "proyectos"
+    label: "Proyectos Activos"
+    folder: "src/content/proyectos"
+    create: true
+    format: "yaml"
+    fields:
+      - { label: "Área", name: "area", widget: "string" }
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Coordinador/a", name: "coordinador", widget: "string", required: false }
+      - { label: "Descripción", name: "description", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
   - name: "estadisticas"
     label: "Estadísticas"
     folder: "src/content/estadisticas"
@@ -136,4 +149,17 @@ collections:
       - { label: "Valor", name: "value", widget: "number" }
       - { label: "Sufijo", name: "suffix", widget: "string", default: "+" }
       - { label: "Etiqueta", name: "label", widget: "string" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "grupos"
+    label: "Grupos de Investigación"
+    folder: "src/content/grupos"
+    create: true
+    format: "yaml"
+    fields:
+      - { label: "Área", name: "area", widget: "string" }
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Coordinador/a", name: "coordinador", widget: "string", required: false }
+      - { label: "Descripción", name: "description", widget: "text" }
       - { label: "Orden", name: "order", widget: "number", required: false }

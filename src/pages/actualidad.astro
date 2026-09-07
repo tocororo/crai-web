@@ -53,7 +53,7 @@ const categorias = [
               <div class="news-card-img">
                 {n.data.heroImage ? (
                   <a href={`/actualidad/${n.id}`} class="news-img-link">
-                    <img src={n.data.heroImage.src} alt={n.data.title} loading="lazy" />
+                    <img src={n.data.heroImage} alt={n.data.title} loading="lazy" />
                   </a>
                 ) : (
                   <i class={n.data.icon ?? 'fas fa-newspaper'} aria-hidden="true"></i>

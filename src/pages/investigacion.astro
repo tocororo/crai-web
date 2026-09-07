@@ -1,18 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import { getCollection } from 'astro:content';
 
-const grupos = [
-  { area: 'Inteligencia Artificial', icon: 'fas fa-robot', title: 'Grupo de IA y Robótica', desc: 'Desarrollamos sistemas inteligentes y robóticos para resolver problemas complejos en automatización, procesamiento de lenguaje natural y visión por computadora. Colaboramos con centros de investigación líderes a nivel global.' },
-  { area: 'Biotecnología', icon: 'fas fa-dna', title: 'Grupo de Biotecnología', desc: 'Investigamos en ingeniería genética, bioprocesos y biomateriales para aplicaciones en salud, agricultura y medio ambiente. Nuestros hallazgos han sido publicados en revistas científicas de alto impacto.' },
-  { area: 'Ciencias Sociales', icon: 'fas fa-users', title: 'Grupo de Ciencias Sociales y Desarrollo', desc: 'Estudiamos fenómenos sociales contemporáneos para proponer soluciones basadas en evidencia que promuevan el desarrollo sostenible, la equidad y la inclusión en comunidades vulnerables.' },
-];
+const grupos = (await getCollection('grupos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
-const proyectos = [
-  { icon: 'fas fa-microchip', area: '2024-2027', title: 'Sistemas Autónomos para Industria 4.0', desc: 'Desarrollo de plataformas robóticas autónomas integradas con inteligencia artificial para optimizar procesos productivos en la industria manufacturera. Financiado por el Ministerio de Ciencia.' },
-  { icon: 'fas fa-leaf', area: '2024-2026', title: 'Biorremediación de Suelos Contaminados', desc: 'Uso de microorganismos modificados genéticamente para la recuperación de suelos afectados por metales pesados y compuestos petroquímicos. Proyecto en colaboración con el Instituto de Ciencias Ambientales.' },
-  { icon: 'fas fa-city', area: '2025-2028', title: 'Desarrollo Urbano Sostenible e Inclusivo', desc: 'Investigación interdisciplinaria sobre políticas públicas de desarrollo urbano que promuevan la sostenibilidad ambiental, la movilidad equitativa y la participación ciudadana en ciudades de América Latina.' },
-];
+const proyectos = (await getCollection('proyectos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
 const publicaciones = [
   { icon: 'fas fa-file-alt', title: 'Deep Reinforcement Learning for Autonomous Navigation in Dynamic Environments', authors: 'García, M., Rodríguez, L., & Kim, J.', meta: 'IEEE Transactions on Robotics, 2026' },
@@ -57,9 +50,9 @@ const colaboraciones = [
       <div class="research-grid">
         {grupos.map((g) => (
           <div class="research-card reveal">
-            <span class="research-area"><i class={g.icon} aria-hidden="true"></i> {g.area}</span>
-            <h3>{g.title}</h3>
-            <p>{g.desc}</p>
+            <span class="research-area"><i class={g.data.icon} aria-hidden="true"></i> {g.data.area}</span>
+            <h3>{g.data.title}</h3>
+            <p>{g.data.description}</p>
           </div>
         ))}
       </div>
@@ -75,9 +68,10 @@ const colaboraciones = [
       <div class="research-grid">
         {proyectos.map((p) => (
           <div class="research-card reveal">
-            <span class="research-area"><i class={p.icon} aria-hidden="true"></i> {p.area}</span>
-            <h3>{p.title}</h3>
-            <p>{p.desc}</p>
+            <span class="research-area"><i class={p.data.icon} aria-hidden="true"></i> {p.data.area}</span>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.description}</p>
+            {p.data.coordinador && <p class="coordinador"><strong>Coordinador:</strong> {p.data.coordinador}</p>}
           </div>
         ))}
       </div>

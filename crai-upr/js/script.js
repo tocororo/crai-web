@@ -297,7 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
     { title: 'Estudios - Oferta Académica', url: 'estudios.html', keywords: 'estudios, programas, carreras, grado, posgrado, curso' },
     { title: 'Admisión', url: 'admision.html', keywords: 'admision, inscripcion, requisitos, becas, matricula' },
     { title: 'Investigación', url: 'investigacion.html', keywords: 'investigacion, proyectos, publicaciones, ciencia' },
-    { title: 'Vida en el Campus', url: 'vida-campus.html', keywords: 'vida, campus, deportes, cultura, residencia' },
     { title: 'Actualidad', url: 'actualidad.html', keywords: 'noticias, eventos, actualidad, agenda' },
     { title: 'Portal de Transparencia', url: 'transparencia.html', keywords: 'transparencia, informes, datos, presupuesto' },
   ];

@@ -83,7 +83,7 @@ const noticias = defineCollection({
       pubDate: z.coerce.date(),
       author: z.string(),
       category: z.string().default('Noticias'),
-      heroImage: image().optional(),
+      heroImage: z.string().optional(),
       icon: z.string().optional(),
       draft: z.boolean().default(false),
     }),
@@ -151,6 +151,36 @@ const testimonios = defineCollection({
 });
 
 // ============================================================
+// Grupos de Investigación
+// ============================================================
+const grupos = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/grupos' }),
+  schema: z.object({
+    area: z.string(),
+    icon: z.string(),
+    title: z.string(),
+    description: z.string(),
+    coordinador: z.string().optional(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Proyectos Activos
+// ============================================================
+const proyectos = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/proyectos' }),
+  schema: z.object({
+    area: z.string(),
+    icon: z.string(),
+    title: z.string(),
+    coordinador: z.string().optional(),
+    description: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
 // Estadísticas
 // ============================================================
 const estadisticas = defineCollection({
@@ -171,5 +201,7 @@ export const collections = {
   programas,
   equipo,
   testimonios,
+  grupos,
+  proyectos,
   estadisticas,
 };
