@@ -1,7 +1,7 @@
 backend:
   name: proxy
   proxy_url: http://localhost:8081/api/v1
-  branch: main
+  branch: dev
   # Backend local (decap-server): guarda los cambios directamente en tu repositorio
   # git local haciendo commits. No requiere Netlify ni credenciales externas.
   # Para publicar desde el navegador directo a GitHub necesitarías Netlify Identity / Git Gateway.
@@ -107,6 +107,7 @@ collections:
     label: "Equipo / Autoridades"
     folder: "src/content/equipo"
     create: true
+    identifier_field: "name"
     format: "yaml"
     fields:
       - { label: "Nombre", name: "name", widget: "string" }
@@ -120,6 +121,7 @@ collections:
     label: "Testimonios"
     folder: "src/content/testimonios"
     create: true
+    identifier_field: "author"
     format: "yaml"
     fields:
       - { label: "Autor", name: "author", widget: "string" }
@@ -131,6 +133,7 @@ collections:
     label: "Estadísticas"
     folder: "src/content/estadisticas"
     create: true
+    identifier_field: "label"
     format: "yaml"
     fields:
       - { label: "Valor", name: "value", widget: "number" }
@@ -164,6 +167,7 @@ collections:
     label: "Organigrama"
     folder: "src/content/organigrama"
     create: true
+    identifier_field: "level"
     format: "yaml"
     fields:
       - { label: "Nivel", name: "level", widget: "number" }
@@ -174,6 +178,7 @@ collections:
     label: "Campus y Sedes"
     folder: "src/content/campus"
     create: true
+    identifier_field: "name"
     format: "yaml"
     fields:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
@@ -196,6 +201,7 @@ collections:
     label: "Cifras (La Universidad)"
     folder: "src/content/stats-universidad"
     create: true
+    identifier_field: "label"
     format: "yaml"
     fields:
       - { label: "Valor", name: "target", widget: "number" }
@@ -245,6 +251,7 @@ collections:
     label: "Calendario Académico"
     folder: "src/content/calendario-academico"
     create: true
+    identifier_field: "evento"
     format: "yaml"
     fields:
       - { label: "Evento", name: "evento", widget: "string" }
@@ -256,6 +263,7 @@ collections:
     label: "Preguntas Frecuentes"
     folder: "src/content/faq"
     create: true
+    identifier_field: "question"
     format: "yaml"
     fields:
       - { label: "Pregunta", name: "question", widget: "string" }
@@ -349,6 +357,7 @@ collections:
     label: "Avisos Oficiales"
     folder: "src/content/avisos"
     create: true
+    identifier_field: "texto"
     format: "yaml"
     fields:
       - { label: "Texto del aviso", name: "texto", widget: "string" }
@@ -358,6 +367,7 @@ collections:
     label: "Categorías de Noticias"
     folder: "src/content/categorias-noticias"
     create: true
+    identifier_field: "label"
     format: "yaml"
     fields:
       - { label: "Clave", name: "key", widget: "string" }

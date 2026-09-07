@@ -50,7 +50,7 @@ No linter, formatter, or test suite is configured. Node `>=22.12.0` required.
 
 Block collections all use optional `order` for page sorting. `pages` collection is also UNUSED (reserved).
 
-**CMS config** at `public/admin/config.yml` mirrors these collections. Backend is `proxy` mode (local `decap-server`), not Netlify/Git Gateway.
+**CMS config** at `public/admin/config.yml` mirrors these collections. Backend is `proxy` mode (local `decap-server`), not Netlify/Git Gateway. Working git branch is `dev` (`config.yml` `branch` matches it).
 
 **Key files:**
 - `src/lib/content.ts` — helpers: `getSiteConfig()`, `getNavigation()`, `slugify()`, `formatDate()`
@@ -69,3 +69,4 @@ Block collections all use optional `order` for page sorting. `pages` collection 
 - **No Tailwind** — styles are plain CSS with custom properties. The original prompt mentioned Tailwind but the project uses vanilla CSS.
 - **Dark mode** is toggled via `data-theme` attribute on `<html>`, persisted in `localStorage`.
 - **Draft filtering** — news pages filter `!data.draft` before rendering. Setting `draft: true` in frontmatter hides the post.
+- **Decap CMS requires every collection to have a `title` field or an `identifier_field`** — otherwise the admin panel throws `The Field title is missing for the collection "X"` and the page reloads in an infinite loop. Block collections without a `title` field set `identifier_field` (e.g. `level`, `evento`, `label`).
