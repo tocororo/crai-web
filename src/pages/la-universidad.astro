@@ -61,6 +61,12 @@ const stats = [
   { target: 45000, suffix: '+', label: 'Citas' },
   { target: 50, suffix: '+', label: 'Convenios Internacionales' },
 ];
+const timeline = (await getCollection('timeline')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const mvv = (await getCollection('mvv')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const organigrama = (await getCollection('organigrama')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const campus = (await getCollection('campus')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const acreditaciones = (await getCollection('acreditaciones')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 ---
 
 <BaseLayout title="La Universidad – CRAI" description="Conoce la historia, misión, visión, valores y autoridades del CRAI.">
@@ -123,9 +129,9 @@ const stats = [
         {timeline.map((item) => (
           <div class="timeline-item reveal">
             <div class="timeline-content">
-              <span class="timeline-year">{item.year}</span>
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
+              <span class="timeline-year">{item.data.year}</span>
+              <h3>{item.data.title}</h3>
+              <p>{item.data.desc}</p>
             </div>
             <div class="timeline-dot"></div>
           </div>
@@ -143,9 +149,9 @@ const stats = [
       <div class="mvv-grid">
         {mvv.map((item) => (
           <div class="mvv-card reveal">
-            <div class="mvv-icon"><i class={item.icon} aria-hidden="true"></i></div>
-            <h3>{item.title}</h3>
-            <p>{item.desc}</p>
+            <div class="mvv-icon"><i class={item.data.icon} aria-hidden="true"></i></div>
+            <h3>{item.data.title}</h3>
+            <p>{item.data.desc}</p>
           </div>
         ))}
       </div>
@@ -195,6 +201,9 @@ const stats = [
               }
               return <div class:list={['org-node', level.level === 1 && 'level-1']}>{node}</div>;
             })}
+            {level.data.nodes.map((node) => (
+              <div class:list={['org-node', level.data.level === 1 && 'level-1']}>{node}</div>
+            ))}
           </div>
         ))}
       </div>
@@ -219,6 +228,7 @@ const stats = [
       </div>
       <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 32px;">
         {campus.map((c) => (
+<<<<<<< HEAD
           <div
             class={`mvv-card reveal campus-card${c.default ? ' campus-active' : ''}`}
             style="text-align: left;"
@@ -228,12 +238,35 @@ const stats = [
             data-campus-name={c.name}>
             <h3 style="color: var(--primary); font-family: var(--font-title);"><i class={c.icon} aria-hidden="true" style="color: var(--secondary);"></i> {c.name}</h3>
             <p style="font-size: 0.9rem; color: var(--text-secondary);">{c.desc}</p>
+=======
+          <div class="mvv-card reveal" style="text-align: left;">
+            <h3 style="color: var(--primary); font-family: var(--font-title);"><i class={c.data.icon} aria-hidden="true" style="color: var(--secondary);"></i> {c.data.name}</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary);">{c.data.desc}</p>
+>>>>>>> origin/dev
           </div>
         ))}
       </div>
     </div>
   </section>
 
+
+  <!-- ACREDITACIONES -->
+  <section id="acreditaciones" class="section" style="background: var(--bg-light);" aria-labelledby="acreditaciones-title">
+    <div class="container">
+      <h2 class="section-title" id="acreditaciones-title">Acreditaciones y Reconocimientos</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Certificaciones que avalan nuestra calidad institucional</p>
+      <div class="content-grid">
+        {acreditaciones.map((a) => (
+          <div class="content-card reveal">
+            <div class="content-card-icon"><i class={a.data.icon} aria-hidden="true"></i></div>
+            <h3>{a.data.title}</h3>
+            <p>{a.data.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <!-- DATOS RÁPIDOS -->
   <section class="stats-section" aria-labelledby="stats-title">
@@ -244,8 +277,8 @@ const stats = [
       <div class="stats-grid">
         {stats.map((s) => (
           <div class="stat-item reveal">
-            <span class="stat-number" data-target={s.target}>0</span><span class="stat-plus">{s.suffix}</span>
-            <span class="stat-label">{s.label}</span>
+            <span class="stat-number" data-target={s.data.target}>0</span><span class="stat-plus">{s.data.suffix}</span>
+            <span class="stat-label">{s.data.label}</span>
           </div>
         ))}
       </div>

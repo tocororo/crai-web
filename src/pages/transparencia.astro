@@ -3,37 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
-const stats = (await getCollection('estadisticas')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const byOrder = (a: { data: { order?: number } }, b: { data: { order?: number } }) => (a.data.order ?? 0) - (b.data.order ?? 0);
 
-const informes = [
-  { icon: 'fas fa-file-alt', title: 'Informe Anual 2025', desc: 'Memoria completa de actividades, logros académicos, financieros y de gestión correspondiente al ejercicio 2025.' },
-  { icon: 'fas fa-chart-bar', title: 'Informe Financiero Q1 2026', desc: 'Reporte trimestral detallado de ingresos, egresos, ejecución presupuestaria y proyecciones financieras.' },
-  { icon: 'fas fa-tasks', title: 'Informe de Gestión', desc: 'Detalle de la gestión administrativa, indicadores de desempeño y cumplimiento de objetivos estratégicos.' },
-  { icon: 'fas fa-road', title: 'Plan Estratégico 2025-2030', desc: 'Hoja de ruta institucional con objetivos, metas e iniciativas estratégicas para los próximos cinco años.' },
-];
-
-const normativas = [
-  { icon: 'fas fa-gavel', title: 'Estatuto Universitario', desc: 'Documento fundamental que establece la estructura, gobierno y funcionamiento de la Universidad.' },
-  { icon: 'fas fa-shield-alt', title: 'Política de Calidad', desc: 'Marco de aseguramiento de la calidad académica y administrativa para la mejora continua institucional.' },
-  { icon: 'fas fa-balance-scale', title: 'Código de Ética', desc: 'Principios y valores que guían la conducta de todos los miembros de la comunidad universitaria.' },
-  { icon: 'fas fa-file-contract', title: 'Reglamento Académico', desc: 'Normas que regulan los procesos de admisión, matrícula, evaluación, titulación y demás aspectos académicos.' },
-  { icon: 'fas fa-users', title: 'Política de Equidad e Inclusión', desc: 'Compromiso institucional con la igualdad de oportunidades, la diversidad y la no discriminación.' },
-  { icon: 'fas fa-leaf', title: 'Política Ambiental', desc: 'Lineamientos para la gestión ambiental sostenible y la responsabilidad ecológica institucional.' },
-];
-
-const datosAbiertos = [
-  { icon: 'fas fa-database', title: 'Catálogo de Datos', desc: 'Explora nuestro catálogo de conjuntos de datos abiertos sobre indicadores académicos, financieros y de gestión disponibles en formatos reutilizables.' },
-  { icon: 'fas fa-code-branch', title: 'API de Datos Abiertos', desc: 'Accede a nuestra API pública para consultar datos institucionales de forma programática con documentación completa y ejemplos de uso.' },
-  { icon: 'fas fa-chart-pie', title: 'Visualizaciones', desc: 'Dashboards interactivos con visualizaciones dinámicas de los principales indicadores institucionales actualizados en tiempo real.' },
-  { icon: 'fas fa-license', title: 'Licencias y Condiciones', desc: 'Los datos abiertos de la Universidad se publican bajo licencia Creative Commons Attribution 4.0 International.' },
-];
-
-const declaraciones = [
-  { icon: 'fas fa-user-tie', title: 'Rectoría', desc: 'Declaraciones patrimoniales y de intereses del Rector y Vicerrectores de la Universidad del Futuro.' },
-  { icon: 'fas fa-users-cog', title: 'Consejo Universitario', desc: 'Declaraciones de los miembros del máximo órgano de gobierno colegiado de la institución.' },
-  { icon: 'fas fa-chalkboard-teacher', title: 'Decanos y Directores', desc: 'Declaraciones patrimoniales de Decanos de Facultades y Directores de Escuelas y Departamentos.' },
-  { icon: 'fas fa-file-invoice', title: 'Procedimiento de Acceso', desc: 'Conoce el procedimiento para solicitar acceso a las declaraciones de bienes conforme a la legislación vigente.' },
-];
+const stats = (await getCollection('estadisticas')).sort(byOrder);
+const informes = (await getCollection('informes')).sort(byOrder);
+const normativas = (await getCollection('normativas')).sort(byOrder);
+const datosAbiertos = (await getCollection('datos-abiertos')).sort(byOrder);
+const declaraciones = (await getCollection('declaraciones')).sort(byOrder);
 ---
 
 <BaseLayout title="Transparencia – CRAI" description="Portal de Transparencia del CRAI. Accede a informes financieros, normativas, datos abiertos y estadísticas institucionales.">
@@ -55,10 +31,10 @@ const declaraciones = [
         {informes.map((inf) => (
           <div class="report-item reveal">
             <div class="report-info">
-              <h4><i class={inf.icon} aria-hidden="true"></i> {inf.title}</h4>
-              <p>{inf.desc}</p>
+              <h4><i class={inf.data.icon} aria-hidden="true"></i> {inf.data.title}</h4>
+              <p>{inf.data.desc}</p>
             </div>
-            <a href="#" class="report-download" aria-label={`Descargar ${inf.title}`}><i class="fas fa-download"></i> Descargar</a>
+            <a href="#" class="report-download" aria-label={`Descargar ${inf.data.title}`}><i class="fas fa-download"></i> Descargar</a>
           </div>
         ))}
       </div>
@@ -74,9 +50,9 @@ const declaraciones = [
       <div class="content-grid">
         {normativas.map((n) => (
           <div class="content-card reveal">
-            <div class="content-card-icon"><i class={n.icon}></i></div>
-            <h3>{n.title}</h3>
-            <p>{n.desc}</p>
+            <div class="content-card-icon"><i class={n.data.icon}></i></div>
+            <h3>{n.data.title}</h3>
+            <p>{n.data.desc}</p>
             <a href="#" class="read-more">Consultar <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
           </div>
         ))}
@@ -93,9 +69,9 @@ const declaraciones = [
       <div class="content-grid">
         {datosAbiertos.map((d) => (
           <div class="content-card reveal">
-            <div class="content-card-icon"><i class={d.icon}></i></div>
-            <h3>{d.title}</h3>
-            <p>{d.desc}</p>
+            <div class="content-card-icon"><i class={d.data.icon}></i></div>
+            <h3>{d.data.title}</h3>
+            <p>{d.data.desc}</p>
           </div>
         ))}
       </div>
@@ -131,9 +107,9 @@ const declaraciones = [
       <div class="content-grid">
         {declaraciones.map((d) => (
           <div class="content-card reveal">
-            <div class="content-card-icon"><i class={d.icon}></i></div>
-            <h3>{d.title}</h3>
-            <p>{d.desc}</p>
+            <div class="content-card-icon"><i class={d.data.icon}></i></div>
+            <h3>{d.data.title}</h3>
+            <p>{d.data.desc}</p>
             <a href="#" class="read-more">Ver declaraciones <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
           </div>
         ))}

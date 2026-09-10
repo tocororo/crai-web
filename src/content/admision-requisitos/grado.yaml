@@ -1,0 +1,11 @@
+title: "Grado"
+icon: "fa-graduation-cap"
+nivel: "grado"
+requisitos:
+  - "Título de educación secundaria o equivalente"
+  - "Certificado de notas oficial"
+  - "Documento de identidad oficial"
+  - "Ensayo personal"
+  - "Carta de recomendación"
+  - "Examen de admisión"
+order: 1

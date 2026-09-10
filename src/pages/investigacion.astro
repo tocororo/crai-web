@@ -4,9 +4,8 @@ import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 const grupos = (await getCollection('grupos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
-const proyectos = (await getCollection('proyectos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
-//const proyectos = (await getCollection('proyectos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const proyectos = (await getCollection('proyectos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
 const publicaciones = [
   { icon: 'fas fa-file-alt', title: 'Deep Reinforcement Learning for Autonomous Navigation in Dynamic Environments', authors: 'García, M., Rodríguez, L., & Kim, J.', meta: 'IEEE Transactions on Robotics, 2026' },

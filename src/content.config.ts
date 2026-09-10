@@ -193,6 +193,322 @@ const estadisticas = defineCollection({
   }),
 });
 
+// ============================================================
+// La Universidad: timeline / historia
+// ============================================================
+const timeline = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/timeline' }),
+  schema: z.object({
+    year: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// La Universidad: misión, visión, valores
+// ============================================================
+const mvv = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/mvv' }),
+  schema: z.object({
+    icon: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// La Universidad: organigrama
+// ============================================================
+const organigrama = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/organigrama' }),
+  schema: z.object({
+    level: z.number(),
+    nodes: z.array(z.string()),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// La Universidad: campus y sedes
+// ============================================================
+const campus = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/campus' }),
+  schema: z.object({
+    icon: z.string(),
+    name: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// La Universidad: acreditaciones
+// ============================================================
+const acreditaciones = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/acreditaciones' }),
+  schema: z.object({
+    icon: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// La Universidad: cifras (distintas de las de portada)
+// ============================================================
+const statsUniversidad = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/stats-universidad' }),
+  schema: z.object({
+    target: z.number(),
+    suffix: z.string().default('+'),
+    label: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Admisión: pasos del proceso
+// ============================================================
+const admisionPasos = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/admision-pasos' }),
+  schema: z.object({
+    number: z.number(),
+    icon: z.string(),
+    title: z.string(),
+    description: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Admisión: requisitos por nivel
+// ============================================================
+const admisionRequisitos = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/admision-requisitos' }),
+  schema: z.object({
+    title: z.string(),
+    icon: z.string(),
+    nivel: z.enum(['grado', 'posgrado', 'doctorado']),
+    requisitos: z.array(z.string()),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Admisión: becas y ayudas
+// ============================================================
+const becas = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/becas' }),
+  schema: z.object({
+    icon: z.string(),
+    title: z.string(),
+    description: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Admisión: calendario académico
+// ============================================================
+const calendarioAcademico = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/calendario-academico' }),
+  schema: z.object({
+    evento: z.string(),
+    inicio: z.string(),
+    cierre: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Admisión: preguntas frecuentes
+// ============================================================
+const faq = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/faq' }),
+  schema: z.object({
+    question: z.string(),
+    answer: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Investigación: grupos
+// ============================================================
+const investigacionGrupos = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/investigacion-grupos' }),
+  schema: z.object({
+    icon: z.string(),
+    area: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Investigación: proyectos activos
+// ============================================================
+const investigacionProyectos = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/investigacion-proyectos' }),
+  schema: z.object({
+    icon: z.string(),
+    area: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Investigación: publicaciones
+// ============================================================
+const publicaciones = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/publicaciones' }),
+  schema: z.object({
+    icon: z.string(),
+    title: z.string(),
+    authors: z.string(),
+    meta: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Investigación: transferencia de conocimiento
+// ============================================================
+const transferencia = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/transferencia' }),
+  schema: z.object({
+    icon: z.string(),
+    area: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Investigación: convocatorias
+// ============================================================
+const convocatorias = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/convocatorias' }),
+  schema: z.object({
+    icon: z.string(),
+    area: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Investigación: colaboraciones internacionales
+// ============================================================
+const colaboraciones = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/colaboraciones' }),
+  schema: z.object({
+    icon: z.string(),
+    area: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Estudios: programas de intercambio
+// ============================================================
+const intercambio = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/intercambio' }),
+  schema: z.object({
+    icon: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Actualidad: avisos oficiales
+// ============================================================
+const avisos = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/avisos' }),
+  schema: z.object({
+    texto: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Actualidad: categorías del sidebar
+// ============================================================
+const categoriasNoticias = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/categorias-noticias' }),
+  schema: z.object({
+    key: z.string(),
+    label: z.string(),
+    count: z.number(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Transparencia: informes
+// ============================================================
+const informes = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/informes' }),
+  schema: z.object({
+    icon: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Transparencia: normativas
+// ============================================================
+const normativas = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/normativas' }),
+  schema: z.object({
+    icon: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Transparencia: datos abiertos
+// ============================================================
+const datosAbiertos = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/datos-abiertos' }),
+  schema: z.object({
+    icon: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Transparencia: declaraciones de bienes
+// ============================================================
+const declaraciones = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/declaraciones' }),
+  schema: z.object({
+    icon: z.string(),
+    title: z.string(),
+    desc: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
 export const collections = {
   config,
   pages,
@@ -204,4 +520,28 @@ export const collections = {
   grupos,
   proyectos,
   estadisticas,
+  timeline,
+  mvv,
+  organigrama,
+  campus,
+  acreditaciones,
+  'stats-universidad': statsUniversidad,
+  'admision-pasos': admisionPasos,
+  'admision-requisitos': admisionRequisitos,
+  becas,
+  'calendario-academico': calendarioAcademico,
+  faq,
+  'investigacion-grupos': investigacionGrupos,
+  'investigacion-proyectos': investigacionProyectos,
+  publicaciones,
+  transferencia,
+  convocatorias,
+  colaboraciones,
+  intercambio,
+  avisos,
+  'categorias-noticias': categoriasNoticias,
+  informes,
+  normativas,
+  'datos-abiertos': datosAbiertos,
+  declaraciones,
 };
