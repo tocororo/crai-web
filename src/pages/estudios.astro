@@ -11,12 +11,7 @@ const categoryLabel: Record<string, string> = {
   doctorado: 'Doctorado',
 };
 
-const intercambio = [
-  { icon: 'fas fa-globe-americas', title: 'Internacionalización', desc: 'Contamos con convenios con más de 50 universidades en América, Europa, Asia y Oceanía. Nuestros estudiantes pueden cursar uno o dos semestres en el extranjero con reconocimiento académico pleno.' },
-  { icon: 'fas fa-handshake', title: 'Convenios Bilaterales', desc: 'Acuerdos de cooperación académica con instituciones de prestigio internacional que permiten el intercambio de estudiantes, docentes e investigadores.' },
-  { icon: 'fas fa-language', title: 'Inmersión Lingüística', desc: 'Programas diseñados para el aprendizaje de idiomas en países nativos, con cursos intensivos y experiencia cultural completa.' },
-  { icon: 'fas fa-award', title: 'Becas Internacionales', desc: 'Programa de becas y ayudas económicas para facilitar la movilidad estudiantil, garantizando igualdad de oportunidades para todos.' },
-];
+const intercambio = (await getCollection('intercambio')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 ---
 
 <BaseLayout title="Oferta Académica - CRAI" description="Explora la oferta académica del CRAI: programas de grado, posgrado y doctorado en todas las áreas del conocimiento.">
@@ -82,9 +77,9 @@ const intercambio = [
       <div class="content-grid">
         {intercambio.map((i) => (
           <div class="content-card reveal">
-            <div class="content-card-icon"><i class={i.icon}></i></div>
-            <h3>{i.title}</h3>
-            <p>{i.desc}</p>
+            <div class="content-card-icon"><i class={i.data.icon}></i></div>
+            <h3>{i.data.title}</h3>
+            <p>{i.data.desc}</p>
           </div>
         ))}
       </div>

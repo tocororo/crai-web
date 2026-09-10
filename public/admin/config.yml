@@ -1,7 +1,7 @@
 backend:
   name: proxy
   proxy_url: http://localhost:8081/api/v1
-  branch: main
+  branch: dev
   # Backend local (decap-server): guarda los cambios directamente en tu repositorio
   # git local haciendo commits. No requiere Netlify ni credenciales externas.
   # Para publicar desde el navegador directo a GitHub necesitarías Netlify Identity / Git Gateway.
@@ -15,6 +15,8 @@ collections:
     folder: "src/content/config"
     create: false
     format: "yaml"
+    extension: "yaml"
+    identifier_field: "siteName"
     fields:
       - { label: "Nombre del sitio", name: "siteName", widget: "string" }
       - { label: "Subtítulo del sitio", name: "siteSubtitle", widget: "string" }
@@ -77,6 +79,7 @@ collections:
     folder: "src/content/eventos"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Día", name: "day", widget: "string" }
@@ -90,6 +93,7 @@ collections:
     folder: "src/content/programas"
     create: true
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Descripción", name: "description", widget: "text" }
@@ -107,7 +111,9 @@ collections:
     label: "Equipo / Autoridades"
     folder: "src/content/equipo"
     create: true
+    identifier_field: "name"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Nombre", name: "name", widget: "string" }
       - { label: "Cargo", name: "position", widget: "string" }
@@ -120,7 +126,9 @@ collections:
     label: "Testimonios"
     folder: "src/content/testimonios"
     create: true
+    identifier_field: "author"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Autor", name: "author", widget: "string" }
       - { label: "Rol", name: "role", widget: "string" }
@@ -144,7 +152,9 @@ collections:
     label: "Estadísticas"
     folder: "src/content/estadisticas"
     create: true
+    identifier_field: "label"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Valor", name: "value", widget: "number" }
       - { label: "Sufijo", name: "suffix", widget: "string", default: "+" }
@@ -162,4 +172,305 @@ collections:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Coordinador/a", name: "coordinador", widget: "string", required: false }
       - { label: "Descripción", name: "description", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+  - name: "timeline"
+    label: "Historia (Timeline)"
+    folder: "src/content/timeline"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Año", name: "year", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "mvv"
+    label: "Misión, Visión y Valores"
+    folder: "src/content/mvv"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "organigrama"
+    label: "Organigrama"
+    folder: "src/content/organigrama"
+    create: true
+    identifier_field: "level"
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Nivel", name: "level", widget: "number" }
+      - { label: "Nodos", name: "nodes", widget: "list" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "campus"
+    label: "Campus y Sedes"
+    folder: "src/content/campus"
+    create: true
+    identifier_field: "name"
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Nombre", name: "name", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "acreditaciones"
+    label: "Acreditaciones"
+    folder: "src/content/acreditaciones"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "stats-universidad"
+    label: "Cifras (La Universidad)"
+    folder: "src/content/stats-universidad"
+    create: true
+    identifier_field: "label"
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Valor", name: "target", widget: "number" }
+      - { label: "Sufijo", name: "suffix", widget: "string", default: "+" }
+      - { label: "Etiqueta", name: "label", widget: "string" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "admision-pasos"
+    label: "Admisión: Pasos"
+    folder: "src/content/admision-pasos"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Número de paso", name: "number", widget: "number" }
+      - { label: "Icono (clase fa-*)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "description", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "admision-requisitos"
+    label: "Admisión: Requisitos por nivel"
+    folder: "src/content/admision-requisitos"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Icono (clase fa-*)", name: "icon", widget: "string" }
+      - label: "Nivel"
+        name: "nivel"
+        widget: "select"
+        options: ["grado", "posgrado", "doctorado"]
+      - { label: "Requisitos", name: "requisitos", widget: "list" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "becas"
+    label: "Becas y Ayudas"
+    folder: "src/content/becas"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase fa-*)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "description", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "calendario-academico"
+    label: "Calendario Académico"
+    folder: "src/content/calendario-academico"
+    create: true
+    identifier_field: "evento"
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Evento", name: "evento", widget: "string" }
+      - { label: "Fecha de inicio", name: "inicio", widget: "string" }
+      - { label: "Fecha de cierre", name: "cierre", widget: "string" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "faq"
+    label: "Preguntas Frecuentes"
+    folder: "src/content/faq"
+    create: true
+    identifier_field: "question"
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Pregunta", name: "question", widget: "string" }
+      - { label: "Respuesta", name: "answer", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "investigacion-grupos"
+    label: "Investigación: Grupos"
+    folder: "src/content/investigacion-grupos"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Área", name: "area", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "investigacion-proyectos"
+    label: "Investigación: Proyectos"
+    folder: "src/content/investigacion-proyectos"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Área / Periodo", name: "area", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "publicaciones"
+    label: "Publicaciones"
+    folder: "src/content/publicaciones"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Autores", name: "authors", widget: "string" }
+      - { label: "Revista / Año", name: "meta", widget: "string" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "transferencia"
+    label: "Transferencia de Conocimiento"
+    folder: "src/content/transferencia"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Área", name: "area", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "convocatorias"
+    label: "Convocatorias"
+    folder: "src/content/convocatorias"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Área / Monto", name: "area", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "colaboraciones"
+    label: "Colaboraciones Internacionales"
+    folder: "src/content/colaboraciones"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Área / Región", name: "area", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "intercambio"
+    label: "Programas de Intercambio"
+    folder: "src/content/intercambio"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "avisos"
+    label: "Avisos Oficiales"
+    folder: "src/content/avisos"
+    create: true
+    identifier_field: "texto"
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Texto del aviso", name: "texto", widget: "string" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "categorias-noticias"
+    label: "Categorías de Noticias"
+    folder: "src/content/categorias-noticias"
+    create: true
+    identifier_field: "label"
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Clave", name: "key", widget: "string" }
+      - { label: "Etiqueta", name: "label", widget: "string" }
+      - { label: "Contador", name: "count", widget: "number" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "informes"
+    label: "Informes Institucionales"
+    folder: "src/content/informes"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "normativas"
+    label: "Normativas y Políticas"
+    folder: "src/content/normativas"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "datos-abiertos"
+    label: "Datos Abiertos"
+    folder: "src/content/datos-abiertos"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "declaraciones"
+    label: "Declaraciones de Bienes"
+    folder: "src/content/declaraciones"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
       - { label: "Orden", name: "order", widget: "number", required: false }
