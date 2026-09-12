@@ -2,7 +2,7 @@ backend:
   name: gitea
   repo: crai/crai-web
   branch: main
-  app_id: REPLACE_WITH_OAUTH_APP_CLIENT_ID
+  app_id: f4a0dd48-86c9-44df-9881-b455a5826e91
   base_url: https://sceiba-lab.upr.edu.cu
   api_root: https://sceiba-lab.upr.edu.cu/api/v1
   auth_endpoint: https://sceiba-lab.upr.edu.cu/login/oauth/authorize
