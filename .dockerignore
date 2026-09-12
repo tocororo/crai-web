@@ -1,0 +1,15 @@
+node_modules
+dist
+.astro
+crai-upr
+.atl
+.git
+.gitignore
+.env
+.env.*
+*.log
+README.md
+prompt.txt
+Dockerfile
+.dockerignore
+.woodpecker.yml

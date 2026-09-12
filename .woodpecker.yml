@@ -1,0 +1,29 @@
+clone:
+  git:
+    image: woodpeckerci/plugin-git
+    settings:
+      lfs: false
+
+when:
+  branch: main
+  event: [push, manual]
+
+steps:
+  build-and-push:
+    image: bash
+    environment:
+      REGISTRY_PASSWORD:
+        from_secret: REGISTRY_PASSWORD
+    commands:
+      - podman build -t gitea.crai.upr/crai/crai-web:${CI_COMMIT_SHA} -t gitea.crai.upr/crai/crai-web:stable .
+      - echo "$REGISTRY_PASSWORD" | podman login gitea.crai.upr -u crai-bot --password-stdin
+      - podman push gitea.crai.upr/crai/crai-web:${CI_COMMIT_SHA}
+      - podman push gitea.crai.upr/crai/crai-web:stable
+
+  deploy:
+    image: bash
+    environment:
+      DEPLOY_TOKEN:
+        from_secret: DEPLOY_TOKEN
+    commands:
+      - "curl -fsS -m 900 -X POST -H \"Authorization: Bearer $DEPLOY_TOKEN\" -H \"Content-Type: application/json\" -d '{\"repo\":\"crai-web\",\"tag\":\"stable\"}' https://deploy.crai.upr/deploy"
