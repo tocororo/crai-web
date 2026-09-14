@@ -104,3 +104,5 @@ Los esquemas están en `src/content.config.ts` y el panel del CMS se configura e
 - Sitio en español (`es-ES`).
 - Modo oscuro con `data-theme` en `<html>`, persistido en `localStorage`.
 - El directorio `crai-upr/` es el diseño HTML de partida; está excluido del `tsconfig.json` y no forma parte del sitio Astro.
+
+....
