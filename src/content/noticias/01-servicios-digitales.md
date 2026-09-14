@@ -7,7 +7,7 @@ pubDate: 2026-02-15
 author: Dirección de Comunicación
 category: Servicios
 icon: fas fa-newspaper
-draft: true
+draft: false
 ---
 
 El Centro de Recursos para el Aprendizaje y la Investigación anuncia la ampliación de sus servicios digitales para la comunidad universitaria.
