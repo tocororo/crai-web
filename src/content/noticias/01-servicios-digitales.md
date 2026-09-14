@@ -1,10 +1,13 @@
 ---
-title: "CRAI abre convocatoria para nuevos servicios digitales"
-description: "El Centro de Recursos para el Aprendizaje y la Investigación anuncia la ampliación de sus servicios digitales para la comunidad universitaria."
+title: CRAI UPR abre convocatoria para nuevos servicios digitales
+description: El Centro de Recursos para el Aprendizaje y la Investigación
+  anuncia la ampliación de sus servicios digitales para la comunidad
+  universitaria.
 pubDate: 2026-02-15
-author: "Dirección de Comunicación"
-category: "Servicios"
-icon: "fas fa-newspaper"
+author: Dirección de Comunicación
+category: Servicios
+icon: fas fa-newspaper
+draft: true
 ---
 
 El Centro de Recursos para el Aprendizaje y la Investigación anuncia la ampliación de sus servicios digitales para la comunidad universitaria.
