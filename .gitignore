@@ -28,3 +28,4 @@ pnpm-debug.log*
 
 # zip / archives
 *.zip
+.atl/
