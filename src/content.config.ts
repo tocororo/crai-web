@@ -226,7 +226,7 @@ const organigrama = defineCollection({
   loader: glob({ pattern: '**/*.yaml', base: './src/content/organigrama' }),
   schema: z.object({
     level: z.number(),
-    nodes: z.array(z.string()),
+    nodes: z.array(z.union([z.string(), z.object({ label: z.string(), children: z.array(z.string()) })])) as any,
     order: z.number().optional(),
   }),
 });
@@ -240,6 +240,7 @@ const campus = defineCollection({
     icon: z.string(),
     name: z.string(),
     desc: z.string(),
+    geo: z.string().optional(),
     order: z.number().optional(),
   }),
 });

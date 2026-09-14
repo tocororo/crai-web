@@ -3027,6 +3027,23 @@ ul { list-style: none; }
   opacity: 0.6;
 }
 
+/* etiqueta de la rama con mismo estilo que los nodos */
+.org-nodes.org-nodes-branch {
+  background: var(--bg-white);
+  border: 2px solid var(--primary);
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font-title);
+  transition: var(--transition);
+}
+
+.org-nodes.org-nodes-branch:hover {
+  background: var(--primary);
+  color: var(--text-light);
+}
+
 .org-children {
   position: relative;
   display: flex;
@@ -3052,7 +3069,19 @@ ul { list-style: none; }
 .org-child {
   position: relative;
   z-index: 1;
-  background-color: var(--bg-light);
+  background: var(--bg-white);
+  border: 2px solid var(--primary);
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-title);
+  transition: var(--transition);
+}
+
+.org-child:hover {
+  background: var(--primary);
+  color: var(--text-light);
 }
 
 /* pequeño arranque por encima de cada hijo */

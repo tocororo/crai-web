@@ -1,7 +1,7 @@
 backend:
   name: proxy
   proxy_url: http://localhost:8081/api/v1
-  branch: dev
+  branch: main
   # Backend local (decap-server): guarda los cambios directamente en tu repositorio
   # git local haciendo commits. No requiere Netlify ni credenciales externas.
   # Para publicar desde el navegador directo a GitHub necesitarías Netlify Identity / Git Gateway.

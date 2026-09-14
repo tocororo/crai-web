@@ -2,5 +2,9 @@ level: 3
 nodes:
   - "Departamento Docente Ciencias de la Información"
   - "Departamento de Sistema tecnologías de la Información"
-  - "Subdirección Bibliotecas"
+  - label: "Subdirección Bibliotecas"
+    children:
+      - "Biblioteca Hermanos Saíz"
+      - "Biblioteca Nancy Uranga"
+      - "Rafael M. Mendive"
 order: 3
