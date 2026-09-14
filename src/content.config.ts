@@ -240,6 +240,10 @@ const campus = defineCollection({
     icon: z.string(),
     name: z.string(),
     desc: z.string(),
+    // geo: coordenadas/plus-code de Google Maps para el switch del mapa de /la-universidad
+    geo: z.string().optional(),
+    // default: campus activo por defecto en el mapa
+    default: z.boolean().optional(),
     order: z.number().optional(),
   }),
 });

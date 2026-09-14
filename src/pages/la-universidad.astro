@@ -4,63 +4,6 @@ import { getCollection } from 'astro:content';
 
 const equipo = (await getCollection('equipo')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
-const timeline = [
-  { year: '1972', title: 'Creación', desc: 'Creación de la Biblioteca Universitaria y de la Direccion de Información científico Técnico. Implementacion de los servicios básicos de información a la comunidad universitaria.'},
-  { year: '1985', title: 'Creación de la Red de Bibliotecas', desc: 'Creación de la Red de Bibliotecas del Ministerio de Educación Superior.' },
-  { year: '1986', title: 'Biblioteca y Tecnología', desc: 'Inicio la dotación de infraestructura tecnológica avanzada y la creación de nuevos servicios de información.' },
-  { year: '1995', title: 'Inicio de la carrera de Bibliotecología y Ciencias de la Información', desc: 'Inicio de los estudios de la carrera de Bibliotecología y Ciencias de la Información a través del proceso de universalización.' },
-  { year: '2002', title: 'Adquisición de Bases de Datos Bibliográficos', desc: 'Adquisición de las primeras bases de datos bibliográficos de Información.' },
-  { year: '2005', title: 'Biblioteca en función de la docencia', desc: 'Creación del grupo PROGINTEC, a traves del proyecto para el desarrollo de tecnologías de la información. La biblioteca asume la función docente.' },
-  { year: '2011', title: 'Creación de Servicios de la Sala Abierta', desc: 'Creación del servicio de sala abierta en el pasillo de la biblioteca Hermanos Saíz.' },
-  { year: '2012', title: 'Primer Taller Internacional de Bibliotecas', desc: 'Celebración del primer taller internacional de Bibliotecas Digitales' },
-  { year: '2015', title: 'Creación del CRAI', desc: 'Creación del Centro de Recursos para el Aprendizaje y la Investigación con la integración de las Bibliotecas Universitarias de la sede Nancy Urunga, Rafael M. Mendive y Hermanos Saíz. Creación del departamento Docente Ciencias de la Información.' },
-  { year: '2017', title: 'Creación del Departamento de Sistema', desc: 'Creación del departamento de Sistema y Tecnologias de la Información. El departamento de publicaciones sale del CRAI para convertirse en Dirección Editorial.' },
-];
-
-const mvv = [
-  { icon: 'fas fa-bullseye', title: 'Misión', desc: 'Contribuir en la transformación de la calidad y la pertinencia de los procesos sustantivos de la universidad, mediante el empleo intensivo de la información científico y tecnológica, servicios para el desempeño de actividades docentes de aprendizaje y de investigación, y como copartícipe en la formación continua de los egresados, tributando al fortalecimiento de la labor político ideológica con los profesores y estudiantes en la comunidad universitaria y su entorno social.' },
-  { icon: 'fas fa-eye', title: 'Visión', desc: 'Ser el ecosistema inteligente y dinamizador del conocimiento en la universidad pinareña, reconocido por su excelencia, innovación y pertinencia social, donde la información científico-tecnológica se transforma en soluciones concretas para los desafíos del progreso sostenible de nuestro territorio.' },
-  { icon: 'fas fa-heart', title: 'Valores', desc: 'Responsabilidad, Ética.' },
-];
-
-const organigrama = [
-  { level: 1, nodes: ['Vicerrectoría'] },
-  { level: 2, nodes: ['Dirección CRAI'] },
-  {
-    level: 3,
-    nodes: [
-      'Departamento Docente Ciencias de la Información',
-      'Departamento de Sistema tecnologías de la Información',
-      {
-        label: 'Subdirección Bibliotecas',
-        children: ['Biblioteca Hermanos Saíz', 'Biblioteca Nancy Uranga', 'Rafael M. Mendive'],
-      },
-    ],
-  },
-];
-
-const campus = [
-  { icon: 'fas fa-university', name: 'Dirección Biblioteca Hermanos Saiz Montes de Oca', desc: 'Calle José Martí No 300, Barrio Segundo Sur, e/27 de Noviembre y González Alcorta, Pinar del Río, Cuba.', geo: 'C878%2BQ4Q', default: true },
-  { icon: 'fas fa-futbol', name: 'Dirección Biblioteca Nancy Uranga Romagoza', desc: 'Calle Capitán San Luis s/n, Pinar del Río, Cuba.', geo: 'C8C5%2BWFH' },
-  { icon: 'fas fa-chalkboard-teacher', name: 'Dirección Biblioteca “Rafael María Mendive”', desc: 'Calle Los Pinos final, esquina avenida Borrego. Reparto Hermanos Cruz, Pinar del Río, Cuba.', geo: 'C8FF%2BVJM' },
-  //{ icon: 'fas fa-globe-americas', name: 'Sede Internacional', desc: 'Calle del Saber 789, Distrito Internacional. Centro de posgrado y programas de cooperación global.' },
-];
-
-const acreditaciones = [
-  { icon: 'fas fa-certificate', title: 'Acreditación Institucional', desc: 'Certificación de alta calidad otorgada por el Consejo Nacional de Acreditación, vigente hasta 2028.' },
-  { icon: 'fas fa-trophy', title: 'Certificación ISO 9001', desc: 'Sistema de gestión de calidad certificado internacionalmente para todos los procesos administrativos y académicos.' },
-  { icon: 'fas fa-star', title: 'Ranking QS', desc: 'Reconocida entre las mejores universidades de la región por calidad educativa, investigación e internacionalización.' },
-  { icon: 'fas fa-handshake', title: 'Convenios Internacionales', desc: 'Más de 50 acuerdos con universidades en 30 países para intercambio académico y colaboración científica.' },
-  { icon: 'fas fa-leaf', title: 'Certificación Ambiental', desc: 'Reconocimiento como campus sostenible por prácticas de eficiencia energética, gestión de residuos y responsabilidad ecológica.' },
-  { icon: 'fas fa-users', title: 'Sello de Inclusión', desc: 'Certificación por políticas de equidad, diversidad e inclusión que garantizan una comunidad universitaria accesible para todos.' },
-];
-
-const stats = [
-  { target: 15000, suffix: '+', label: 'Visitas de Usuarios' },
-  { target: 800, suffix: '+', label: 'Fondo Documental' },
-  { target: 45000, suffix: '+', label: 'Citas' },
-  { target: 50, suffix: '+', label: 'Convenios Internacionales' },
-];
 const timeline = (await getCollection('timeline')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 const mvv = (await getCollection('mvv')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 const organigrama = (await getCollection('organigrama')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
@@ -186,21 +129,6 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
       <div class="org-chart">
         {organigrama.map((level) => (
           <div class="org-level">
-            {level.nodes.map((node) => {
-              if (typeof node === 'object') {
-                return (
-                  <div class="org-branch">
-                    <div class:list={['org-node', 'org-node-branch', level.level === 1 && 'level-1']}>{node.label}</div>
-                    <div class="org-children">
-                      {node.children.map((child) => (
-                        <div class="org-node org-child">{child}</div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              }
-              return <div class:list={['org-node', level.level === 1 && 'level-1']}>{node}</div>;
-            })}
             {level.data.nodes.map((node) => (
               <div class:list={['org-node', level.data.level === 1 && 'level-1']}>{node}</div>
             ))}
@@ -228,21 +156,15 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
       </div>
       <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 32px;">
         {campus.map((c) => (
-<<<<<<< HEAD
           <div
-            class={`mvv-card reveal campus-card${c.default ? ' campus-active' : ''}`}
+            class={`mvv-card reveal campus-card${c.data.default ? ' campus-active' : ''}`}
             style="text-align: left;"
             role="button"
             tabindex="0"
-            data-campus-geo={c.geo}
-            data-campus-name={c.name}>
-            <h3 style="color: var(--primary); font-family: var(--font-title);"><i class={c.icon} aria-hidden="true" style="color: var(--secondary);"></i> {c.name}</h3>
-            <p style="font-size: 0.9rem; color: var(--text-secondary);">{c.desc}</p>
-=======
-          <div class="mvv-card reveal" style="text-align: left;">
+            data-campus-geo={c.data.geo}
+            data-campus-name={c.data.name}>
             <h3 style="color: var(--primary); font-family: var(--font-title);"><i class={c.data.icon} aria-hidden="true" style="color: var(--secondary);"></i> {c.data.name}</h3>
             <p style="font-size: 0.9rem; color: var(--text-secondary);">{c.data.desc}</p>
->>>>>>> origin/dev
           </div>
         ))}
       </div>
