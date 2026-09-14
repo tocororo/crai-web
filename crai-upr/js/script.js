@@ -1,5 +1,5 @@
 /* ============================================================
-   UNIVERSIDAD DEL FUTURO - Main JavaScript
+   Universidad de Pinar del Río "Hermanos Saíz Montes de Oca" - Main JavaScript
    ============================================================ */
 
 /* --- Carrusel (accesible desde noticias.js) --- */
