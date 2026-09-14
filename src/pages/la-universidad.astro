@@ -160,30 +160,24 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Nuestras instalaciones están distribuidas estratégicamente para brindar cobertura nacional</p>
       <div style="margin-top: 8px;">
-        <iframe
-          id="campus-map"
-          class="campus-map"
-          src="https://www.google.com/maps?q=C878%2BQ4Q%2C%20Pinar%20del%20R%C3%ADo%2C%20Cuba&z=16&hl=es&output=embed"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          allowfullscreen
-          title="Mapa de la Universidad de Pinar del Río"></iframe>
+        <div id="campus-map" class="campus-map" style="height: 400px; border-radius: var(--radius-md); overflow: hidden;"></div>
       </div>
       <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 32px;">
-        {campus.map((c) => (
+        {campus.map((c, i) => (
           <div
-            class={`mvv-card reveal campus-card${c.default ? ' campus-active' : ''}`}
+            class={`mvv-card reveal campus-card${i === 0 ? ' campus-active' : ''}`}
             style="text-align: left;"
             role="button"
             tabindex="0"
-            data-campus-geo={c.geo}
-            data-campus-name={c.name}>
-            <h3 style="color: var(--primary); font-family: var(--font-title);"><i class={c.icon} aria-hidden="true" style="color: var(--secondary);"></i> {c.name}</h3>
-            <p style="font-size: 0.9rem; color: var(--text-secondary);">{c.desc}</p>
+            data-campus-geo={c.data.geo}
+            data-campus-name={c.data.name}>
+            <h3 style="color: var(--primary); font-family: var(--font-title);"><i class={c.data.icon} aria-hidden="true" style="color: var(--secondary);"></i> {c.data.name}</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary);">{c.data.desc}</p>
           </div>
         ))}
+</div>
       </div>
-    </div>
+      <script is:inline src="/js/campus-map.js" defer></script>
   </section>
 
 
@@ -223,29 +217,3 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
   </section>
 </BaseLayout>
 
-<script>
-  const mapFrame = document.getElementById('campus-map');
-  const cards = Array.from(document.querySelectorAll('[data-campus-geo]'));
-
-  const PLACE = '%2C%20Pinar%20del%20R%C3%ADo%2C%20Cuba';
-
-  function showPlace(card) {
-    const geo = card.getAttribute('data-campus-geo');
-    if (!geo) return;
-    mapFrame.setAttribute(
-      'src',
-      `https://www.google.com/maps?q=${geo}${PLACE}&z=16&hl=es&output=embed`
-    );
-    cards.forEach((c) => c.classList.toggle('campus-active', c === card));
-  }
-
-  cards.forEach((card) => {
-    card.addEventListener('click', () => showPlace(card));
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        showPlace(card);
-      }
-    });
-  });
-</script>

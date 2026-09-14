@@ -22,10 +22,8 @@ const hasAdmin = currentPath.startsWith('/admin');
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="icon" type="image/png" href="/images/305464304_448374310649340_2984277522454001566_n-Photoroom.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/all.min.css" />
+  <link rel="stylesheet" href="/css/leaflet.css" />
 </head>
 <body>
   <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
@@ -64,5 +62,6 @@ const hasAdmin = currentPath.startsWith('/admin');
       import '../scripts/main.js';
     </script>
   )}
+  <script is:inline src="/js/leaflet.js"></script>
 </body>
 </html>
