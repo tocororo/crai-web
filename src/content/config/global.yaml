@@ -40,6 +40,8 @@ navigation:
         url: "/estudios#doctorado"
       - label: "Programas de Intercambio"
         url: "/estudios#intercambio"
+      - label: "Asignaturas de Servicio"
+        url: "/estudios#asignaturas-servicio"
   - label: "Admisión"
     url: "/admision"
     children:
