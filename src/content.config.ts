@@ -519,6 +519,31 @@ const declaraciones = defineCollection({
   }),
 });
 
+// ============================================================
+// Asignaturas de Servicio
+// ============================================================
+const asignaturasServicio = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/asignaturas-servicio' }),
+  schema: z.object({
+    title: z.string(),
+    modalidad: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Carreras × Asignaturas × Horas
+// ============================================================
+const carrerasAsignaturas = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/carreras-asignaturas' }),
+  schema: z.object({
+    carrera: z.string(),
+    asignatura: z.string(),
+    horas: z.number(),
+    order: z.number().optional(),
+  }),
+});
+
 export const collections = {
   config,
   pages,
@@ -554,4 +579,6 @@ export const collections = {
   normativas,
   'datos-abiertos': datosAbiertos,
   declaraciones,
+  'asignaturas-servicio': asignaturasServicio,
+  'carreras-asignaturas': carrerasAsignaturas,
 };

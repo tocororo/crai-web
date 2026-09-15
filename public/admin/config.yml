@@ -226,9 +226,34 @@ collections:
     format: "yaml"
     extension: "yaml"
     fields:
-      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
-      - { label: "Nombre", name: "name", widget: "string" }
-      - { label: "Descripción", name: "desc", widget: "text" }
+       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+       - { label: "Título", name: "title", widget: "string" }
+       - { label: "Descripción", name: "desc", widget: "text" }
+       - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "asignaturas-servicio"
+    label: "Asignaturas de Servicio"
+    folder: "src/content/asignaturas-servicio"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    identifier_field: "title"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Modalidad", name: "modalidad", widget: "string" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "carreras-asignaturas"
+    label: "Carreras × Asignaturas"
+    folder: "src/content/carreras-asignaturas"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    identifier_field: "carrera"
+    fields:
+      - { label: "Carrera", name: "carrera", widget: "string" }
+      - { label: "Asignatura", name: "asignatura", widget: "string" }
+      - { label: "Horas", name: "horas", widget: "number" }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
   - name: "acreditaciones"

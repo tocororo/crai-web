@@ -13,31 +13,8 @@ const categoryLabel: Record<string, string> = {
 
 const intercambio = (await getCollection('intercambio')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
-const asignaturasServicio = [
-  { name: 'Competencias Informacionales', modalidad: 'Curso diurno y curso encuentro' },
-  { name: 'Cultura Informacional', modalidad: 'Curso diurno y curso encuentro' },
-  { name: 'Gestión de la Información', modalidad: 'Curso encuentro' },
-];
-
-const carrerasAsignaturas = [
-  { carrera: 'Ingeniería en Telecomunicaciones y Electrónica', asignatura: 'Competencias Informacionales', horas: 32 },
-  { carrera: 'Ingeniería Geológica', asignatura: 'Competencias Informacionales', horas: 32 },
-  { carrera: 'Licenciatura en Contabilidad y Finanzas', asignatura: 'Competencias Informacionales', horas: 32 },
-  { carrera: 'Ingeniería Mecánica', asignatura: 'Competencias Informacionales', horas: 32 },
-  { carrera: 'Ingeniería Informática', asignatura: 'Competencias Informacionales', horas: 32 },
-  { carrera: 'Licenciatura en Derecho', asignatura: 'Competencias Informacionales', horas: 32 },
-  { carrera: 'Ingeniería Forestal', asignatura: 'Competencias Informacionales', horas: 32 },
-  { carrera: 'Licenciatura en Educación Preescolar', asignatura: 'Cultura Informacional', horas: 40 },
-  { carrera: 'Licenciatura en Educación Logopedia', asignatura: 'Cultura Informacional', horas: 40 },
-  { carrera: 'Licenciatura en Educación Lenguas Extranjeras', asignatura: 'Cultura Informacional', horas: 40 },
-  { carrera: 'Licenciatura en Educación Especial', asignatura: 'Cultura Informacional', horas: 40 },
-  { carrera: 'Licenciatura en Educación Física', asignatura: 'Cultura Informacional', horas: 40 },
-  { carrera: 'Licenciatura en Educación Matemática', asignatura: 'Cultura Informacional', horas: 40 },
-  { carrera: 'Ingeniería Industrial', asignatura: 'Gestión de la Información', horas: 23 },
-  { carrera: 'Licenciatura en Educación Economía', asignatura: 'Gestión de la Información', horas: 23 },
-  { carrera: 'Licenciatura en Gestión Sociocultural para el Desarrollo', asignatura: 'Competencia Informacional', horas: 42 },
-  { carrera: 'Licenciatura en Economía', asignatura: 'Competencia Informacional', horas: 32 },
-];
+const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const carrerasAsignaturas = (await getCollection('carreras-asignaturas')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
 ---
 <BaseLayout title="Oferta Académica - CRAI" description="Explora la oferta académica del CRAI: programas de grado, posgrado y doctorado en todas las áreas del conocimiento.">
@@ -122,12 +99,12 @@ const carrerasAsignaturas = [
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Formación en competencias informacionales para toda la comunidad estudiantil</p>
 
-      <div class="asignaturas-grid">
+        <div class="asignaturas-grid">
         {asignaturasServicio.map((a) => (
           <div class="asignatura-service-card reveal">
             <div class="asignatura-service-icon"><i class="fas fa-book-open"></i></div>
-            <h3>{a.name}</h3>
-            <p class="asignatura-modalidad"><i class="fas fa-clock" aria-hidden="true"></i> {a.modalidad}</p>
+            <h3>{a.data.title}</h3>
+            <p class="asignatura-modalidad"><i class="fas fa-clock" aria-hidden="true"></i> {a.data.modalidad}</p>
           </div>
         ))}
       </div>
@@ -144,9 +121,9 @@ const carrerasAsignaturas = [
           <tbody>
             {carrerasAsignaturas.map((c, i) => (
               <tr class={i % 2 === 1 ? 'alt' : ''}>
-                <td>{c.carrera}</td>
-                <td>{c.asignatura}</td>
-                <td class="text-center">{c.horas}</td>
+                <td>{c.data.carrera}</td>
+                <td>{c.data.asignatura}</td>
+                <td class="text-center">{c.data.horas}</td>
               </tr>
             ))}
           </tbody>
