@@ -1,5 +1,6 @@
 ---
-title: Estudiantes regresan a las aulas con nuevas metodologías de aprendizaje
+title: Estudiantes pinareños regresan a las aulas con nuevas metodologías de
+  aprendizaje
 description: >+
   Un grupo de estudiantes de secundaria retomó las clases presenciales mostrando
   una notable actitud de concentración y participación. El nuevo enfoque
