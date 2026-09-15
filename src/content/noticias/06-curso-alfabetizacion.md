@@ -6,7 +6,7 @@ pubDate: 2026-01-05
 author: Formación de Usuarios
 category: Formación
 icon: fas fa-graduation-cap
-draft: true
+draft: false
 ---
 El CRAI ofrece curso en línea para desarrollar competencias en búsqueda, evaluación y uso ético de la información académica.
 
