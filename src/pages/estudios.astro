@@ -120,7 +120,7 @@ const carrerasAsignaturas = (await getCollection('carreras-asignaturas')).sort((
           </thead>
           <tbody>
             {carrerasAsignaturas.map((c, i) => (
-              <tr class={i % 2 === 1 ? 'alt' : ''}>
+              <tr class:list={[i % 2 === 1 && 'alt']}>
                 <td>{c.data.carrera}</td>
                 <td>{c.data.asignatura}</td>
                 <td class="text-center">{c.data.horas}</td>
