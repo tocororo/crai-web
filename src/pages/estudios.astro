@@ -12,8 +12,34 @@ const categoryLabel: Record<string, string> = {
 };
 
 const intercambio = (await getCollection('intercambio')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
----
 
+const asignaturasServicio = [
+  { name: 'Competencias Informacionales', modalidad: 'Curso diurno y curso encuentro' },
+  { name: 'Cultura Informacional', modalidad: 'Curso diurno y curso encuentro' },
+  { name: 'Gestión de la Información', modalidad: 'Curso encuentro' },
+];
+
+const carrerasAsignaturas = [
+  { carrera: 'Ingeniería en Telecomunicaciones y Electrónica', asignatura: 'Competencias Informacionales', horas: 32 },
+  { carrera: 'Ingeniería Geológica', asignatura: 'Competencias Informacionales', horas: 32 },
+  { carrera: 'Licenciatura en Contabilidad y Finanzas', asignatura: 'Competencias Informacionales', horas: 32 },
+  { carrera: 'Ingeniería Mecánica', asignatura: 'Competencias Informacionales', horas: 32 },
+  { carrera: 'Ingeniería Informática', asignatura: 'Competencias Informacionales', horas: 32 },
+  { carrera: 'Licenciatura en Derecho', asignatura: 'Competencias Informacionales', horas: 32 },
+  { carrera: 'Ingeniería Forestal', asignatura: 'Competencias Informacionales', horas: 32 },
+  { carrera: 'Licenciatura en Educación Preescolar', asignatura: 'Cultura Informacional', horas: 40 },
+  { carrera: 'Licenciatura en Educación Logopedia', asignatura: 'Cultura Informacional', horas: 40 },
+  { carrera: 'Licenciatura en Educación Lenguas Extranjeras', asignatura: 'Cultura Informacional', horas: 40 },
+  { carrera: 'Licenciatura en Educación Especial', asignatura: 'Cultura Informacional', horas: 40 },
+  { carrera: 'Licenciatura en Educación Física', asignatura: 'Cultura Informacional', horas: 40 },
+  { carrera: 'Licenciatura en Educación Matemática', asignatura: 'Cultura Informacional', horas: 40 },
+  { carrera: 'Ingeniería Industrial', asignatura: 'Gestión de la Información', horas: 23 },
+  { carrera: 'Licenciatura en Educación Economía', asignatura: 'Gestión de la Información', horas: 23 },
+  { carrera: 'Licenciatura en Gestión Sociocultural para el Desarrollo', asignatura: 'Competencia Informacional', horas: 42 },
+  { carrera: 'Licenciatura en Economía', asignatura: 'Competencia Informacional', horas: 32 },
+];
+
+---
 <BaseLayout title="Oferta Académica - CRAI" description="Explora la oferta académica del CRAI: programas de grado, posgrado y doctorado en todas las áreas del conocimiento.">
   <PageHero
     badgeIcon="fa-graduation-cap"
@@ -88,4 +114,45 @@ const intercambio = (await getCollection('intercambio')).sort((a, b) => (a.data.
       </div>
     </div>
   </section>
+
+  <!-- Asignaturas de Servicio -->
+  <section class="section" id="asignaturas-servicio" style="background: var(--bg-light);" aria-labelledby="asignaturas-title">
+    <div class="container">
+      <h2 class="section-title" id="asignaturas-title">Asignaturas de Servicio</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Formación en competencias informacionales para toda la comunidad estudiantil</p>
+
+      <div class="asignaturas-grid">
+        {asignaturasServicio.map((a) => (
+          <div class="asignatura-service-card reveal">
+            <div class="asignatura-service-icon"><i class="fas fa-book-open"></i></div>
+            <h3>{a.name}</h3>
+            <p class="asignatura-modalidad"><i class="fas fa-clock" aria-hidden="true"></i> {a.modalidad}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="table-wrapper reveal">
+        <table class="asignaturas-table" aria-label="Asignaturas de servicio por carrera">
+          <thead>
+            <tr>
+              <th>Carrera</th>
+              <th>Asignatura</th>
+              <th class="text-center">Horas</th>
+            </tr>
+          </thead>
+          <tbody>
+            {carrerasAsignaturas.map((c, i) => (
+              <tr class={i % 2 === 1 ? 'alt' : ''}>
+                <td>{c.carrera}</td>
+                <td>{c.asignatura}</td>
+                <td class="text-center">{c.horas}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>

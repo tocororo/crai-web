@@ -3598,3 +3598,120 @@ ul { list-style: none; }
   .content-grid { grid-template-columns: 1fr; }
   .blog-grid { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   ASIGNATURAS DE SERVICIO
+   ============================================================ */
+.asignaturas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.asignatura-service-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-md);
+  padding: 28px 22px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.asignatura-service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--secondary-light);
+}
+
+.asignatura-service-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(26, 74, 46, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 1.4rem;
+  color: var(--primary);
+}
+
+.asignatura-service-card h3 {
+  font-family: var(--font-title);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.asignatura-modalidad {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.asignatura-modalidad i {
+  margin-right: 6px;
+  color: var(--secondary);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.asignaturas-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-white);
+  font-size: 0.88rem;
+}
+
+.asignaturas-table th {
+  background: var(--primary);
+  color: var(--text-light);
+  font-weight: 600;
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.asignaturas-table td {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.asignaturas-table tbody tr:nth-child(even) {
+  background: var(--bg-light);
+}
+
+.asignaturas-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.asignaturas-table tbody tr:hover td {
+  background: rgba(26, 74, 46, 0.04);
+}
+
+.asignaturas-table .text-center {
+  text-align: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .asignaturas-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 992px) {
+  .asignaturas-grid { grid-template-columns: repeat(2, 1fr); }
+}
