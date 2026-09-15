@@ -57,6 +57,15 @@ collections:
         fields:
           - { label: "Descripción", name: "description", widget: "text" }
           - { label: "Título enlaces rápidos", name: "quickLinksTitle", widget: "string" }
+      - label: "Aviso de cookies"
+        name: "cookies"
+        widget: "object"
+        hint: "Activa o desactiva el banner de cookies que aparece al abrir el sitio"
+        fields:
+          - { label: "Mostrar banner de cookies", name: "enabled", widget: "boolean", default: true }
+          - { label: "Mensaje del banner", name: "message", widget: "text", required: false }
+          - { label: "Texto botón aceptar", name: "acceptLabel", widget: "string", required: false }
+          - { label: "Texto botón rechazar", name: "declineLabel", widget: "string", required: false }
 
   - name: "noticias"
     label: "Noticias / Blog"

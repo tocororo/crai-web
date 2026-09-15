@@ -83,6 +83,32 @@ Todas las colecciones de bloques usan campo opcional `order` para ordenar en pá
 
 Los esquemas están en `src/content.config.ts` y el panel del CMS se configura en `public/admin/config.yml` (backend `proxy` local, sin Netlify ni credenciales externas). Las imágenes subidas desde el CMS van a `public/images/uploads/`.
 
+## Aviso de cookies (activar / desactivar)
+
+El banner de cookies se controla desde **Configuración Global** sin tocar código.
+
+**Desde el panel de desarrollador (`/admin`):**
+1. `npm run dev` + `npm run cms` → abre `/admin`.
+2. Ve a **Configuración Global** → sección **Aviso de cookies** → interruptor **Mostrar banner de cookies**:
+   - `true` → el banner aparece al abrir el sitio.
+   - `false` → el banner no se renderiza en ninguna página.
+3. Guarda (Publish). El cambio se escribe en `src/content/config/global.yaml`; reconstruye con `npm run build`.
+
+**Editando el YAML directamente** (`src/content/config/global.yaml`):
+```yaml
+cookies:
+  enabled: true   # true = muestra el banner | false = lo oculta
+  message: "Este sitio utiliza cookies para mejorar tu experiencia. Al continuar navegando aceptas nuestra"
+  acceptLabel: "Aceptar"
+  declineLabel: "Rechazar"
+```
+Si la sección `cookies` no existe, el banner se muestra por defecto (`enabled: true`).
+
+**Notas:**
+- El banner respeta la elección del visitante: Aceptar/Rechazar se guarda en `localStorage` (`cookie-consent`). Para verlo de nuevo en desarrollo, borra esa clave en DevTools → Application → Local Storage.
+- El banner nunca aparece en rutas `/admin`.
+- El toggle en el panel admin está definido en `public/admin/config.yml`: `cookies.enabled` con widget `boolean`.
+
 ## Estructura
 
 ```

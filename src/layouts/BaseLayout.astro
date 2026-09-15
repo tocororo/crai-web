@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { getSiteConfig } from '../lib/content';
 import '../styles/global.css';
 
 interface Props {
@@ -12,6 +13,13 @@ const { title, description = 'CRAI - Centro de Recursos para el Aprendizaje y la
 
 const currentPath = Astro.url.pathname;
 const hasAdmin = currentPath.startsWith('/admin');
+
+const siteConfig = await getSiteConfig();
+const cookiesConfig = siteConfig?.cookies;
+const cookiesEnabled = cookiesConfig?.enabled ?? true;
+const cookiesMessage = cookiesConfig?.message ?? 'Este sitio utiliza cookies para mejorar tu experiencia. Al continuar navegando aceptas nuestra';
+const cookiesAcceptLabel = cookiesConfig?.acceptLabel ?? 'Aceptar';
+const cookiesDeclineLabel = cookiesConfig?.declineLabel ?? 'Rechazar';
 ---
 
 <!DOCTYPE html>
@@ -45,13 +53,13 @@ const hasAdmin = currentPath.startsWith('/admin');
     </button>
   )}
 
-  {!hasAdmin && (
+  {!hasAdmin && cookiesEnabled && (
     <div class="cookie-consent" id="cookie-consent">
       <div class="container">
-        <p>Este sitio utiliza cookies para mejorar tu experiencia. Al continuar navegando aceptas nuestra <a href="#">política de cookies</a>.</p>
+        <p>{cookiesMessage} <a href="#">política de cookies</a>.</p>
         <div class="cookie-buttons">
-          <button class="btn btn-primary" id="cookie-accept">Aceptar</button>
-          <button class="btn btn-secondary" id="cookie-decline">Rechazar</button>
+          <button class="btn btn-primary" id="cookie-accept">{cookiesAcceptLabel}</button>
+          <button class="btn btn-secondary" id="cookie-decline">{cookiesDeclineLabel}</button>
         </div>
       </div>
     </div>

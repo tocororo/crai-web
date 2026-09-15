@@ -148,15 +148,9 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
         <div id="campus-map" class="campus-map" style="height: 400px; border-radius: var(--radius-md); overflow: hidden;"></div>
       </div>
       <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 32px;">
-<<<<<<< HEAD
-        {campus.map((c, i) => (
+<        {campus.map((c, i) => (
           <div
             class={`mvv-card reveal campus-card${i === 0 ? ' campus-active' : ''}`}
-=======
-        {campus.map((c) => (
-          <div
-            class={`mvv-card reveal campus-card${c.data.default ? ' campus-active' : ''}`}
->>>>>>> 4b696e7e1b90d685e5da669a118040dfc3de94dc
             style="text-align: left;"
             role="button"
             tabindex="0"

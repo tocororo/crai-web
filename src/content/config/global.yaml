@@ -129,3 +129,8 @@ footer:
     - label: "Aviso Legal"
       url: "#"
   copyright: "© 2026 CRAI. Todos los derechos reservados."
+cookies:
+  enabled: true
+  message: "Este sitio utiliza cookies para mejorar tu experiencia. Al continuar navegando aceptas nuestra"
+  acceptLabel: "Aceptar"
+  declineLabel: "Rechazar"
