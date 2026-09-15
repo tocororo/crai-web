@@ -71,29 +71,8 @@ const carrerasAsignaturas = (await getCollection('carreras-asignaturas')).sort((
     </div>
   </section>
 
-  <!-- Programas de Intercambio -->
-  <section class="section" id="intercambio" aria-labelledby="intercambio-title">
-    <div class="container">
-      <h2 class="section-title" id="intercambio-title">Programas de Intercambio</h2>
-      <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">Amplía tus horizontes académicos y culturales en universidades de todo el mundo</p>
-      <div class="content-grid">
-        {intercambio.map((i) => (
-          <div class="content-card reveal">
-            <div class="content-card-icon"><i class={i.data.icon}></i></div>
-            <h3>{i.data.title}</h3>
-            <p>{i.data.desc}</p>
-          </div>
-        ))}
-      </div>
-      <div class="text-center" style="margin-top: 2rem;">
-        <a href="#" class="btn btn-gold"><i class="fas fa-globe"></i> Más información sobre intercambios</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Asignaturas de Servicio -->
-  <section class="section" id="asignaturas-servicio" style="background: var(--bg-light);" aria-labelledby="asignaturas-title">
+   <!-- Asignaturas de Servicio -->
+   <section class="section section--border-top" id="asignaturas-servicio" aria-labelledby="asignaturas-title">
     <div class="container">
       <h2 class="section-title" id="asignaturas-title">Asignaturas de Servicio</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -101,7 +80,7 @@ const carrerasAsignaturas = (await getCollection('carreras-asignaturas')).sort((
 
         <div class="asignaturas-grid">
         {asignaturasServicio.map((a) => (
-          <div class="asignatura-service-card reveal">
+          <div class="asignatura-service-card">
             <div class="asignatura-service-icon"><i class="fas fa-book-open"></i></div>
             <h3>{a.data.title}</h3>
             <p class="asignatura-modalidad"><i class="fas fa-clock" aria-hidden="true"></i> {a.data.modalidad}</p>
@@ -109,7 +88,7 @@ const carrerasAsignaturas = (await getCollection('carreras-asignaturas')).sort((
         ))}
       </div>
 
-      <div class="table-wrapper reveal">
+      <div class="table-wrapper">
         <table class="asignaturas-table" aria-label="Asignaturas de servicio por carrera">
           <thead>
             <tr>
@@ -131,5 +110,26 @@ const carrerasAsignaturas = (await getCollection('carreras-asignaturas')).sort((
       </div>
     </div>
   </section>
+
+   <!-- Programas de Intercambio -->
+   <section class="section" id="intercambio" aria-labelledby="intercambio-title">
+     <div class="container">
+       <h2 class="section-title" id="intercambio-title">Programas de Intercambio</h2>
+       <div class="section-divider" aria-hidden="true"></div>
+       <p class="section-subtitle">Amplía tus horizontes académicos y culturales en universidades de todo el mundo</p>
+       <div class="content-grid">
+         {intercambio.map((i) => (
+           <div class="content-card reveal">
+             <div class="content-card-icon"><i class={i.data.icon}></i></div>
+             <h3>{i.data.title}</h3>
+             <p>{i.data.desc}</p>
+           </div>
+         ))}
+       </div>
+       <div class="text-center" style="margin-top: 2rem;">
+         <a href="#" class="btn btn-gold"><i class="fas fa-globe"></i> Más información sobre intercambios</a>
+       </div>
+     </div>
+   </section>
 
 </BaseLayout>
