@@ -1997,11 +1997,13 @@ ul { list-style: none; }
   bottom: 0;
   left: 0;
   width: 100%;
-  background: var(--bg-dark);
-  color: var(--text-light);
+  background: var(--bg-warm);
+  color: var(--text-primary);
   padding: 14px 20px;
   z-index: 9999;
   display: none;
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
 }
 
 .cookie-consent.show {
@@ -2034,6 +2036,17 @@ ul { list-style: none; }
 .cookie-buttons .btn {
   font-size: 0.82rem;
   padding: 8px 20px;
+}
+
+.cookie-consent .btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.cookie-consent .btn-secondary:hover {
+  background: var(--border-color);
+  color: var(--text-primary);
 }
 
 /* ============================================================
