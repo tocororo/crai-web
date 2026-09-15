@@ -14,6 +14,8 @@ El curso está dirigido a estudiantes de nuevo ingreso, aunque está abierto a t
 
 Al finalizar, los participantes recibirán un certificado de participación emitido por el centro.
 
+asdasdsdas
+
 
 
 ![](/images/uploads/bong_joon-ho.jpg)
