@@ -5,7 +5,7 @@ description: "CRAI, institución líder en educación superior con más de 50 a�
 contact:
   address: "Calle José Martí No 300, Barrio Segundo Sur, e/27 de Noviembre y González Alcorta, Pinar del Río, Cuba, Pinar del Río, Cuba"
   phone: "+53 48 779348"
-  email: "crai@upr.edu.cu"
+  email: "crai_unstitucional@upr.edu.cu"
 social:
   facebook: "https://www.facebook.com/share/g/1HKTULJenH/"
   instagram: "https://instagram.com"
@@ -104,17 +104,13 @@ footer:
       url: "/actualidad"
   servicesTitle: "Servicios"
   services:
-    - label: "Campus Virtual"
-      url: "#"
-    - label: "Correo Institucional"
-      url: "#"
+    - label: "Catálogo"
+      url: "catalogo.upr.edu.cu"
     - label: "Biblioteca Digital"
-      url: "#"
-    - label: "Portal del Estudiante"
-      url: "#"
-    - label: "Portal del Docente"
-      url: "#"
-    - label: "Bolsa de Trabajo"
+      url: "earchivos.upr.edu.cu"
+    - label: "Repositorio Institusional"
+      url: "alma.upr.edu.cu"
+    - label: "Gestión de Reserva"
       url: "#"
   transparencyTitle: "Transparencia"
   transparency:
