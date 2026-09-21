@@ -105,13 +105,13 @@ footer:
   servicesTitle: "Servicios"
   services:
     - label: "Catálogo"
-      url: "catalogo.upr.edu.cu"
+      url: "https://catalogo.upr.edu.cu"
     - label: "Biblioteca Digital"
-      url: "earchivos.upr.edu.cu"
+      url: "https://earchivos.upr.edu.cu"
     - label: "Repositorio Institusional"
-      url: "alma.upr.edu.cu"
+      url: "https://alma.upr.edu.cu"
     - label: "Gestión de Reserva"
-      url: "#"
+      url: "/reservar"
   transparencyTitle: "Transparencia"
   transparency:
     - label: "Informes Financieros"

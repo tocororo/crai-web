@@ -6,7 +6,6 @@ import { formatDate, getSiteConfig } from '../lib/content';
 const config = await getSiteConfig();
 const noticias = (await getCollection('noticias', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const programas = (await getCollection('programas')).filter((p) => p.data.featured).slice(0, 4);
 const eventos = (await getCollection('eventos')).filter((e) => e.data.featured).slice(0, 3);
 const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 ---
@@ -107,18 +106,18 @@ const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.dat
   </section>
 
   <!-- Servicios -->
-  <section class="section" style="background: var(--bg-light);" aria-labelledby="programas-title">
+  <section class="section" style="background: var(--bg-light);" aria-labelledby="servicios-title">
     <div class="container">
-      <h2 class="section-title" id="programas-title">Servicios</h2>
+      <h2 class="section-title" id="servicios-title">{config?.footer?.servicesTitle ?? 'Servicios'}</h2>
       <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">Descubre nuestros servicios de excelencia </p>
-      <div class="programs-grid">
-        {programas.map((p) => (
-          <div class="program-card reveal">
-            <div class="program-icon"><i class={p.data.icon}></i></div>
-            <h3>{p.data.title}</h3>
-            <p>{p.data.description}</p>
-          </div>
+      <p class="section-subtitle">Accede a nuestros servicios académicos y digitales</p>
+      <div class="services-grid">
+        {(config?.footer?.services ?? []).map((s) => (
+          <a href={s.url} class="service-card reveal" target="_blank" rel="noopener noreferrer">
+            <div class="service-card-icon"><i class="fas fa-external-link-alt"></i></div>
+            <h3>{s.label}</h3>
+            <p class="service-card-url">{s.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}</p>
+          </a>
         ))}
       </div>
     </div>

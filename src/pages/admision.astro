@@ -87,23 +87,6 @@ const faq = (await getCollection('faq')).sort(byOrder);
     </div>
   </section>
 
-  <!-- BECAS Y AYUDAS FINANCIERAS -->
-  <section id="becas" class="section" style="background: var(--bg-warm);" aria-labelledby="becas-title">
-    <div class="container">
-      <h2 class="section-title" id="becas-title">Becas y Ayudas Financieras</h2>
-      <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">Ofrecemos diversas opciones para hacer tu educación accesible</p>
-      <div class="scholarships-grid">
-        {becas.map((beca) => (
-          <div class="scholarship-card reveal">
-            <div class="scholarship-icon"><i class={`fas ${beca.data.icon}`}></i></div>
-            <h3>{beca.data.title}</h3>
-            <p>{beca.data.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
 
   <!-- PREGUNTAS FRECUENTES -->
   <section id="faq" class="section" aria-labelledby="faq-title">
