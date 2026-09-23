@@ -3,66 +3,73 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
-const programas = (await getCollection('programas')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const carrerasAsignaturas = (await getCollection('carreras-asignaturas'))
+  .filter((c) => c.data.carrera === 'Licenciatura en Ciencias de la Información')
+  .sort((a, b) => (a.data.año ?? 0) - (b.data.año ?? 0) || (a.data.order ?? 0) - (b.data.order ?? 0));
 
-const categoryLabel: Record<string, string> = {
-  grado: 'Grado',
-  posgrado: 'Posgrado',
-  doctorado: 'Doctorado',
+const carrerasAsignaturasAll = (await getCollection('carreras-asignaturas'))
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+const yearLabels: Record<number, string> = {
+  1: '1er año',
+  2: '2do año',
+  3: '3er año',
+  4: '4to año',
+  5: '5to año',
 };
 
 const intercambio = (await getCollection('intercambio')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
 const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
-const carrerasAsignaturas = (await getCollection('carreras-asignaturas')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
-
 ---
-<BaseLayout title="Oferta Académica - CRAI" description="Explora la oferta académica del CRAI: programas de grado, posgrado y doctorado en todas las áreas del conocimiento.">
+<BaseLayout title="Asignaturas de la Carrera — CRAI" description="Explora las asignaturas de la Licenciatura en Ciencias de la Información en modalidad Curso por Encuentro.">
   <PageHero
-    badgeIcon="fa-graduation-cap"
-    badge="Oferta Académica"
-    title="Programas de Estudio"
-    subtitle="Programas de excelencia para tu futuro profesional"
+    badgeIcon="fa-book-open"
+    badge="Licenciatura en Ciencias de la Información"
+    title="Asignaturas — Curso por Encuentro"
+    subtitle="5 años de formación integral en gestión documental, investigación y organización de la información"
     crumb="Estudios"
   />
 
   <!-- Program Search -->
   <section class="section section-search" aria-labelledby="search-title">
     <div class="container">
-      <h2 class="section-title" id="search-title">Busca tu programa ideal</h2>
-      <div class="section-divider" aria-hidden="true"></div>
-      <div class="search-controls">
-        <div class="search-box">
-          <input type="text" id="program-search-input" placeholder="Buscar programas..." aria-label="Buscar programas académicos" />
+<h2 class="section-title" id="search-title">Busca tu materia ideal</h2>
+       <div class="section-divider" aria-hidden="true"></div>
+       <div class="search-controls">
+         <div class="search-box">
+           <input type="text" id="program-search-input" placeholder="Buscar materias..." aria-label="Buscar materias" />
           <button id="program-search-btn" aria-label="Buscar"><i class="fas fa-search"></i></button>
         </div>
         <div class="filter-buttons">
           <button class="filter-btn active" data-filter="all">Todos</button>
-          <button class="filter-btn" data-filter="grado">Grado</button>
-          <button class="filter-btn" data-filter="posgrado">Posgrado</button>
-          <button class="filter-btn" data-filter="doctorado">Doctorado</button>
+          <button class="filter-btn" data-filter="1">1er año</button>
+          <button class="filter-btn" data-filter="2">2do año</button>
+          <button class="filter-btn" data-filter="3">3er año</button>
+          <button class="filter-btn" data-filter="4">4to año</button>
+          <button class="filter-btn" data-filter="5">5to año</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Program Listing -->
-  <section id="grado" class="section" style="background: var(--bg-light);" aria-labelledby="programas-title">
+  <!-- Asignaturas Listing -->
+  <section id="grado" class="section section--border-top" aria-labelledby="programas-title">
     <div class="container">
-      <h2 class="section-title" id="programas-title">Nuestros Programas</h2>
+      <h2 class="section-title" id="programas-title">Asignaturas de la Licenciatura en Ciencias de la Información</h2>
       <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">Más de 45 programas diseñados para impulsar tu carrera profesional</p>
+      <p class="section-subtitle">Curso por Encuentro — 5 años de formación integral en Ciencias de la Información</p>
       <div class="program-list">
-        {programas.map((p) => (
-          <div class="program-list-item reveal" data-category={p.data.category}>
-            <div class="program-list-icon"><i class={`fas ${p.data.icon}`}></i></div>
-            <div class="program-list-body">
-              <h3>{p.data.title}</h3>
-              <p>{p.data.description}</p>
+        {carrerasAsignaturas.map((c) => (
+          <div class="program-list-item" data-category={c.data.año}>
+            <div class="program-list-info">
+              <h3>{c.data.materia}</h3>
+              <p class="asignatura-desc">{c.data.descripcion}</p>
               <div class="program-meta">
-                <span><i class="fas fa-graduation-cap" aria-hidden="true"></i> {categoryLabel[p.data.category]}</span>
-                {p.data.duration && <span><i class="far fa-clock" aria-hidden="true"></i> {p.data.duration}</span>}
-                {p.data.modality && <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> {p.data.modality}</span>}
+                <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> {yearLabels[c.data.año] ?? c.data.año + '° año'}</span>
+                <span><i class="fas fa-layer-group" aria-hidden="true"></i> {c.data.disciplina}</span>
+                <span><i class="fas fa-clock" aria-hidden="true"></i> {c.data.horas} hrs</span>
+                <span><i class="fas fa-book" aria-hidden="true"></i> Curso por Encuentro</span>
               </div>
             </div>
           </div>
@@ -93,15 +100,15 @@ const carrerasAsignaturas = (await getCollection('carreras-asignaturas')).sort((
           <thead>
             <tr>
               <th>Carrera</th>
-              <th>Asignatura</th>
+              <th>Materia</th>
               <th class="text-center">Horas</th>
             </tr>
           </thead>
           <tbody>
-            {carrerasAsignaturas.map((c, i) => (
+             {carrerasAsignaturasAll.map((c, i) => (
               <tr class:list={[i % 2 === 1 && 'alt']}>
                 <td>{c.data.carrera}</td>
-                <td>{c.data.asignatura}</td>
+                <td>{c.data.materia}</td>
                 <td class="text-center">{c.data.horas}</td>
               </tr>
             ))}

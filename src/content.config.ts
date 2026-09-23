@@ -538,8 +538,13 @@ const carrerasAsignaturas = defineCollection({
   loader: glob({ pattern: '**/*.yaml', base: './src/content/carreras-asignaturas' }),
   schema: z.object({
     carrera: z.string(),
-    asignatura: z.string(),
+    modalidad: z.string(),
+    materia: z.string(),
+    disciplina: z.string(),
+    año: z.number(),
+    semestre: z.number(),
     horas: z.number(),
+    descripcion: z.string().optional(),
     order: z.number().optional(),
   }),
 });

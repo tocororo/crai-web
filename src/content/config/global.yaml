@@ -94,7 +94,7 @@ footer:
   quickLinks:
     - label: "La Universidad"
       url: "/la-universidad"
-    - label: "Programas"
+    - label: "Materias"
       url: "/estudios"
     - label: "Admisión"
       url: "/admision"
