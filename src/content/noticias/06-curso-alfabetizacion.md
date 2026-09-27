@@ -5,7 +5,7 @@ description: El CRAI ofrece curso en línea para desarrollar competencias en
 pubDate: 2026-01-05
 author: Formación de Usuarios
 category: Formación
-heroImage: /images/uploads/bong_joon-ho.jpg
+heroImage: ""
 icon: fas fa-graduation-cap
 draft: false
 ---
