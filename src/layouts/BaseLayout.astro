@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { getSiteConfig } from '../lib/content';
 import '../styles/global.css';
 
 interface Props {
@@ -12,6 +13,13 @@ const { title, description = 'CRAI - Centro de Recursos para el Aprendizaje y la
 
 const currentPath = Astro.url.pathname;
 const hasAdmin = currentPath.startsWith('/admin');
+
+const siteConfig = await getSiteConfig();
+const cookiesConfig = siteConfig?.cookies;
+const cookiesEnabled = cookiesConfig?.enabled ?? true;
+const cookiesMessage = cookiesConfig?.message ?? 'Este sitio utiliza cookies para mejorar tu experiencia. Al continuar navegando aceptas nuestra';
+const cookiesAcceptLabel = cookiesConfig?.acceptLabel ?? 'Aceptar';
+const cookiesDeclineLabel = cookiesConfig?.declineLabel ?? 'Rechazar';
 ---
 
 <!DOCTYPE html>
@@ -22,10 +30,8 @@ const hasAdmin = currentPath.startsWith('/admin');
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="icon" type="image/png" href="/images/305464304_448374310649340_2984277522454001566_n-Photoroom.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/all.min.css" />
+  <link rel="stylesheet" href="/css/leaflet.css" />
 </head>
 <body>
   <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
@@ -47,13 +53,13 @@ const hasAdmin = currentPath.startsWith('/admin');
     </button>
   )}
 
-  {!hasAdmin && (
+  {!hasAdmin && cookiesEnabled && (
     <div class="cookie-consent" id="cookie-consent">
       <div class="container">
-        <p>Este sitio utiliza cookies para mejorar tu experiencia. Al continuar navegando aceptas nuestra <a href="#">política de cookies</a>.</p>
+        <p>{cookiesMessage} <a href="#">política de cookies</a>.</p>
         <div class="cookie-buttons">
-          <button class="btn btn-primary" id="cookie-accept">Aceptar</button>
-          <button class="btn btn-secondary" id="cookie-decline">Rechazar</button>
+          <button class="btn btn-primary" id="cookie-accept">{cookiesAcceptLabel}</button>
+          <button class="btn btn-secondary" id="cookie-decline">{cookiesDeclineLabel}</button>
         </div>
       </div>
     </div>
@@ -64,5 +70,6 @@ const hasAdmin = currentPath.startsWith('/admin');
       import '../scripts/main.js';
     </script>
   )}
+  <script is:inline src="/js/leaflet.js"></script>
 </body>
 </html>
