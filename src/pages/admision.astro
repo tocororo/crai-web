@@ -41,30 +41,22 @@ const faq = (await getCollection('faq')).sort(byOrder);
   </section>
 
   <!-- CALENDARIO ACADÉMICO -->
-  <section id="calendario" class="section" style="background: var(--bg-light);" aria-labelledby="calendario-title">
+  <section id="calendario" class="section section--border-top" aria-labelledby="calendario-title">
     <div class="container">
       <h2 class="section-title" id="calendario-title">Calendario Académico</h2>
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Fechas clave para el próximo ciclo académico</p>
-      <div class="table-responsive">
-        <table class="academic-calendar">
-          <thead>
-            <tr>
-              <th>Evento</th>
-              <th>Fecha de Inicio</th>
-              <th>Fecha de Cierre</th>
-            </tr>
-          </thead>
-          <tbody>
-            {calendario.map((row) => (
-              <tr>
-              <td>{row.data.evento}</td>
-              <td>{row.data.inicio}</td>
-              <td>{row.data.cierre}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div class="timeline">
+        {calendario.map((row) => (
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">{row.data.inicio}</span>
+              <h3>{row.data.evento}</h3>
+              <p>{row.data.cierre}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>

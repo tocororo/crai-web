@@ -22,11 +22,11 @@ const intercambio = (await getCollection('intercambio')).sort((a, b) => (a.data.
 
 const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 ---
-<BaseLayout title="Asignaturas de la Carrera — CRAI" description="Explora las asignaturas de la Licenciatura en Ciencias de la Información en modalidad Curso por Encuentro.">
+<BaseLayout title="Materias de la Carrera — CRAI" description="Explora las asignaturas de la Licenciatura en Ciencias de la Información en modalidad Curso por Encuentro.">
   <PageHero
     badgeIcon="fa-book-open"
     badge="Licenciatura en Ciencias de la Información"
-    title="Asignaturas — Curso por Encuentro"
+    title="Formación Academica"
     subtitle="5 años de formación integral en gestión documental, investigación y organización de la información"
     crumb="Estudios"
   />
@@ -56,7 +56,7 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
   <!-- Asignaturas Listing -->
   <section id="grado" class="section section--border-top" aria-labelledby="programas-title">
     <div class="container">
-      <h2 class="section-title" id="programas-title">Asignaturas de la Licenciatura en Ciencias de la Información</h2>
+      <h2 class="section-title" id="programas-title">Materias de la Licenciatura en Ciencias de la Información</h2>
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Curso por Encuentro — 5 años de formación integral en Ciencias de la Información</p>
       <div class="program-list">
@@ -78,7 +78,13 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
     </div>
   </section>
 
-   <!-- Asignaturas de Servicio -->
+  <div class="pagination-wrapper" id="pagination-wrapper">
+    <button class="pagination-btn" id="pagination-prev" aria-label="Página anterior"><i class="fas fa-chevron-left"></i></button>
+    <div class="pagination-pages" id="pagination-pages"></div>
+    <button class="pagination-btn" id="pagination-next" aria-label="Página siguiente"><i class="fas fa-chevron-right"></i></button>
+  </div>
+
+  <!-- Asignaturas de Servicio -->
    <section class="section section--border-top" id="asignaturas-servicio" aria-labelledby="asignaturas-title">
     <div class="container">
       <h2 class="section-title" id="asignaturas-title">Asignaturas de Servicio</h2>
@@ -140,3 +146,43 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
    </section> -->
 
 </BaseLayout>
+
+<script is:inline>
+  const ITEMS_PER_PAGE = 5;
+  const items = document.querySelectorAll('.program-list-item');
+  const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
+  let currentPage = 1;
+  const pagesContainer = document.getElementById('pagination-pages');
+  const prevBtn = document.getElementById('pagination-prev');
+  const nextBtn = document.getElementById('pagination-next');
+
+  function showPage(page) {
+    currentPage = page;
+    items.forEach((item, i) => {
+      item.classList.toggle('hidden', i < (currentPage - 1) * ITEMS_PER_PAGE || i >= currentPage * ITEMS_PER_PAGE);
+    });
+    updateButtons();
+    renderPages();
+  }
+
+  function updateButtons() {
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+  }
+
+  function renderPages() {
+    pagesContainer.innerHTML = '';
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'pagination-page' + (i === currentPage ? ' active' : '');
+      btn.textContent = i;
+      btn.setAttribute('aria-label', 'Página ' + i);
+      btn.addEventListener('click', () => showPage(i));
+      pagesContainer.appendChild(btn);
+    }
+  }
+
+  prevBtn.addEventListener('click', () => { if (currentPage > 1) showPage(currentPage - 1); });
+  nextBtn.addEventListener('click', () => { if (currentPage < totalPages) showPage(currentPage + 1); });
+  showPage(1);
+</script>

@@ -101,44 +101,7 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
     </div>
   </section>
 
-  <!-- AUTORIDADES -->
-  <section id="autoridades" class="section" aria-labelledby="autoridades-title">
-    <div class="container">
-      <h2 class="section-title" id="autoridades-title">Autoridades Universitarias</h2>
-      <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">Conoce al equipo directivo que lidera nuestra institución</p>
-      <div class="authorities-grid">
-        {equipo.map((e) => (
-          <div class="authority-card reveal">
-            <div class="authority-img"><i class={e.data.icon ?? 'fas fa-user-tie'} aria-hidden="true"></i></div>
-            <h4>{e.data.name}</h4>
-            <span class="position">{e.data.position}</span>
-            {e.data.bio && <p style="padding: 0 20px 20px; font-size: 0.88rem; color: var(--text-secondary);">{e.data.bio}</p>}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ORGANIGRAMA 
-  <section id="organigrama" class="section" style="background: var(--bg-warm);" aria-labelledby="org-title">
-    <div class="container">
-      <h2 class="section-title" id="org-title">Organigrama Institucional</h2>
-      <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">Estructura organizativa del CRAI </p>
-      <div class="org-chart">
-        {organigrama.map((level) => (
-          <div class="org-level">
-            {level.data.nodes.map((node) => (
-              <div class:list={['org-node', level.data.level === 1 && 'level-1']}>{node}</div>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section> -->
-
-  <!-- CAMPUS Y SEDES -->
+    <!-- CAMPUS Y SEDES -->
   <section id="campus" class="section" aria-labelledby="campus-title">
     <div class="container">
       <h2 class="section-title" id="campus-title">Campus y Sedes</h2>
@@ -165,8 +128,46 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
       <script is:inline src="/js/campus-map.js" defer></script>
   </section>
 
+  
+  <!-- ORGANIGRAMA -->
+  <section id="organigrama" class="section" style="background: var(--bg-warm);" aria-labelledby="org-title">
+    <div class="container">
+      <h2 class="section-title" id="org-title">Organigrama Institucional</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Estructura organizativa del CRAI </p>
+      <div class="org-chart">
+        {organigrama.map((level) => (
+          <div class="org-level">
+            {level.data.nodes.map((node) => (
+              <div class:list={['org-node', level.data.level === 1 && 'level-1']}>{node}</div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section> 
 
-  <!-- ACREDITACIONES -->
+    <!-- AUTORIDADES -->
+  <section id="autoridades" class="section" aria-labelledby="autoridades-title">
+    <div class="container">
+      <h2 class="section-title" id="autoridades-title">Autoridades Universitarias</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Conoce al equipo directivo que lidera nuestra institución</p>
+      <div class="authorities-grid">
+        {equipo.map((e) => (
+          <div class="authority-card reveal">
+            <div class="authority-img"><i class={e.data.icon ?? 'fas fa-user-tie'} aria-hidden="true"></i></div>
+            <h4>{e.data.name}</h4>
+            <span class="position">{e.data.position}</span>
+            {e.data.bio && <p style="padding: 0 20px 20px; font-size: 0.88rem; color: var(--text-secondary);">{e.data.bio}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ACREDITACIONES
   <section id="acreditaciones" class="section" style="background: var(--bg-light);" aria-labelledby="acreditaciones-title">
     <div class="container">
       <h2 class="section-title" id="acreditaciones-title">Acreditaciones y Reconocimientos</h2>
@@ -183,6 +184,7 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
       </div>
     </div>
   </section>
+   -->
 
   <!-- DATOS RÁPIDOS -->
   <section class="stats-section" aria-labelledby="stats-title">
