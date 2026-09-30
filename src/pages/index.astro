@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
 import { formatDate, getSiteConfig } from '../lib/content';
 
@@ -49,10 +50,6 @@ const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.dat
         <a href="/estudios" class="btn btn-primary btn-lg"><i class="fas fa-graduation-cap"></i> Explora Programas</a>
         <a href="/investigacion" class="btn btn-outline btn-lg"><i class="fas fa-flask"></i> Investigación</a>
       </div>
-      <div class="hero-search-quick">
-        <i class="fas fa-search"></i>
-        <span>Busca en 8,000+ recursos académicos</span>
-      </div>
     </div>
     <div class="hero-stats" aria-label="Estadísticas institucionales">
       {estadisticas.map((s) => (
@@ -67,10 +64,12 @@ const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.dat
 
   <!-- NOTICIAS - CARRUSEL -->
   <section class="section" aria-labelledby="noticias-title">
+    <SectionIcons icons={['fa-bullhorn', 'fa-calendar-days', 'fa-bell']} />
     <div class="container">
-      <h2 class="section-title" id="noticias-title">Noticias Destacadas</h2>
+      <span class="section-eyebrow">Actualidad</span>
+      <h2 class="section-title" id="noticias-title">Últimas Noticias</h2>
       <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">Mantente al día con las últimas novedades de nuestra comunidad universitaria</p>
+      <p class="section-subtitle">Lo último que ocurre en nuestra comunidad universitaria</p>
       <div class="carousel" id="news-carousel">
         <div class="carousel-progress" aria-hidden="true"></div>
         <div class="carousel-track" id="news-track">
@@ -107,16 +106,23 @@ const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.dat
 
   <!-- Servicios -->
   <section class="section" style="background: var(--bg-light);" aria-labelledby="servicios-title">
+    <SectionIcons icons={['fa-book-open', 'fa-cloud', 'fa-box-archive']} align="left" />
     <div class="container">
-      <h2 class="section-title" id="servicios-title">{config?.footer?.servicesTitle ?? 'Servicios'}</h2>
+      <span class="section-eyebrow">Acceso</span>
+      <h2 class="section-title" id="servicios-title">Servicios CRAI</h2>
       <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">Accede a nuestros servicios académicos y digitales</p>
+      <p class="section-subtitle">Puertas de entrada a nuestros recursos académicos y digitales</p>
       <div class="services-grid">
-        {(config?.footer?.services ?? []).map((s) => (
+        {(config?.footer?.services ?? []).map((s, i) => (
           <a href={s.url} class="service-card reveal" target="_blank" rel="noopener noreferrer">
-            <div class="service-card-icon"><i class="fas fa-external-link-alt"></i></div>
-            <h3>{s.label}</h3>
+            <span class="service-card-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="service-card-icon"><i class={s.icon ?? 'fas fa-arrow-right'} aria-hidden="true"></i></span>
+            <h3 class="service-card-title">{s.label}</h3>
             <p class="service-card-url">{s.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}</p>
+            <span class="service-card-go">
+              Acceder
+              <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </span>
           </a>
         ))}
       </div>
@@ -125,10 +131,12 @@ const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.dat
 
   <!-- DATOS RÁPIDOS -->
   <section class="stats-section" aria-labelledby="stats-title">
+    <SectionIcons icons={['fa-chart-line', 'fa-chart-bar', 'fa-chart-pie']} align="left" />
     <div class="container">
+      <span class="section-eyebrow section-eyebrow--light">Impacto</span>
       <h2 class="section-title section-title--light" id="stats-title">El CRAI en Cifras</h2>
-      <div class="section-divider" style="background: var(--secondary);" aria-hidden="true"></div>
-      <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Más de cinco décadas formando profesionales que transforman el mundo</p>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Más de cinco décadas formando profesionales que transforman el mundo</p>
       <div class="stats-grid">
         {estadisticas.map((s) => (
           <div class="stat-item reveal">
@@ -142,20 +150,23 @@ const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.dat
 
   <!-- EVENTOS -->
   <section class="section" aria-labelledby="eventos-title">
+    <SectionIcons icons={['fa-calendar-days', 'fa-bullhorn', 'fa-calendar-check']} align="left" />
     <div class="container">
+      <span class="section-eyebrow">Agenda</span>
       <h2 class="section-title" id="eventos-title">Próximos Eventos</h2>
       <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">No te pierdas las actividades académicas, culturales y deportivas de nuestra comunidad</p>
+      <p class="section-subtitle">Actividades académicas, culturales y deportivas de nuestra comunidad</p>
       <div class="events-grid">
-        {eventos.map((e) => (
+        {eventos.map((e, i) => (
           <div class="event-card reveal">
             <div class="event-date">
               <span class="day">{e.data.day}</span>
               <span class="month">{e.data.month}</span>
             </div>
             <div class="event-info">
+              <span class="event-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               <h4>{e.data.title}</h4>
-              <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> {e.data.location}</p>
+              <p><i class="fas fa-location-dot" aria-hidden="true"></i> {e.data.location}</p>
               <p><i class="fas fa-clock" aria-hidden="true"></i> {e.data.time}</p>
             </div>
           </div>

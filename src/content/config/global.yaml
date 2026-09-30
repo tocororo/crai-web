@@ -96,12 +96,16 @@ footer:
   services:
     - label: "Catálogo"
       url: "https://catalogo.upr.edu.cu"
+      icon: "fas fa-book-open"
     - label: "Biblioteca Digital"
       url: "https://earchivos.upr.edu.cu"
-    - label: "Repositorio Institusional"
+      icon: "fas fa-cloud"
+    - label: "Repositorio Institucional"
       url: "https://alma.upr.edu.cu"
+      icon: "fas fa-box-archive"
     - label: "Gestión de Reserva"
       url: "/reservar"
+      icon: "fas fa-calendar-check"
   transparencyTitle: "Transparencia"
   transparency:
     - label: "Informes Financieros"

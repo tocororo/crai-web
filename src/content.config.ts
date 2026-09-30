@@ -43,7 +43,7 @@ const config = defineCollection({
       quickLinksTitle: z.string(),
       quickLinks: z.array(z.object({ label: z.string(), url: z.string() })),
       servicesTitle: z.string(),
-      services: z.array(z.object({ label: z.string(), url: z.string() })),
+      services: z.array(z.object({ label: z.string(), url: z.string(), icon: z.string().optional() })),
       transparencyTitle: z.string(),
       transparency: z.array(z.object({ label: z.string(), url: z.string() })),
       copyright: z.string(),
