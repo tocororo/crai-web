@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
 const grupos = (await getCollection('grupos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
@@ -43,6 +44,7 @@ const colaboraciones = [
 
   <!-- GRUPOS DE INVESTIGACIÓN -->
   <section class="section" aria-labelledby="grupos-title">
+    <SectionIcons icons={['fa-microscope', 'fa-chart-line', 'fa-flask']} />
     <div class="container">
       <h2 class="section-title" id="grupos-title">Grupos de Investigación</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -61,6 +63,7 @@ const colaboraciones = [
 
   <!-- PROYECTOS ACTIVOS -->
   <section id="proyectos" class="section" style="background: var(--bg-light);" aria-labelledby="proyectos-title">
+    <SectionIcons icons={['fa-flask', 'fa-diagram-project', 'fa-dna']} align="left" />
     <div class="container">
       <h2 class="section-title" id="proyectos-title">Proyectos Activos</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -80,6 +83,7 @@ const colaboraciones = [
 
   <!-- PUBLICACIONES RECIENTES -->
   <section id="publicaciones" class="section" aria-labelledby="publicaciones-title">
+    <SectionIcons icons={['fa-newspaper', 'fa-file-lines', 'fa-quote-right']} />
     <div class="container">
       <h2 class="section-title" id="publicaciones-title">Publicaciones Recientes</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -99,6 +103,7 @@ const colaboraciones = [
 
   <!-- TRANSFERENCIA DE CONOCIMIENTO -->
   <section class="section" style="background: var(--bg-warm);" aria-labelledby="transferencia-title">
+    <SectionIcons icons={['fa-box-archive', 'fa-cloud-arrow-up', 'fa-lock-open']} align="left" />
     <div class="container">
       <h2 class="section-title" id="transferencia-title">Transferencia de Conocimiento</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -117,6 +122,7 @@ const colaboraciones = [
 
   <!-- CONVOCATORIAS ABIERTAS -->
   <section id="convocatorias" class="section" aria-labelledby="convocatorias-title">
+    <SectionIcons icons={['fa-bullhorn', 'fa-calendar-days', 'fa-bell']} />
     <div class="container">
       <h2 class="section-title" id="convocatorias-title">Convocatorias Abiertas</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -135,6 +141,7 @@ const colaboraciones = [
 
   <!-- COLABORACIONES INTERNACIONALES -->
   <section class="section" style="background: var(--bg-light);" aria-labelledby="colaboraciones-title">
+    <SectionIcons icons={['fa-handshake', 'fa-globe', 'fa-earth-americas']} align="left" />
     <div class="container">
       <h2 class="section-title" id="colaboraciones-title">Colaboraciones Internacionales</h2>
       <div class="section-divider" aria-hidden="true"></div>

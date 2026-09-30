@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
 
 const byOrder = (a: { data: { order?: number } }, b: { data: { order?: number } }) => (a.data.order ?? 0) - (b.data.order ?? 0);
@@ -23,6 +24,7 @@ const faq = (await getCollection('faq')).sort(byOrder);
 
   <!-- PASOS DE ADMISIÓN -->
   <section class="section" aria-labelledby="pasos-title">
+    <SectionIcons icons={['fa-graduation-cap', 'fa-list-check', 'fa-door-open']} />
     <div class="container">
       <h2 class="section-title" id="pasos-title">Pasos para tu Admisión</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -42,6 +44,7 @@ const faq = (await getCollection('faq')).sort(byOrder);
 
   <!-- CALENDARIO ACADÉMICO -->
   <section id="calendario" class="section section--border-top" aria-labelledby="calendario-title">
+    <SectionIcons icons={['fa-calendar-days', 'fa-clock', 'fa-book-open']} align="left" />
     <div class="container">
       <h2 class="section-title" id="calendario-title">Calendario Académico</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -63,6 +66,7 @@ const faq = (await getCollection('faq')).sort(byOrder);
 
   <!-- REQUISITOS POR NIVEL -->
   <section id="requisitos" class="section" aria-labelledby="requisitos-title">
+    <SectionIcons icons={['fa-clipboard-list', 'fa-file-lines', 'fa-folder-open']} />
     <div class="container">
       <h2 class="section-title" id="requisitos-title">Requisitos por Nivel</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -82,6 +86,7 @@ const faq = (await getCollection('faq')).sort(byOrder);
 
   <!-- PREGUNTAS FRECUENTES -->
   <section id="faq" class="section" aria-labelledby="faq-title">
+    <SectionIcons icons={['fa-circle-question', 'fa-life-ring', 'fa-comments']} align="left" />
     <div class="container">
       <h2 class="section-title" id="faq-title">Preguntas Frecuentes</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -104,6 +109,7 @@ const faq = (await getCollection('faq')).sort(byOrder);
 
   <!-- CONTACTO -->
   <section class="section" style="background: var(--bg-light);" aria-labelledby="contacto-title">
+    <SectionIcons icons={['fa-map-location-dot', 'fa-phone', 'fa-envelope']} />
     <div class="container">
       <h2 class="section-title" id="contacto-title">Contáctanos</h2>
       <div class="section-divider" aria-hidden="true"></div>

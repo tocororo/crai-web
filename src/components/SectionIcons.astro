@@ -1,0 +1,12 @@
+---
+interface Props {
+  icons: string[];
+  align?: 'left' | 'right';
+}
+const { icons, align = 'right' } = Astro.props;
+---
+<div class:list={['section-icons', align === 'left' && 'section-icons--left']} aria-hidden="true">
+  {icons.map((icon, i) => (
+    <i class={`fas ${icon} section-icon`} style={`--delay: ${i * 0.7}s; --x: ${15 + i * 22}%; --y: ${20 + (i % 3) * 25}%;`} />
+  ))}
+</div>

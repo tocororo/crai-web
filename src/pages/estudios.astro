@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
 
 const carrerasAsignaturas = (await getCollection('carreras-asignaturas'))
@@ -18,8 +19,6 @@ const yearLabels: Record<number, string> = {
   5: '5to año',
 };
 
-const intercambio = (await getCollection('intercambio')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
-
 const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 ---
 <BaseLayout title="Materias de la Carrera — CRAI" description="Explora las asignaturas de la Licenciatura en Ciencias de la Información en modalidad Curso por Encuentro.">
@@ -33,6 +32,7 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
 
   <!-- Program Search -->
   <section class="section section-search" aria-labelledby="search-title">
+    <SectionIcons icons={['fa-magnifying-glass', 'fa-book-open', 'fa-filter']} />
     <div class="container">
 <h2 class="section-title" id="search-title">Busca tu materia ideal</h2>
        <div class="section-divider" aria-hidden="true"></div>
@@ -55,6 +55,7 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
 
   <!-- Asignaturas Listing -->
   <section id="grado" class="section section--border-top" aria-labelledby="programas-title">
+    <SectionIcons icons={['fa-book-open', 'fa-book', 'fa-barcode']} align="left" />
     <div class="container">
       <h2 class="section-title" id="programas-title">Materias de la Licenciatura en Ciencias de la Información</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -86,6 +87,7 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
 
   <!-- Asignaturas de Servicio -->
    <section class="section section--border-top" id="asignaturas-servicio" aria-labelledby="asignaturas-title">
+    <SectionIcons icons={['fa-graduation-cap', 'fa-chalkboard-user', 'fa-users']} />
     <div class="container">
       <h2 class="section-title" id="asignaturas-title">Asignaturas de Servicio</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -122,28 +124,7 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
         </table>
       </div>
     </div>
-  </section>
-
-   <!-- Programas de Intercambio 
-   <section class="section" id="intercambio" aria-labelledby="intercambio-title">
-     <div class="container">
-       <h2 class="section-title" id="intercambio-title">Programas de Intercambio</h2>
-       <div class="section-divider" aria-hidden="true"></div>
-       <p class="section-subtitle">Amplía tus horizontes académicos y culturales en universidades de todo el mundo</p>
-       <div class="content-grid">
-         {intercambio.map((i) => (
-           <div class="content-card reveal">
-             <div class="content-card-icon"><i class={i.data.icon}></i></div>
-             <h3>{i.data.title}</h3>
-             <p>{i.data.desc}</p>
-           </div>
-         ))}
-       </div>
-       <div class="text-center" style="margin-top: 2rem;">
-         <a href="#" class="btn btn-gold"><i class="fas fa-globe"></i> Más información sobre intercambios</a>
-       </div>
-     </div>
-   </section> -->
+</section>
 
 </BaseLayout>
 

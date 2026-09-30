@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
 
 const byOrder = (a: { data: { order?: number } }, b: { data: { order?: number } }) => (a.data.order ?? 0) - (b.data.order ?? 0);
@@ -23,6 +24,7 @@ const declaraciones = (await getCollection('declaraciones')).sort(byOrder);
 
   <!-- Informes -->
   <section class="section" aria-labelledby="informes-title">
+    <SectionIcons icons={['fa-box-archive', 'fa-file-lines', 'fa-cloud-arrow-up']} />
     <div class="container">
       <h2 class="section-title" id="informes-title">Informes Institucionales</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -43,6 +45,7 @@ const declaraciones = (await getCollection('declaraciones')).sort(byOrder);
 
   <!-- Normativas y Políticas -->
   <section id="normativas" class="section" style="background: var(--bg-light);" aria-labelledby="normativas-title">
+    <SectionIcons icons={['fa-gavel', 'fa-scale-balanced', 'fa-file-contract']} align="left" />
     <div class="container">
       <h2 class="section-title" id="normativas-title">Normativas y Políticas</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -62,6 +65,7 @@ const declaraciones = (await getCollection('declaraciones')).sort(byOrder);
 
   <!-- Datos Abiertos -->
   <section id="datos" class="section" aria-labelledby="datos-title">
+    <SectionIcons icons={['fa-database', 'fa-server', 'fa-cloud']} />
     <div class="container">
       <h2 class="section-title" id="datos-title">Datos Abiertos</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -83,6 +87,7 @@ const declaraciones = (await getCollection('declaraciones')).sort(byOrder);
 
   <!-- Estadísticas Institucionales -->
   <section id="estadisticas" class="stats-section" aria-labelledby="estadisticas-title">
+    <SectionIcons icons={['fa-chart-line', 'fa-chart-bar', 'fa-chart-pie']} align="left" />
     <div class="container">
       <h2 class="section-title section-title--light" id="estadisticas-title">Estadísticas Institucionales</h2>
       <div class="section-divider" style="background: var(--secondary);" aria-hidden="true"></div>
@@ -100,6 +105,7 @@ const declaraciones = (await getCollection('declaraciones')).sort(byOrder);
 
   <!-- Declaraciones de Bienes -->
   <section class="section" style="background: var(--bg-warm);" aria-labelledby="declaraciones-title">
+    <SectionIcons icons={['fa-box-archive', 'fa-file-invoice', 'fa-file-lines']} />
     <div class="container">
       <h2 class="section-title" id="declaraciones-title">Declaraciones de Bienes</h2>
       <div class="section-divider" aria-hidden="true"></div>
