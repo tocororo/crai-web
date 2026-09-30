@@ -532,10 +532,10 @@ const asignaturasServicio = defineCollection({
 });
 
 // ============================================================
-// Carreras × Asignaturas × Horas
+// Materias de la Licenciatura
 // ============================================================
-const carrerasAsignaturas = defineCollection({
-  loader: glob({ pattern: '**/*.yaml', base: './src/content/carreras-asignaturas' }),
+const materiasLicenciatura = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/materias-licenciatura' }),
   schema: z.object({
     carrera: z.string(),
     modalidad: z.string(),
@@ -545,6 +545,19 @@ const carrerasAsignaturas = defineCollection({
     semestre: z.number(),
     horas: z.number(),
     descripcion: z.string().optional(),
+    order: z.number().optional(),
+  }),
+});
+
+// ============================================================
+// Asignaturas de Servicio por Carrera
+// ============================================================
+const servicioCarreras = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/servicio-carreras' }),
+  schema: z.object({
+    carrera: z.string(),
+    materia: z.string(),
+    horas: z.number(),
     order: z.number().optional(),
   }),
 });
@@ -585,5 +598,6 @@ export const collections = {
   'datos-abiertos': datosAbiertos,
   declaraciones,
   'asignaturas-servicio': asignaturasServicio,
-  'carreras-asignaturas': carrerasAsignaturas,
+  'materias-licenciatura': materiasLicenciatura,
+  'servicio-carreras': servicioCarreras,
 };

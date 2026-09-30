@@ -86,52 +86,6 @@ import SectionIcons from '../components/SectionIcons.astro';
       </div>
     </section>
   </main>
-</BaseLayout>
-
-<style is:inline>
-  .reservar-section { background: var(--bg-light); padding: 80px 0; }
-  .reservar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 30px; }
-  .reservar-card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px; box-shadow: var(--shadow-sm); }
-  .reservar-card-title { font-family: var(--font-title); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); margin: 0 0 20px; display: flex; align-items: center; gap: 10px; }
-  .reservar-card-title i { color: var(--primary); }
-
-  .calendar-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-  .cal-month { font-family: var(--font-title); font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 0; }
-  .cal-nav-btn { width: 36px; height: 36px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-white); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
-  .cal-nav-btn:hover { background: var(--bg-light); }
-  .calendar { border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
-  .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); background: var(--primary); color: var(--text-light); }
-  .cal-weekdays span { padding: 10px 4px; text-align: center; font-size: 0.8rem; font-weight: 600; }
-  .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); }
-  .cal-day { padding: 10px 4px; text-align: center; font-size: 0.85rem; border: 1px solid var(--border-color); cursor: pointer; transition: background 0.2s, color 0.2s; font-family: var(--font-body); color: var(--text-primary); background: var(--bg-white); }
-  .cal-day:hover:not(.reserved):not(.unavailable) { background: rgba(23,109,58,0.08); }
-  .cal-day.other-month { color: #ccc; cursor: default; }
-  .cal-day.selected { background: var(--primary); color: var(--text-light); border-color: var(--primary); }
-  .cal-day.available { background: rgba(23,109,58,0.12); font-weight: 600; }
-  .cal-day.available:hover { background: rgba(23,109,58,0.22); }
-  .cal-day.reserved { background: var(--bg-light); color: #bbb; cursor: not-allowed; text-decoration: line-through; position: relative; }
-  .cal-day.unavailable { background: #f5f5f5; color: #ddd; cursor: not-allowed; }
-  .cal-day .cal-time { display: block; font-size: 0.65rem; color: var(--primary); font-weight: 700; margin-top: 2px; }
-  .cal-hint { text-align: center; font-size: 0.8rem; color: var(--text-secondary); margin-top: 10px; }
-
-  .reservation-form { display: flex; flex-direction: column; gap: 16px; }
-  .form-group { display: flex; flex-direction: column; gap: 6px; }
-  .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
-  .form-group input, .form-group select, .form-group textarea { font-family: var(--font-body); font-size: 0.9rem; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-white); color: var(--text-primary); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(23,109,58,0.12); }
-  .form-group input::placeholder, .form-group textarea::placeholder { color: #bbb; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .btn-reserva { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; border: none; border-radius: 10px; background: var(--primary); color: var(--text-light); font-family: var(--font-title); font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 8px; }
-  .btn-reserva:hover { background: var(--primary-dark); transform: scale(1.02); }
-  .btn-reserva:active { transform: scale(0.98); }
-  .btn-reserva i { font-size: 1.1rem; }
-
-  @media (max-width: 768px) {
-    .reservar-grid { grid-template-columns: 1fr; }
-    .form-row { grid-template-columns: 1fr; }
-  }
-</style>
-
 <script is:inline>
   const HARD_CODED_RESERVED = {
     '2025-07-10': '10:00 - 12:00',
@@ -333,3 +287,49 @@ import SectionIcons from '../components/SectionIcons.astro';
     }, 1000);
   });
 </script>
+</BaseLayout>
+
+<style is:inline>
+  .reservar-section { background: var(--bg-light); padding: 80px 0; }
+  .reservar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 30px; }
+  .reservar-card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px; box-shadow: var(--shadow-sm); }
+  .reservar-card-title { font-family: var(--font-title); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); margin: 0 0 20px; display: flex; align-items: center; gap: 10px; }
+  .reservar-card-title i { color: var(--primary); }
+
+  .calendar-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .cal-month { font-family: var(--font-title); font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 0; }
+  .cal-nav-btn { width: 36px; height: 36px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-white); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+  .cal-nav-btn:hover { background: var(--bg-light); }
+  .calendar { border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
+  .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); background: var(--primary); color: var(--text-light); }
+  .cal-weekdays span { padding: 10px 4px; text-align: center; font-size: 0.8rem; font-weight: 600; }
+  .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .cal-day { padding: 10px 4px; text-align: center; font-size: 0.85rem; border: 1px solid var(--border-color); cursor: pointer; transition: background 0.2s, color 0.2s; font-family: var(--font-body); color: var(--text-primary); background: var(--bg-white); }
+  .cal-day:hover:not(.reserved):not(.unavailable) { background: rgba(23,109,58,0.08); }
+  .cal-day.other-month { color: #ccc; cursor: default; }
+  .cal-day.selected { background: var(--primary); color: var(--text-light); border-color: var(--primary); }
+  .cal-day.available { background: rgba(23,109,58,0.12); font-weight: 600; }
+  .cal-day.available:hover { background: rgba(23,109,58,0.22); }
+  .cal-day.reserved { background: var(--bg-light); color: #bbb; cursor: not-allowed; text-decoration: line-through; position: relative; }
+  .cal-day.unavailable { background: #f5f5f5; color: #ddd; cursor: not-allowed; }
+  .cal-day .cal-time { display: block; font-size: 0.65rem; color: var(--primary); font-weight: 700; margin-top: 2px; }
+  .cal-hint { text-align: center; font-size: 0.8rem; color: var(--text-secondary); margin-top: 10px; }
+
+  .reservation-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
+  .form-group input, .form-group select, .form-group textarea { font-family: var(--font-body); font-size: 0.9rem; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-white); color: var(--text-primary); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(23,109,58,0.12); }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: #bbb; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .btn-reserva { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; border: none; border-radius: 10px; background: var(--primary); color: var(--text-light); font-family: var(--font-title); font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 8px; }
+  .btn-reserva:hover { background: var(--primary-dark); transform: scale(1.02); }
+  .btn-reserva:active { transform: scale(0.98); }
+  .btn-reserva i { font-size: 1.1rem; }
+
+  @media (max-width: 768px) {
+    .reservar-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+

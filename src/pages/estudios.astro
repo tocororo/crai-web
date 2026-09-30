@@ -4,11 +4,11 @@ import PageHero from '../components/PageHero.astro';
 import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
 
-const carrerasAsignaturas = (await getCollection('carreras-asignaturas'))
+const carrerasAsignaturas = (await getCollection('materias-licenciatura'))
   .filter((c) => c.data.carrera === 'Licenciatura en Ciencias de la Información')
   .sort((a, b) => (a.data.año ?? 0) - (b.data.año ?? 0) || (a.data.order ?? 0) - (b.data.order ?? 0));
 
-const carrerasAsignaturasAll = (await getCollection('carreras-asignaturas'))
+const servicioCarreras = (await getCollection('servicio-carreras'))
   .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
 const yearLabels: Record<number, string> = {
@@ -22,13 +22,51 @@ const yearLabels: Record<number, string> = {
 const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 ---
 <BaseLayout title="Materias de la Carrera — CRAI" description="Explora las asignaturas de la Licenciatura en Ciencias de la Información en modalidad Curso por Encuentro.">
-  <PageHero
-    badgeIcon="fa-book-open"
-    badge="Licenciatura en Ciencias de la Información"
-    title="Formación Academica"
-    subtitle="5 años de formación integral en gestión documental, investigación y organización de la información"
-    crumb="Estudios"
-  />
+  <!-- HERO MODERNO S/FOTO -->
+  <section class="hero hero--compact" aria-label="Estudios">
+    <div class="hero-bg hero-bg--plain"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-symbols" aria-hidden="true">
+      <i class="fas fa-magnifying-glass hero-glyph hs-1"></i>
+      <i class="fas fa-book-open hero-glyph hs-2"></i>
+      <i class="fas fa-filter hero-glyph hs-3"></i>
+      <i class="fas fa-book hero-glyph hs-4"></i>
+      <i class="fas fa-barcode hero-glyph hs-5"></i>
+      <i class="fas fa-graduation-cap hero-glyph hs-6"></i>
+      <i class="fas fa-chalkboard-user hero-glyph hs-7"></i>
+      <i class="fas fa-users hero-glyph hs-8"></i>
+      <i class="fas fa-clock hero-glyph hs-9"></i>
+    </div>
+    <div class="hero-particles" aria-hidden="true">
+      <div class="hero-particle" style="--x:15%;--y:20%;--s:60px;--d:0s;"></div>
+      <div class="hero-particle" style="--x:80%;--y:30%;--s:40px;--d:2s;"></div>
+      <div class="hero-particle" style="--x:25%;--y:70%;--s:50px;--d:4s;"></div>
+      <div class="hero-particle" style="--x:70%;--y:65%;--s:35px;--d:1s;"></div>
+      <div class="hero-particle" style="--x:50%;--y:15%;--s:45px;--d:3s;"></div>
+      <div class="hero-particle" style="--x:10%;--y:50%;--s:30px;--d:5s;"></div>
+      <div class="hero-particle" style="--x:90%;--y:55%;--s:55px;--d:2.5s;"></div>
+      <div class="hero-particle" style="--x:45%;--y:85%;--s:25px;--d:4.5s;"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge-wrapper">
+        <span class="hero-badge">
+          <img src="/images/305464304_448374310649340_2984277522454001566_n-Photoroom.png" alt="Logo UPR" class="univ-hero-logo" />
+          Licenciatura en Ciencias de la Información
+        </span>
+      </div>
+      <h1 class="hero-title univ-hero-title">Formación Académica</h1>
+      <p class="hero-subtitle">5 años de formación integral en gestión documental, investigación y organización de la información</p>
+    </div>
+  </section>
+
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        <li class="current" aria-current="page">Estudios</li>
+      </ul>
+    </div>
+  </nav>
 
   <!-- Program Search -->
   <section class="section section-search" aria-labelledby="search-title">
@@ -39,8 +77,9 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
        <div class="search-controls">
          <div class="search-box">
            <input type="text" id="program-search-input" placeholder="Buscar materias..." aria-label="Buscar materias" />
-          <button id="program-search-btn" aria-label="Buscar"><i class="fas fa-search"></i></button>
+           <button id="program-search-btn" aria-label="Buscar"><i class="fas fa-search"></i></button>
         </div>
+        <p class="search-feedback" id="search-feedback" role="status" aria-live="polite"></p>
         <div class="filter-buttons">
           <button class="filter-btn active" data-filter="all">Todos</button>
           <button class="filter-btn" data-filter="1">1er año</button>
@@ -76,14 +115,17 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
           </div>
         ))}
       </div>
+      <p class="program-empty" id="program-empty" hidden>
+        <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+        No encontramos materias con ese criterio. Prueba con otro término o selecciona «Todos».
+      </p>
+      <div class="pagination-wrapper" id="pagination-wrapper">
+        <button class="pagination-btn" id="pagination-prev" aria-label="Página anterior"><i class="fas fa-chevron-left"></i></button>
+        <div class="pagination-pages" id="pagination-pages"></div>
+        <button class="pagination-btn" id="pagination-next" aria-label="Página siguiente"><i class="fas fa-chevron-right"></i></button>
+      </div>
     </div>
   </section>
-
-  <div class="pagination-wrapper" id="pagination-wrapper">
-    <button class="pagination-btn" id="pagination-prev" aria-label="Página anterior"><i class="fas fa-chevron-left"></i></button>
-    <div class="pagination-pages" id="pagination-pages"></div>
-    <button class="pagination-btn" id="pagination-next" aria-label="Página siguiente"><i class="fas fa-chevron-right"></i></button>
-  </div>
 
   <!-- Asignaturas de Servicio -->
    <section class="section section--border-top" id="asignaturas-servicio" aria-labelledby="asignaturas-title">
@@ -113,7 +155,7 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
             </tr>
           </thead>
           <tbody>
-             {carrerasAsignaturasAll.map((c, i) => (
+             {servicioCarreras.map((c, i) => (
               <tr class:list={[i % 2 === 1 && 'alt']}>
                 <td>{c.data.carrera}</td>
                 <td>{c.data.materia}</td>
@@ -126,44 +168,132 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
     </div>
 </section>
 
-</BaseLayout>
-
 <script is:inline>
+  // Búsqueda + filtros + paginación en un solo lugar.
+  // Todo se controla con la clase .hidden (nada de estilos inline), para que
+  // los tres comportamientos no se pisen entre sí.
   const ITEMS_PER_PAGE = 5;
-  const items = document.querySelectorAll('.program-list-item');
-  const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
-  let currentPage = 1;
+
+  const allItems = Array.from(document.querySelectorAll('.program-list-item'));
+  const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+  const searchInput = document.getElementById('program-search-input');
+  const searchBtn = document.getElementById('program-search-btn');
   const pagesContainer = document.getElementById('pagination-pages');
   const prevBtn = document.getElementById('pagination-prev');
   const nextBtn = document.getElementById('pagination-next');
+  const emptyMsg = document.getElementById('program-empty');
+  const feedback = document.getElementById('search-feedback');
 
-  function showPage(page) {
-    currentPage = page;
-    items.forEach((item, i) => {
-      item.classList.toggle('hidden', i < (currentPage - 1) * ITEMS_PER_PAGE || i >= currentPage * ITEMS_PER_PAGE);
+  // Sin tildes: "catalogo" debe encontrar "Catálogo"
+  const normalize = (s) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+  // Para pintar la consulta del usuario en innerHTML sin riesgo
+  const esc = (s) => (s || '').replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  // Texto buscable de cada materia, calculado una sola vez
+  const haystack = new Map(allItems.map((el) => [el, normalize(el.textContent)]));
+
+  let currentFilter = 'all';
+  let currentQuery = '';
+  let currentPage = 1;
+
+  function getMatches() {
+    return allItems.filter((item) => {
+      const okFilter = currentFilter === 'all' || item.dataset.category === currentFilter;
+      const okQuery = currentQuery === '' || haystack.get(item).includes(currentQuery);
+      return okFilter && okQuery;
     });
-    updateButtons();
-    renderPages();
   }
 
-  function updateButtons() {
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages;
+  function render() {
+    const matches = getMatches();
+    const totalPages = Math.max(1, Math.ceil(matches.length / ITEMS_PER_PAGE));
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    // Se recorren TODOS los items, no solo los que coinciden: si no hay
+    // resultados hay que ocultar los que estaban visibles.
+    const visible = new Set(
+      matches.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
+    );
+    allItems.forEach((item) => item.classList.toggle('hidden', !visible.has(item)));
+
+    if (prevBtn) prevBtn.disabled = currentPage === 1;
+    if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+    renderPages(totalPages);
+
+    if (emptyMsg) emptyMsg.hidden = matches.length > 0;
+    updateFeedback(matches.length);
   }
 
-  function renderPages() {
+  // Se actualiza aquí para que la respuesta se vea en la propia caja de
+  // búsqueda: si no, hay que bajar a la lista para enterarse de algo.
+  function updateFeedback(count) {
+    if (!feedback) return;
+    const total = allItems.length;
+    const hayCriterio = currentQuery !== '' || currentFilter !== 'all';
+    const consulta = currentQuery ? ` para <strong>«${esc(currentQuery)}»</strong>` : '';
+
+    feedback.classList.toggle('is-empty', count === 0);
+
+    if (count === 0) {
+      feedback.innerHTML = `Sin materias que coincidan${consulta}`;
+    } else if (hayCriterio) {
+      feedback.innerHTML = `<strong>${count}</strong> de ${total} materias${consulta}`;
+    } else {
+      feedback.innerHTML = `<strong>${total}</strong> materias`;
+    }
+  }
+
+  function renderPages(totalPages) {
+    if (!pagesContainer) return;
     pagesContainer.innerHTML = '';
     for (let i = 1; i <= totalPages; i++) {
       const btn = document.createElement('button');
       btn.className = 'pagination-page' + (i === currentPage ? ' active' : '');
       btn.textContent = i;
       btn.setAttribute('aria-label', 'Página ' + i);
-      btn.addEventListener('click', () => showPage(i));
+      btn.addEventListener('click', () => {
+        currentPage = i;
+        render();
+      });
       pagesContainer.appendChild(btn);
     }
   }
 
-  prevBtn.addEventListener('click', () => { if (currentPage > 1) showPage(currentPage - 1); });
-  nextBtn.addEventListener('click', () => { if (currentPage < totalPages) showPage(currentPage + 1); });
-  showPage(1);
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter || 'all';
+      currentPage = 1;
+      render();
+    });
+  });
+
+  function applySearch() {
+    currentQuery = normalize(searchInput?.value).trim();
+    currentPage = 1;
+    render();
+  }
+
+  // La lista está lejos de la caja, así que al pedir la búsqueda de forma
+  // explícita (Enter o la lupa) saltamos a los resultados.
+  function goToResults() {
+    document.getElementById('grado')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', applySearch);
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); applySearch(); goToResults(); }
+      if (e.key === 'Escape') { searchInput.value = ''; applySearch(); }
+    });
+  }
+  if (searchBtn) searchBtn.addEventListener('click', () => { applySearch(); goToResults(); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { if (currentPage > 1) { currentPage--; render(); } });
+  if (nextBtn) nextBtn.addEventListener('click', () => { if (currentPage < Math.ceil(getMatches().length / ITEMS_PER_PAGE)) { currentPage++; render(); } });
+
+  render();
 </script>
+</BaseLayout>

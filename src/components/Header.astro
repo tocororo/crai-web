@@ -1,5 +1,6 @@
 ---
 import { getSiteConfig } from '../lib/content';
+import { getCollection } from 'astro:content';
 
 const config = await getSiteConfig();
 const nav = config?.navigation ?? [];
@@ -7,6 +8,23 @@ const logo = config?.logo;
 const siteName = config?.siteName ?? 'CRAI';
 const siteSubtitle = config?.siteSubtitle ?? '';
 const { currentPath = '' } = Astro.props;
+
+const yearLabels: Record<number, string> = {
+  1: '1er año', 2: '2do año', 3: '3er año', 4: '4to año', 5: '5to año',
+};
+
+// Índice que alimenta el buscador del encabezado: las 34 materias de la carrera.
+const materias = (await getCollection('materias-licenciatura'))
+  .sort((a, b) => (a.data.año ?? 0) - (b.data.año ?? 0) || (a.data.order ?? 0) - (b.data.order ?? 0))
+  .map((m) => ({
+    title: m.data.materia,
+    meta: `${m.data.disciplina} · ${yearLabels[m.data.año] ?? m.data.año + '° año'} · ${m.data.horas} hrs`,
+    keywords: m.data.descripcion ?? '',
+    url: `/estudios?q=${encodeURIComponent(m.data.materia)}`,
+  }));
+
+// "<" se escapa para que un contenido con "</script>" no corte el bloque JSON
+const materiasJson = JSON.stringify(materias).replace(/</g, '\\u003c');
 
 const pathWithoutHash = currentPath.split('#')[0].replace(/\/$/, '') || '/';
 const isActive = (url: string) => {
@@ -72,8 +90,10 @@ const hasChildrenActive = (item: { url: string; children?: { url: string }[] }) 
       </button>
     </div>
     <div class="search-hint">
-      <span>Busca en las <strong>páginas del CRAI</strong></span>
+      <span>Busca <strong>páginas y materias</strong> del CRAI</span>
     </div>
     <div class="search-results" id="search-results"></div>
   </div>
+
+  <script type="application/json" id="materias-index" set:html={materiasJson}></script>
 </header>

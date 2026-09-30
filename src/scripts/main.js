@@ -298,6 +298,19 @@ document.addEventListener('DOMContentLoaded', () => {
   let highlightedIndex = -1;
   let currentItems = [];
 
+  // Materias inyectadas por Header.astro (fuera de este bundle)
+  const MATERIAS = (() => {
+    try {
+      const el = document.getElementById('materias-index');
+      return el ? JSON.parse(el.textContent || '[]') : [];
+    } catch (e) {
+      return [];
+    }
+  })();
+
+  // Sin tildes ni mayúsculas: "gestion" debe encontrar "Gestión"
+  const normalizeText = (s) => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
   if (searchToggle && searchBar) {
     searchToggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -567,53 +580,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================================
-  // PROGRAM FILTERS
-  // ==========================================================
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const programItems = document.querySelectorAll('.program-list-item');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter || 'all';
-      programItems.forEach(item => {
-        if (filter === 'all' || item.dataset.category === filter) {
-          item.style.display = 'flex';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    });
-  });
-
-  const programSearchInput = document.getElementById('program-search-input');
-  const programSearchBtn = document.getElementById('program-search-btn');
-
-  function filterPrograms(query) {
-    const q = query.toLowerCase().trim();
-    programItems.forEach(item => {
-      const title = item.querySelector('h3')?.textContent?.toLowerCase() || '';
-      const desc = item.querySelector('p')?.textContent?.toLowerCase() || '';
-      const meta = item.querySelector('.program-meta')?.textContent?.toLowerCase() || '';
-      if (title.includes(q) || desc.includes(q) || meta.includes(q)) {
-        item.style.display = 'flex';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  }
-
-  if (programSearchInput) {
-    programSearchInput.addEventListener('input', () => filterPrograms(programSearchInput.value));
-    if (programSearchBtn) {
-      programSearchBtn.addEventListener('click', () => filterPrograms(programSearchInput.value));
-      programSearchInput.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') filterPrograms(programSearchInput.value);
-      });
-    }
-  }
-
+  // NOTICIAS - FILTRO POR CATEGORÍA
+  // (La búsqueda y el filtro de materias viven en pages/estudios.astro,
+  //  donde también se controla la paginación para que no se pisen.)
   // ==========================================================
   // NEWS CATEGORY FILTERS
   // ==========================================================

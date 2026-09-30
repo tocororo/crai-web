@@ -244,16 +244,29 @@ collections:
       - { label: "Modalidad", name: "modalidad", widget: "string" }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
-  - name: "carreras-asignaturas"
-    label: "Carreras × Asignaturas"
-    folder: "src/content/carreras-asignaturas"
+  - name: "materias-licenciatura"
+    label: "Materias de la Licenciatura"
+    folder: "src/content/materias-licenciatura"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    identifier_field: "materia"
+    fields:
+      - { label: "Carrera", name: "carrera", widget: "string" }
+      - { label: "Materia", name: "materia", widget: "string" }
+      - { label: "Horas", name: "horas", widget: "number" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "servicio-carreras"
+    label: "Asignaturas de Servicio por Carrera"
+    folder: "src/content/servicio-carreras"
     create: true
     format: "yaml"
     extension: "yaml"
     identifier_field: "carrera"
     fields:
       - { label: "Carrera", name: "carrera", widget: "string" }
-      - { label: "Asignatura", name: "asignatura", widget: "string" }
+      - { label: "Materia", name: "materia", widget: "string" }
       - { label: "Horas", name: "horas", widget: "number" }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
