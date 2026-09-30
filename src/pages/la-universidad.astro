@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
 
 const equipo = (await getCollection('equipo')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
@@ -8,7 +9,6 @@ const timeline = (await getCollection('timeline')).sort((a, b) => (a.data.order 
 const mvv = (await getCollection('mvv')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 const organigrama = (await getCollection('organigrama')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 const campus = (await getCollection('campus')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
-const acreditaciones = (await getCollection('acreditaciones')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 ---
 
@@ -18,18 +18,15 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
     <div class="hero-bg hero-bg--plain"></div>
     <div class="hero-overlay"></div>
     <div class="hero-symbols" aria-hidden="true">
-      <img src="/images/upr/icon-book.svg" class="hero-symbol hs-book" alt="" />
-      <img src="/images/upr/icon-graduation.svg" class="hero-symbol hs-graduation" alt="" />
-      <img src="/images/upr/icon-search.svg" class="hero-symbol hs-search" alt="" />
-      <img src="/images/upr/icon-lightbulb.svg" class="hero-symbol hs-lightbulb" alt="" />
-      <img src="/images/upr/icon-atom.svg" class="hero-symbol hs-atom" alt="" />
-      <img src="/images/upr/icon-potion.svg" class="hero-symbol hs-potion" alt="" />
-      <img src="/images/upr/icon-pencil.svg" class="hero-symbol hs-pencil" alt="" />
-      <img src="/images/upr/icon-brain.svg" class="hero-symbol hs-brain" alt="" />
-      <img src="/images/upr/icon-globe.svg" class="hero-symbol hs-globe" alt="" />
-      <img src="/images/upr/icon-calculator.svg" class="hero-symbol hs-calculator" alt="" />
-      <img src="/images/upr/icon-microscope.svg" class="hero-symbol hs-microscope" alt="" />
-      <img src="/images/upr/icon-dna.svg" class="hero-symbol hs-dna" alt="" />
+      <i class="fas fa-landmark hero-glyph hs-1"></i>
+      <i class="fas fa-compass hero-glyph hs-2"></i>
+      <i class="fas fa-house hero-glyph hs-3"></i>
+      <i class="fas fa-bullseye hero-glyph hs-4"></i>
+      <i class="fas fa-building-columns hero-glyph hs-5"></i>
+      <i class="fas fa-sitemap hero-glyph hs-6"></i>
+      <i class="fas fa-users hero-glyph hs-7"></i>
+      <i class="fas fa-user-tie hero-glyph hs-8"></i>
+      <i class="fas fa-location-dot hero-glyph hs-9"></i>
     </div>
     <div class="hero-particles" aria-hidden="true">
       <div class="hero-particle" style="--x:15%;--y:20%;--s:60px;--d:0s;"></div>
@@ -64,6 +61,7 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
 
   <!-- HISTORIA / TIMELINE -->
   <section id="historia" class="section" aria-labelledby="historia-title">
+    <SectionIcons icons={['fa-house', 'fa-compass', 'fa-landmark']} />
     <div class="container">
       <h2 class="section-title" id="historia-title">Nuestra Historia</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -85,6 +83,7 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
 
   <!-- MISIÓN, VISIÓN, VALORES -->
   <section id="mvv" class="section" style="background: var(--bg-light);" aria-labelledby="mvv-title">
+    <SectionIcons icons={['fa-bullseye', 'fa-eye', 'fa-heart']} align="left" />
     <div class="container">
       <h2 class="section-title" id="mvv-title">Misión, Visión y Valores</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -103,6 +102,7 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
 
   <!-- SEDES -->
   <section id="sedes" class="section" aria-labelledby="sedes-title">
+    <SectionIcons icons={['fa-building', 'fa-location-dot', 'fa-map-pin']} />
     <div class="container">
       <h2 class="section-title" id="sedes-title">Sedes</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -138,10 +138,11 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
   
   <!-- ORGANIGRAMA -->
   <section id="organigrama" class="section" style="background: var(--bg-warm);" aria-labelledby="org-title">
+    <SectionIcons icons={['fa-sitemap', 'fa-users', 'fa-building-columns']} align="left" />
     <div class="container">
       <h2 class="section-title" id="org-title">Organigrama Institucional</h2>
       <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">Estructura organizativa del CRAI </p>
+      <p class="section-subtitle">Estructura organizativa del CRAI</p>
       <div class="org-chart">
         {organigrama.map((level) => (
           <div class="org-level">
@@ -154,8 +155,9 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
     </div>
   </section> 
 
-    <!-- AUTORIDADES -->
+  <!-- AUTORIDADES -->
   <section id="autoridades" class="section" aria-labelledby="autoridades-title">
+    <SectionIcons icons={['fa-user-tie', 'fa-id-card', 'fa-crown']} />
     <div class="container">
       <h2 class="section-title" id="autoridades-title">Autoridades Universitarias</h2>
       <div class="section-divider" aria-hidden="true"></div>
@@ -174,27 +176,9 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
   </section>
 
 
-  <!-- ACREDITACIONES
-  <section id="acreditaciones" class="section" style="background: var(--bg-light);" aria-labelledby="acreditaciones-title">
-    <div class="container">
-      <h2 class="section-title" id="acreditaciones-title">Acreditaciones y Reconocimientos</h2>
-      <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">Certificaciones que avalan nuestra calidad institucional</p>
-      <div class="content-grid">
-        {acreditaciones.map((a) => (
-          <div class="content-card reveal">
-            <div class="content-card-icon"><i class={a.data.icon} aria-hidden="true"></i></div>
-            <h3>{a.data.title}</h3>
-            <p>{a.data.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-   -->
-
   <!-- DATOS RÁPIDOS -->
   <section class="stats-section" aria-labelledby="stats-title">
+    <SectionIcons icons={['fa-chart-line', 'fa-chart-bar', 'fa-chart-pie']} />
     <div class="container">
       <h2 class="section-title section-title--light" id="stats-title">La Universidad en Cifras</h2>
       <div class="section-divider" style="background: var(--secondary);" aria-hidden="true"></div>

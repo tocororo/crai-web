@@ -25,8 +25,6 @@ navigation:
         url: "/la-universidad#organigrama"
       - label: "Sedes"
         url: "/la-universidad#sedes"
-      - label: "Acreditaciones"
-        url: "/la-universidad#acreditaciones"
   - label: "Estudios"
     url: "/estudios"
     children:

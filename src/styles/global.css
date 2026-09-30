@@ -871,12 +871,14 @@ ul { list-style: none; }
 
 .univ-hero-accent {
   display: block;
+  font-family: 'Open Sans', sans-serif;
   color: transparent;
   background: linear-gradient(135deg, #ffffff, #d4edda);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 800;
+  letter-spacing: 0.01em;
 }
 
 /* Grid pattern overlay */
@@ -925,6 +927,7 @@ ul { list-style: none; }
   background: transparent;
 }
 
+/* símbolos SVG — hero de la portada (index.astro) */
 .hs-book { width: 64px; top: 14%; left: 14%; animation-delay: 0s; }
 .hs-graduation { width: 74px; top: 18%; right: 16%; animation-delay: 1.2s; }
 .hs-search { width: 60px; top: 66%; left: 8%; animation-delay: 2s; }
@@ -937,6 +940,27 @@ ul { list-style: none; }
 .hs-calculator { width: 56px; top: 70%; left: 28%; animation-delay: 0.4s; }
 .hs-microscope { width: 60px; top: 32%; left: 6%; animation-delay: 3s; }
 .hs-dna { width: 62px; top: 54%; right: 30%; animation-delay: 1.6s; }
+
+/* glifos Font Awesome — hero de La Universidad */
+.hero-glyph {
+  position: absolute;
+  font-size: 2.9rem;
+  line-height: 1;
+  color: #fff;
+  opacity: 0.13;
+  filter: drop-shadow(0 4px 12px rgba(15, 43, 28, 0.35));
+  animation: heroSymbolFloat 7s ease-in-out infinite;
+}
+
+.hs-1 { top: 12%; left: 11%; font-size: 3.4rem; animation-delay: 0s; }
+.hs-2 { top: 20%; right: 13%; font-size: 2.7rem; animation-delay: 1.2s; }
+.hs-3 { top: 64%; left: 7%; font-size: 2.9rem; animation-delay: 2s; }
+.hs-4 { top: 56%; right: 9%; font-size: 2.5rem; animation-delay: 0.6s; }
+.hs-5 { top: 15%; right: 33%; font-size: 3.1rem; animation-delay: 1.8s; }
+.hs-6 { top: 30%; left: 38%; font-size: 2.6rem; animation-delay: 2.6s; }
+.hs-7 { top: 72%; left: 30%; font-size: 2.8rem; animation-delay: 0.8s; }
+.hs-8 { top: 40%; right: 5%; font-size: 2.5rem; animation-delay: 2.4s; }
+.hs-9 { top: 8%; left: 30%; font-size: 2.4rem; animation-delay: 1.4s; }
 
 @keyframes heroSymbolFloat {
   0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -1202,9 +1226,11 @@ ul { list-style: none; }
 }
 
 .hero .univ-hero-title {
-  font-size: 2rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 2.1rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
   width: fit-content;
   margin: 0 auto 16px;
   color: transparent;
@@ -1239,14 +1265,16 @@ ul { list-style: none; }
 
 /* Subtitle */
 .hero-subtitle {
-  font-size: 1.15rem;
-  color: rgba(255,255,255,0.7);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.08rem;
+  color: rgba(255,255,255,0.72);
   margin-bottom: 32px;
-  line-height: 1.7;
-  max-width: 600px;
+  line-height: 1.75;
+  max-width: 620px;
   margin-left: auto;
   margin-right: auto;
   font-weight: 400;
+  letter-spacing: 0.005em;
 }
 
 /* Actions */
