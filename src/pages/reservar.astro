@@ -1,10 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionIcons from '../components/SectionIcons.astro';
 ---
 
 <BaseLayout title="Reservar Sala — CRAI">
   <main id="main-content">
     <section class="section reservar-section" aria-labelledby="reservar-title">
+      <SectionIcons icons={['fa-calendar', 'fa-clock', 'fa-door-open', 'fa-chair']} />
       <div class="container">
         <h2 class="section-title" id="reservar-title">Reservar Sala</h2>
         <div class="section-divider" aria-hidden="true"></div>
