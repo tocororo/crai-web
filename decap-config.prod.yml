@@ -216,7 +216,7 @@ collections:
     extension: "yaml"
     fields:
       - { label: "Nivel", name: "level", widget: "number" }
-      - { label: "Nodos", name: "nodes", widget: "list" }
+      - { label: "Nodos", name: "nodes", widget: "list", field: { label: "Nodo", name: "label", widget: "string" } }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
   - name: "campus"
