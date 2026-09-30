@@ -72,7 +72,8 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
   <section class="section section-search" aria-labelledby="search-title">
     <SectionIcons icons={['fa-magnifying-glass', 'fa-book-open', 'fa-filter']} />
     <div class="container">
-<h2 class="section-title" id="search-title">Busca tu materia ideal</h2>
+      <span class="section-eyebrow">Búsqueda</span>
+      <h2 class="section-title" id="search-title">Busca tu materia ideal</h2>
        <div class="section-divider" aria-hidden="true"></div>
        <div class="search-controls">
          <div class="search-box">
@@ -96,6 +97,7 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
   <section id="grado" class="section section--border-top" aria-labelledby="programas-title">
     <SectionIcons icons={['fa-book-open', 'fa-book', 'fa-barcode']} align="left" />
     <div class="container">
+      <span class="section-eyebrow">Plan de Estudios</span>
       <h2 class="section-title" id="programas-title">Materias de la Licenciatura en Ciencias de la Información</h2>
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Curso por Encuentro — 5 años de formación integral en Ciencias de la Información</p>
@@ -131,6 +133,7 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
    <section class="section section--border-top" id="asignaturas-servicio" aria-labelledby="asignaturas-title">
     <SectionIcons icons={['fa-graduation-cap', 'fa-chalkboard-user', 'fa-users']} />
     <div class="container">
+      <span class="section-eyebrow">Servicio</span>
       <h2 class="section-title" id="asignaturas-title">Asignaturas de Servicio</h2>
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Formación en competencias informacionales para toda la comunidad estudiantil</p>
