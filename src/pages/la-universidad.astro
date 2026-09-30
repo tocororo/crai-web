@@ -101,31 +101,38 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
     </div>
   </section>
 
-    <!-- CAMPUS Y SEDES -->
-  <section id="campus" class="section" aria-labelledby="campus-title">
+  <!-- SEDES -->
+  <section id="sedes" class="section" aria-labelledby="sedes-title">
     <div class="container">
-      <h2 class="section-title" id="campus-title">Campus y Sedes</h2>
+      <h2 class="section-title" id="sedes-title">Sedes</h2>
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Nuestras instalaciones están distribuidas estratégicamente para brindar cobertura nacional</p>
-      <div style="margin-top: 8px;">
-        <div id="campus-map" class="campus-map" style="height: 400px; border-radius: var(--radius-md); overflow: hidden;"></div>
+      <div class="sedes-map-wrap">
+        <div id="campus-map" class="campus-map"></div>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 32px;">
-<        {campus.map((c, i) => (
+      <div class="sedes-grid">
+        {campus.map((c, i) => (
           <div
-            class={`mvv-card reveal campus-card${i === 0 ? ' campus-active' : ''}`}
-            style="text-align: left;"
+            class={`sedes-card reveal${i === 0 ? ' campus-active' : ''}`}
             role="button"
             tabindex="0"
+            aria-pressed={i === 0 ? 'true' : 'false'}
             data-campus-geo={c.data.geo}
             data-campus-name={c.data.name}>
-            <h3 style="color: var(--primary); font-family: var(--font-title);"><i class={c.data.icon} aria-hidden="true" style="color: var(--secondary);"></i> {c.data.name}</h3>
-            <p style="font-size: 0.9rem; color: var(--text-secondary);">{c.data.desc}</p>
+            <span class="sedes-card-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="sedes-card-icon"><i class={c.data.icon} aria-hidden="true"></i></span>
+            <h3 class="sedes-card-title">{c.data.name}</h3>
+            <p class="sedes-card-desc">{c.data.desc}</p>
+            <span class="sedes-card-hint">
+              <i class="fas fa-map-location-dot" aria-hidden="true"></i>
+              Ver en el mapa
+              <i class="fas fa-arrow-right hint-arrow" aria-hidden="true"></i>
+            </span>
           </div>
         ))}
-</div>
       </div>
-      <script is:inline src="/js/campus-map.js" defer></script>
+    </div>
+    <script is:inline src="/js/campus-map.js" defer></script>
   </section>
 
   
