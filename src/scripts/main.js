@@ -284,14 +284,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const LOCAL_PAGES = [
     { title: 'Inicio', url: '/', keywords: 'inicio, bienvenidos, crai' },
-    { title: 'La Universidad', url: '/la-universidad', keywords: 'universidad, historia, mision, vision, autoridad' },
-    { title: 'Estudios - Oferta Académica', url: '/estudios', keywords: 'estudios, programas, carreras, grado, posgrado, curso' },
-    { title: 'Admisión', url: '/admision', keywords: 'admision, inscripcion, requisitos, becas, matricula' },
-    { title: 'Investigación', url: '/investigacion', keywords: 'investigacion, proyectos, publicaciones, ciencia' },
-    { title: 'Actualidad', url: '/actualidad', keywords: 'noticias, eventos, actualidad, agenda' },
-    { title: 'Portal de Transparencia', url: '/transparencia', keywords: 'transparencia, informes, datos, presupuesto' },
+    { title: 'La Universidad', url: '/la-universidad', keywords: 'universidad, historia, mision, vision, autoridad, sedes, organigrama' },
+    { title: 'Estudios - Materias de la Carrera', url: '/estudios', keywords: 'estudios, materias, asignaturas, carrera, grado, curso por encuentro' },
+    { title: 'Admisión', url: '/admision', keywords: 'admision, inscripcion, requisitos, becas, matricula, calendario' },
+    { title: 'Investigación', url: '/investigacion', keywords: 'investigacion, proyectos, publicaciones, ciencia, grupos' },
+    { title: 'Actualidad', url: '/actualidad', keywords: 'noticias, eventos, actualidad, agenda, avisos' },
+    { title: 'Portal de Transparencia', url: '/transparencia', keywords: 'transparencia, informes, datos, presupuesto, normativas' },
+    { title: 'Reservar Sala', url: '/reservar', keywords: 'reservar, sala, reserva, calendario' },
   ];
 
+  const MIN_CHARS = 2;
   let debounceTimer = null;
   let highlightedIndex = -1;
   let currentItems = [];
@@ -334,9 +336,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function onSearchInput() {
     const query = searchInput.value.trim();
     updateIconAndClear();
-    if (query.length < 2) { closeResults(); return; }
+    if (query.length < MIN_CHARS) { closeResults(); return; }
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => executeSearch(query), 150);
+    debounceTimer = setTimeout(() => executeSearch(query), 250);
   }
 
   function updateIconAndClear() {
@@ -353,6 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function executeSearch(query) {
     const q = query.toLowerCase();
     currentItems = [];
+
     const results = LOCAL_PAGES.filter(p =>
       p.title.toLowerCase().includes(q) ||
       p.keywords.toLowerCase().includes(q)
@@ -365,14 +368,14 @@ document.addEventListener('DOMContentLoaded', () => {
           <p>No se encontraron resultados para <strong>"${escapeHtml(query)}"</strong></p>
         </div>`;
       searchResults.classList.add('active');
-      currentItems = [];
+      bindResultEvents();
       return;
     }
 
     let html = `<div class="search-results-group">`;
     html += `<div class="search-results-group-header"><i class="fas fa-file-alt"></i> Páginas del sitio</div>`;
     results.slice(0, 8).forEach(p => {
-      currentItems.push({ url: p.url, type: 'page' });
+      currentItems.push({ url: p.url });
       html += `
         <div class="search-results-item" data-index="${currentItems.length - 1}">
           <div class="search-results-item-icon page"><i class="fas fa-file-alt"></i></div>
@@ -388,11 +391,13 @@ document.addEventListener('DOMContentLoaded', () => {
     searchResults.innerHTML = html;
     searchResults.classList.add('active');
     highlightedIndex = -1;
+    bindResultEvents();
+  }
 
+  function bindResultEvents() {
     searchResults.querySelectorAll('.search-results-item').forEach(el => {
       el.addEventListener('click', () => {
-        const idx = parseInt(el.dataset.index);
-        navigateToResult(idx);
+        navigateToResult(parseInt(el.dataset.index, 10));
       });
     });
   }

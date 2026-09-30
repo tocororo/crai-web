@@ -63,16 +63,16 @@ const hasChildrenActive = (item: { url: string; children?: { url: string }[] }) 
   </div>
 
   <!-- Search Bar -->
-  <div class="search-bar" id="search-bar" role="search" aria-label="Buscador interno">
+  <div class="search-bar" id="search-bar" role="search" aria-label="Buscador del sitio">
     <div class="container">
       <i class="fas fa-search search-icon" id="search-icon" aria-hidden="true"></i>
-      <input type="search" id="search-input" placeholder="Buscar páginas, publicaciones científicas..." aria-label="Buscar" autocomplete="off" spellcheck="false" />
+      <input type="search" id="search-input" placeholder="Buscar en el sitio..." aria-label="Buscar" autocomplete="off" spellcheck="false" />
       <button class="search-clear" id="search-clear" aria-label="Limpiar búsqueda">
-        <i class="fas fa-times"></i>
+        <i class="fas fa-times" aria-hidden="true"></i>
       </button>
     </div>
     <div class="search-hint">
-      <span>Busca en <strong>páginas del CRAI</strong> y en el <strong>Repositorio Científico (RC)</strong></span>
+      <span>Busca en las <strong>páginas del CRAI</strong></span>
     </div>
     <div class="search-results" id="search-results"></div>
   </div>
