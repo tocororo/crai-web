@@ -7,7 +7,7 @@ description: La compañía tecnológica NowClear ha presentado su nueva platafor
 pubDate: 2026-10-07T11:05:00.000-04:00
 author: "Claudia Santieteban Bravo "
 category: Investigacion
-heroImage: (https://images.unsplash.com/photo-1550751827-4bd374c3f58b)
+heroImage: ""
 icon: fas fa-newspaper
 draft: false
 ---
