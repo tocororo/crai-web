@@ -282,8 +282,8 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
 
   // La lista está lejos de la caja, así que al pedir la búsqueda de forma
   // explícita (Enter o la lupa) saltamos a los resultados.
-  function goToResults() {
-    document.getElementById('grado')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  function goToResults(behavior = 'smooth') {
+    document.getElementById('grado')?.scrollIntoView({ behavior, block: 'start' });
   }
 
   if (searchInput) {
@@ -297,6 +297,14 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
   if (prevBtn) prevBtn.addEventListener('click', () => { if (currentPage > 1) { currentPage--; render(); } });
   if (nextBtn) nextBtn.addEventListener('click', () => { if (currentPage < Math.ceil(getMatches().length / ITEMS_PER_PAGE)) { currentPage++; render(); } });
 
-  render();
+  // Llegada desde el buscador del encabezado: /estudios?q=nombre+materia
+  const initialQuery = new URLSearchParams(window.location.search).get('q');
+  if (initialQuery && searchInput) {
+    searchInput.value = initialQuery;
+    applySearch();
+    requestAnimationFrame(() => goToResults('auto'));
+  } else {
+    render();
+  }
 </script>
 </BaseLayout>

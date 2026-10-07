@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
   // Sin tildes ni mayúsculas: "gestion" debe encontrar "Gestión"
-  const normalizeText = (s) => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const normalizeText = (s) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
   if (searchToggle && searchBar) {
     searchToggle.addEventListener('click', (e) => {
@@ -366,15 +366,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function executeSearch(query) {
-    const q = query.toLowerCase();
+    const q = normalizeText(query);
     currentItems = [];
 
-    const results = LOCAL_PAGES.filter(p =>
-      p.title.toLowerCase().includes(q) ||
-      p.keywords.toLowerCase().includes(q)
+    const materiaResults = MATERIAS.filter(m =>
+      normalizeText(m.title).includes(q) ||
+      normalizeText(m.meta).includes(q) ||
+      normalizeText(m.keywords).includes(q)
     );
 
-    if (results.length === 0) {
+    const pageResults = LOCAL_PAGES.filter(p =>
+      normalizeText(p.title).includes(q) ||
+      normalizeText(p.keywords).includes(q)
+    );
+
+    if (materiaResults.length === 0 && pageResults.length === 0) {
       searchResults.innerHTML = `
         <div class="search-results-empty">
           <i class="fas fa-search"></i>
@@ -385,11 +391,32 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    let html = `<div class="search-results-group">`;
-    html += `<div class="search-results-group-header"><i class="fas fa-file-alt"></i> Páginas del sitio</div>`;
-    results.slice(0, 8).forEach(p => {
-      currentItems.push({ url: p.url });
-      html += `
+    let html = '';
+
+    if (materiaResults.length > 0) {
+      html += `<div class="search-results-group">`;
+      html += `<div class="search-results-group-header materia"><i class="fas fa-book-open"></i> Materias</div>`;
+      materiaResults.slice(0, 6).forEach(m => {
+        currentItems.push({ url: m.url });
+        html += `
+        <div class="search-results-item" data-index="${currentItems.length - 1}">
+          <div class="search-results-item-icon materia"><i class="fas fa-book-open"></i></div>
+          <div class="search-results-item-content">
+            <h4>${escapeHtml(m.title)}</h4>
+            <p>${escapeHtml(m.meta)}</p>
+          </div>
+          <span class="search-results-item-badge materia">Materia</span>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    if (pageResults.length > 0) {
+      html += `<div class="search-results-group">`;
+      html += `<div class="search-results-group-header"><i class="fas fa-file-alt"></i> Páginas del sitio</div>`;
+      pageResults.slice(0, 6).forEach(p => {
+        currentItems.push({ url: p.url });
+        html += `
         <div class="search-results-item" data-index="${currentItems.length - 1}">
           <div class="search-results-item-icon page"><i class="fas fa-file-alt"></i></div>
           <div class="search-results-item-content">
@@ -398,8 +425,9 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <span class="search-results-item-badge">Página</span>
         </div>`;
-    });
-    html += `</div>`;
+      });
+      html += `</div>`;
+    }
 
     searchResults.innerHTML = html;
     searchResults.classList.add('active');
@@ -587,20 +615,34 @@ document.addEventListener('DOMContentLoaded', () => {
   // NEWS CATEGORY FILTERS
   // ==========================================================
   const newsFilterBtns = document.querySelectorAll('.news-filter-btn');
-  const newsItems = document.querySelectorAll('.news-card');
+  const newsItems = document.querySelectorAll('.blog-posts .news-card');
+  const newsEmpty = document.getElementById('news-empty');
+
+  function applyNewsFilter(filter) {
+    newsFilterBtns.forEach(b => b.classList.toggle('active', (b.dataset.filter || 'all') === filter));
+    let visible = 0;
+    newsItems.forEach(item => {
+      const show = filter === 'all' || item.dataset.category === filter;
+      // display '' (no inline) para que aplique el layout CSS de la tarjeta
+      item.style.display = show ? '' : 'none';
+      if (show) visible += 1;
+    });
+    if (newsEmpty) newsEmpty.hidden = visible > 0;
+  }
 
   newsFilterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      newsFilterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter || 'all';
-      newsItems.forEach(item => {
-        if (filter === 'all' || item.dataset.category === filter) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
+    btn.addEventListener('click', () => applyNewsFilter(btn.dataset.filter || 'all'));
+  });
+
+  // Categorías del sidebar: aplican el mismo filtro y llevan al listado
+  document.querySelectorAll('.sidebar-categories a[data-category]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const key = link.dataset.category;
+      if ([...newsFilterBtns].some(b => b.dataset.filter === key)) {
+        applyNewsFilter(key);
+        document.getElementById('blog-title')?.scrollIntoView({ behavior: 'smooth' });
+      }
     });
   });
 
@@ -613,47 +655,27 @@ document.addEventListener('DOMContentLoaded', () => {
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      let valid = true;
-      const fields = [
-        { id: 'nombre', error: 'El nombre es obligatorio' },
-        { id: 'email', error: 'El email no es válido' },
-        { id: 'mensaje', error: 'El mensaje no puede estar vacío' },
-      ];
+      const formData = new FormData(contactForm);
+      const data = Object.fromEntries(formData.entries());
 
-      fields.forEach(({ id, error }) => {
-        const input = document.getElementById(id);
-        const group = input?.closest('.form-group');
-        if (!group) return;
-        const errorEl = group.querySelector('.form-error');
-        const value = input.value.trim();
+      const subject = 'Contacto desde el sitio web — ' + data.nombre;
+      const body = 'CONTACTO DESDE EL SITIO WEB\n\n'
+        + 'Nombre: ' + data.nombre + '\n'
+        + 'Correo: ' + data.email + '\n'
+        + 'Mensaje: ' + data.mensaje + '\n\n'
+        + 'Enviado desde el sitio web del CRAI.';
 
-        if (!value) {
-          group.classList.add('error');
-          if (errorEl) errorEl.textContent = error;
-          valid = false;
-        } else
-          console.log("este es el correo id")
-          if (id === 'crai_institusional@upr.edu.cu' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-          group.classList.add('error');
-          if (errorEl) errorEl.textContent = 'Ingrese un email válido';
-          valid = false;
-        } else {
-          group.classList.remove('error');
-        }
-      });
+      const mailtoLink = 'mailto:crai_institucional@upr.edu.cu?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
-      if (valid && formSuccess) {
+      window.location.href = mailtoLink;
+
+      setTimeout(() => {
         contactForm.reset();
-        formSuccess.classList.add('show');
-        setTimeout(() => formSuccess.classList.remove('show'), 5000);
-      }
-    });
-
-    contactForm.querySelectorAll('input, textarea').forEach(input => {
-      input.addEventListener('input', () => {
-        const group = input.closest('.form-group');
-        if (group) group.classList.remove('error');
-      });
+        if (formSuccess) {
+          formSuccess.classList.add('show');
+          setTimeout(() => formSuccess.classList.remove('show'), 5000);
+        }
+      }, 1000);
     });
   }
 

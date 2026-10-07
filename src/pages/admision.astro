@@ -14,18 +14,57 @@ const faq = (await getCollection('faq')).sort(byOrder);
 ---
 
 <BaseLayout title="Admisión - CRAI" description="Proceso de admisión al CRAI. Conoce los pasos, requisitos, calendario académico y opciones de becas disponibles.">
-  <PageHero
-    badgeIcon="fa-door-open"
-    badge="Proceso de Ingreso"
-    title="Proceso de Admisión"
-    subtitle="Tu futuro comienza aquí. Te guiamos en cada paso del proceso"
-    crumb="Admisión"
-  />
+  <!-- HERO MODERNO S/FOTO -->
+  <section class="hero hero--compact" aria-label="Admisión">
+    <div class="hero-bg hero-bg--plain"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-symbols" aria-hidden="true">
+      <i class="fas fa-door-open hero-glyph hs-1"></i>
+      <i class="fas fa-list-check hero-glyph hs-2"></i>
+      <i class="fas fa-graduation-cap hero-glyph hs-3"></i>
+      <i class="fas fa-calendar-days hero-glyph hs-4"></i>
+      <i class="fas fa-clipboard-list hero-glyph hs-5"></i>
+      <i class="fas fa-circle-question hero-glyph hs-6"></i>
+      <i class="fas fa-envelope hero-glyph hs-7"></i>
+      <i class="fas fa-phone hero-glyph hs-8"></i>
+      <i class="fas fa-map-location-dot hero-glyph hs-9"></i>
+    </div>
+    <div class="hero-particles" aria-hidden="true">
+      <div class="hero-particle" style="--x:15%;--y:20%;--s:60px;--d:0s;"></div>
+      <div class="hero-particle" style="--x:80%;--y:30%;--s:40px;--d:2s;"></div>
+      <div class="hero-particle" style="--x:25%;--y:70%;--s:50px;--d:4s;"></div>
+      <div class="hero-particle" style="--x:70%;--y:65%;--s:35px;--d:1s;"></div>
+      <div class="hero-particle" style="--x:50%;--y:15%;--s:45px;--d:3s;"></div>
+      <div class="hero-particle" style="--x:10%;--y:50%;--s:30px;--d:5s;"></div>
+      <div class="hero-particle" style="--x:90%;--y:55%;--s:55px;--d:2.5s;"></div>
+      <div class="hero-particle" style="--x:45%;--y:85%;--s:25px;--d:4.5s;"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge-wrapper">
+        <span class="hero-badge">
+          <img src="/images/305464304_448374310649340_2984277522454001566_n-Photoroom.png" alt="Logo UPR" class="univ-hero-logo" />
+          Proceso de Ingreso
+        </span>
+      </div>
+      <h1 class="hero-title univ-hero-title">Proceso de Admisión</h1>
+      <p class="hero-subtitle">Tu futuro comienza aquí. Te guiamos en cada paso del proceso</p>
+    </div>
+  </section>
+
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        <li class="current" aria-current="page">Admisión</li>
+      </ul>
+    </div>
+  </nav>
 
   <!-- PASOS DE ADMISIÓN -->
   <section class="section" aria-labelledby="pasos-title">
     <SectionIcons icons={['fa-graduation-cap', 'fa-list-check', 'fa-door-open']} />
     <div class="container">
+      <span class="section-eyebrow">Proceso</span>
       <h2 class="section-title" id="pasos-title">Pasos para tu Admisión</h2>
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Sigue estos sencillos pasos para completar tu proceso de admisión</p>
@@ -46,6 +85,7 @@ const faq = (await getCollection('faq')).sort(byOrder);
   <section id="calendario" class="section section--border-top" aria-labelledby="calendario-title">
     <SectionIcons icons={['fa-calendar-days', 'fa-clock', 'fa-book-open']} align="left" />
     <div class="container">
+      <span class="section-eyebrow">Fechas</span>
       <h2 class="section-title" id="calendario-title">Calendario Académico</h2>
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Fechas clave para el próximo ciclo académico</p>
@@ -65,9 +105,10 @@ const faq = (await getCollection('faq')).sort(byOrder);
   </section>
 
   <!-- REQUISITOS POR NIVEL -->
-  <section id="requisitos" class="section" aria-labelledby="requisitos-title">
+  <section id="requisitos" class="section" style="background: var(--bg-light);" aria-labelledby="requisitos-title">
     <SectionIcons icons={['fa-clipboard-list', 'fa-file-lines', 'fa-folder-open']} />
     <div class="container">
+      <span class="section-eyebrow">Requisitos</span>
       <h2 class="section-title" id="requisitos-title">Requisitos por Nivel</h2>
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Cada nivel académico tiene requisitos específicos. Consulta los detalles a continuación</p>
@@ -88,6 +129,7 @@ const faq = (await getCollection('faq')).sort(byOrder);
   <section id="faq" class="section" aria-labelledby="faq-title">
     <SectionIcons icons={['fa-circle-question', 'fa-life-ring', 'fa-comments']} align="left" />
     <div class="container">
+      <span class="section-eyebrow">Dudas</span>
       <h2 class="section-title" id="faq-title">Preguntas Frecuentes</h2>
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Resolvemos tus dudas sobre el proceso de admisión</p>
@@ -111,6 +153,7 @@ const faq = (await getCollection('faq')).sort(byOrder);
   <section class="section" style="background: var(--bg-light);" aria-labelledby="contacto-title">
     <SectionIcons icons={['fa-map-location-dot', 'fa-phone', 'fa-envelope']} />
     <div class="container">
+      <span class="section-eyebrow">Contacto</span>
       <h2 class="section-title" id="contacto-title">Contáctanos</h2>
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">¿Tienes más preguntas? Escríbenos y te responderemos a la brevedad</p>

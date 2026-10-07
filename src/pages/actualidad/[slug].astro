@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHero from '../../components/PageHero.astro';
 import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
@@ -16,63 +15,123 @@ const now = entry.data.pubDate;
 const formatLong = (d: Date) => d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
 const formatShort = (d: Date) => d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
 
+// Tiempo de lectura estimado (~200 palabras por minuto)
+const words = (entry.body ?? '').trim().split(/\s+/).filter(Boolean).length;
+const readingTime = Math.max(1, Math.round(words / 200));
+
 const related = (await getCollection('noticias', ({ data }) => !data.draft && data.category === entry.data.category))
   .filter((n) => n.id !== entry.id)
   .slice(0, 3);
 ---
 
 <BaseLayout title={`${entry.data.title} – CRAI`} description={entry.data.description}>
-  <PageHero
-    badge={`${entry.data.category}`}
-    badgeIcon={entry.data.icon ?? 'fa-newspaper'}
-    title={entry.data.title}
-    subtitle={`Por ${entry.data.author} · ${formatLong(now)}`}
-    crumb={entry.data.title}
-  />
+  <!-- HERO DE NOTICIA (propio de esta vista: verde institucional, más eslim, siempre sin foto) -->
+  <section class="hero hero--article" aria-label="Noticia">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge-wrapper">
+        <span class="hero-badge">
+          <img src="/images/305464304_448374310649340_2984277522454001566_n-Photoroom.png" alt="Logo UPR" class="univ-hero-logo" />
+          Actualidad
+          <span class="badge-sep" aria-hidden="true">·</span>
+          <i class={entry.data.icon ?? 'fa-newspaper'} aria-hidden="true"></i>
+          {entry.data.category}
+        </span>
+      </div>
+      <h1 class="hero-title univ-hero-title">{entry.data.title}</h1>
+      <p class="hero-subtitle">Por {entry.data.author} · {formatLong(now)} · {readingTime} min de lectura</p>
+    </div>
+  </section>
 
-  <section class="section">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
     <div class="container">
-      <!-- Breadcrumbs -->
-      <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <ul>
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/actualidad">Actualidad</a></li>
-          <li class="current">{entry.data.title}</li>
-        </ul>
-      </nav>
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/actualidad">Actualidad</a></li>
+        <li class="current" aria-current="page">{entry.data.title}</li>
+      </ul>
+    </div>
+  </nav>
 
-      <article class="article-body">
-        <header class="article-header">
-          <span class="news-category">{entry.data.category}</span>
-          <h2 class="article-title">{entry.data.title}</h2>
-          <div class="article-meta">
-            <span><i class="fas fa-user" aria-hidden="true"></i> {entry.data.author}</span>
-            <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> {formatShort(now)}</span>
-          </div>
-        </header>
+  <!-- Barra de progreso de lectura -->
+  <div class="reading-progress" aria-hidden="true">
+    <span class="reading-progress-bar" id="reading-progress"></span>
+  </div>
 
-        {entry.data.heroImage && (
-          <figure class="article-hero">
-            <img src={entry.data.heroImage} alt={entry.data.title} loading="eager" />
-          </figure>
-        )}
+  <!-- Compartir flotante (pantallas amplias) -->
+  <aside class="share-rail" aria-label="Compartir noticia">
+    <button type="button" class="rail-btn js-copy-link" title="Copiar enlace" aria-label="Copiar enlace">
+      <i class="fas fa-link" aria-hidden="true"></i>
+    </button>
+    <a class="rail-btn" data-share="whatsapp" href="#" target="_blank" rel="noopener" title="Compartir en WhatsApp" aria-label="Compartir en WhatsApp">
+      <i class="fab fa-whatsapp" aria-hidden="true"></i>
+    </a>
+    <a class="rail-btn" data-share="email" href="#" title="Compartir por correo" aria-label="Compartir por correo">
+      <i class="fas fa-envelope" aria-hidden="true"></i>
+    </a>
+    <a class="rail-btn" data-share="top" href="#" title="Volver arriba" aria-label="Volver arriba">
+      <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </a>
+  </aside>
 
-        <Content />
-
-        <div class="article-back">
-          <a href="/actualidad" class="btn btn-outline"><i class="fas fa-arrow-left" aria-hidden="true"></i> Volver a Actualidad</a>
+  <section class="section section--article">
+    <div class="container">
+      <article class="article-body" id="article-body">
+        <div class="article-actions">
+          <button type="button" class="btn-primary js-copy-link" id="copy-link">
+            <i class="fas fa-link" aria-hidden="true"></i>
+            <span class="copy-label">Copiar enlace</span>
+          </button>
+          <a class="share-inline" data-share="whatsapp" href="#" target="_blank" rel="noopener" aria-label="Compartir en WhatsApp" title="Compartir en WhatsApp">
+            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+          </a>
+          <a class="share-inline" data-share="email" href="#" aria-label="Compartir por correo" title="Compartir por correo">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+          </a>
+          <a href="/actualidad" class="btn-ghost">
+            <i class="fas fa-newspaper" aria-hidden="true"></i> Todas las noticias
+          </a>
         </div>
+
+        <!-- Foto + entradilla juntos, integrados con el texto -->
+        <div class:list={['article-intro', { 'article-intro--text': !entry.data.heroImage }]}>
+          {entry.data.heroImage && (
+            <figure class="article-figure">
+              <img src={entry.data.heroImage} alt={entry.data.title} loading="eager" />
+            </figure>
+          )}
+          <p class="article-lead">{entry.data.description}</p>
+        </div>
+
+        <div class="article-content">
+          <Content />
+        </div>
+
+        <footer class="article-footer">
+          <a href="/actualidad" class="btn-ghost"><i class="fas fa-arrow-left" aria-hidden="true"></i> Volver a Actualidad</a>
+        </footer>
       </article>
 
       {related.length > 0 && (
         <div class="related-posts">
+          <span class="section-eyebrow">Seguir leyendo</span>
           <h3 class="related-title">Noticias Relacionadas</h3>
           <div class="related-grid">
             {related.map((r) => (
               <a href={`/actualidad/${r.id}`} class="related-card">
-                <i class={r.data.icon ?? 'fas fa-newspaper'} aria-hidden="true"></i>
+                {r.data.heroImage ? (
+                  <span class="related-thumb">
+                    <img src={r.data.heroImage} alt={r.data.title} loading="lazy" />
+                  </span>
+                ) : (
+                  <span class="related-thumb related-thumb--icon">
+                    <i class={r.data.icon ?? 'fas fa-newspaper'} aria-hidden="true"></i>
+                  </span>
+                )}
+                <span class="related-category">{r.data.category}</span>
                 <h4>{r.data.title}</h4>
-                <span>{formatShort(r.data.pubDate)}</span>
+                <span class="related-date"><i class="fas fa-calendar-alt" aria-hidden="true"></i> {formatShort(r.data.pubDate)}</span>
               </a>
             ))}
           </div>
@@ -82,68 +141,361 @@ const related = (await getCollection('noticias', ({ data }) => !data.draft && da
   </section>
 </BaseLayout>
 
+<script>
+  const article = document.getElementById('article-body');
+  const progressBar = document.getElementById('reading-progress') as HTMLElement | null;
+
+  const updateProgress = () => {
+    if (!article || !progressBar) return;
+    const rect = article.getBoundingClientRect();
+    const scrollable = rect.height - window.innerHeight * 0.5;
+    const scrolled = window.innerHeight * 0.5 - rect.top;
+    const p = scrollable > 0 ? Math.min(Math.max(scrolled / scrollable, 0), 1) : 0;
+    progressBar.style.transform = `scaleX(${p})`;
+  };
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateProgress();
+      ticking = false;
+    });
+  }, { passive: true });
+  updateProgress();
+
+  // URLs de compartir construidas en tiempo de ejecución
+  const pageUrl = window.location.href;
+  const pageTitle = document.title.replace(' – CRAI', '');
+  document.querySelectorAll<HTMLAnchorElement>('[data-share]').forEach((el) => {
+    const kind = el.dataset.share;
+    if (kind === 'whatsapp') {
+      el.href = `https://wa.me/?text=${encodeURIComponent(`${pageTitle} ${pageUrl}`)}`;
+    } else if (kind === 'email') {
+      el.href = `mailto:?subject=${encodeURIComponent(pageTitle)}&body=${encodeURIComponent(pageUrl)}`;
+    } else if (kind === 'top') {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  });
+
+  // Copiar enlace (botones con y sin etiqueta visible)
+  document.querySelectorAll<HTMLButtonElement>('.js-copy-link').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const label = btn.querySelector<HTMLElement>('.copy-label');
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        if (label) {
+          label.textContent = '¡Enlace copiado!';
+          btn.classList.add('is-copied');
+          setTimeout(() => {
+            label.textContent = 'Copiar enlace';
+            btn.classList.remove('is-copied');
+          }, 2500);
+        } else {
+          const icon = btn.querySelector<HTMLElement>('i');
+          const prev = icon?.className ?? '';
+          if (icon) icon.className = 'fas fa-check';
+          btn.classList.add('is-copied');
+          setTimeout(() => {
+            if (icon) icon.className = prev;
+            btn.classList.remove('is-copied');
+          }, 2500);
+        }
+      } catch {
+        if (label) label.textContent = 'No se pudo copiar';
+      }
+    });
+  });
+</script>
+
 <style>
-  .article-body {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 1rem 0;
+  /* --- Hero propio de la vista de noticia (no idéntico a las secciones) --- */
+  .hero--article {
+    min-height: 40vh;
   }
-  .article-header {
+
+  .hero--article .hero-bg {
+    background-color: #176D3A;
+    background-image: linear-gradient(170deg, #176D3A 0%, #2C7A4B 50%, #176D3A 100%);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .hero--article .hero-overlay {
+    background: linear-gradient(180deg, rgba(11, 32, 21, 0.5) 0%, rgba(26, 74, 46, 0.28) 50%, rgba(11, 32, 21, 0.55) 100%);
+  }
+
+  /* --- Progreso de lectura --- */
+  .reading-progress {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(23, 109, 58, 0.12);
+    z-index: 999;
+  }
+
+  .reading-progress-bar {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent-light));
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.1s linear;
+  }
+
+  /* --- Riel de compartir flotante --- */
+  .share-rail {
+    position: fixed;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 8px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    box-shadow: var(--shadow-md);
+    z-index: 60;
+  }
+
+  .rail-btn {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: var(--bg-light);
+    border-radius: 50%;
+    color: var(--primary);
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .rail-btn:hover {
+    background: var(--primary);
+    color: var(--text-light);
+    transform: scale(1.1);
+  }
+
+  .rail-btn.is-copied {
+    background: var(--primary);
+    color: var(--text-light);
+  }
+
+  @media (min-width: 1280px) {
+    .share-rail {
+      display: flex;
+    }
+  }
+
+  /* --- Sección de lectura con tarjeta "papel" --- */
+  .section--article {
+    padding: 80px 0 120px;
+    background: var(--bg-light);
+  }
+
+  .article-body {
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 56px 64px;
+  }
+
+  /* --- Acciones: barra superior de la tarjeta --- */
+  .article-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-bottom: 1.5rem;
     margin-bottom: 2rem;
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1.5rem;
+    position: relative;
   }
-  .article-title {
-    font-family: var(--font-title);
-    font-size: 1.8rem;
-    line-height: 1.3;
-    margin: 0.5rem 0;
+
+  .article-actions::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72px;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
   }
-  .article-hero {
-    margin: 0 0 2rem;
-  }
-  .article-hero img {
-    width: 100%;
-    height: auto;
-    border-radius: var(--radius-md);
-    display: block;
-  }
-  .article-meta {
-    display: flex;
-    gap: 1.5rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    flex-wrap: wrap;
-  }
-  .article-meta span {
+
+  .btn-primary,
+  .btn-ghost {
     display: inline-flex;
-    gap: 0.5rem;
     align-items: center;
+    gap: 8px;
+    font-family: var(--font-title);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition);
   }
-  .article-body :global(p) {
+
+  .btn-primary {
+    background: var(--primary);
+    color: var(--text-light);
+    border-color: var(--primary);
+  }
+
+  .btn-primary:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-primary.is-copied {
+    background: var(--secondary);
+    border-color: var(--secondary);
+  }
+
+  .btn-ghost {
+    background: var(--bg-white);
+    color: var(--primary);
+    border-color: var(--border-color);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--secondary);
+    background: var(--bg-light);
+    transform: translateY(-2px);
+  }
+
+  .share-inline {
+    width: 40px;
+    height: 40px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    color: var(--primary);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .share-inline:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--text-light);
+  }
+
+  @media (max-width: 1279.98px) {
+    .share-inline {
+      display: inline-flex;
+    }
+  }
+
+  /* --- Foto + entradilla: integrados con el texto --- */
+  .article-intro {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 26px;
+    align-items: center;
+    margin-bottom: 2.1rem;
+  }
+
+  .article-intro--text {
+    grid-template-columns: 1fr;
+  }
+
+  .article-figure {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  }
+
+  .article-figure img {
+    width: 100%;
+    height: 265px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .article-figure:hover img {
+    transform: scale(1.05);
+  }
+
+  .article-lead {
+    margin: 0;
+    font-size: 1.12rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    padding-left: 18px;
+    border-left: 3px solid var(--secondary);
+  }
+
+  /* --- Contenido: lectura académica --- */
+  .article-content :global(p) {
     color: var(--text-primary);
-    line-height: 1.8;
+    line-height: 1.85;
     margin: 0 0 1.25em;
+    font-size: 1.02rem;
   }
-  .article-body :global(h1),
-  .article-body :global(h2),
-  .article-body :global(h3),
-  .article-body :global(h4) {
+
+  .article-content > :global(p:first-of-type)::first-letter {
+    font-family: var(--font-title);
+    font-weight: 800;
+    font-size: 3.1rem;
+    line-height: 0.9;
+    float: left;
+    margin: 7px 10px 0 0;
+    color: var(--primary);
+  }
+
+  .article-content :global(h1),
+  .article-content :global(h2),
+  .article-content :global(h3),
+  .article-content :global(h4) {
     font-family: var(--font-title);
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.3;
-    margin: 1.5em 0 0.5em;
+    margin: 1.6em 0 0.5em;
   }
-  .article-body :global(h1) { font-size: 1.5rem; }
-  .article-body :global(h2) { font-size: 1.35rem; }
-  .article-body :global(h3) { font-size: 1.2rem; }
-  .article-body :global(a) { color: var(--primary); text-decoration: underline; }
-  .article-body :global(img) { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: 1.5em 0; }
-  .article-body :global(ul) { list-style: disc; padding-left: 1.5em; margin: 0 0 1.25em; }
-  .article-body :global(ol) { list-style: decimal; padding-left: 1.5em; margin: 0 0 1.25em; }
-  .article-body :global(li) { margin: 0.4em 0; line-height: 1.7; }
-  .article-body :global(blockquote) {
+  .article-content :global(h1) { font-size: 1.5rem; }
+  .article-content :global(h2) { font-size: 1.35rem; }
+  .article-content :global(h3) { font-size: 1.2rem; }
+  .article-content :global(a) { color: var(--primary); text-decoration: underline; }
+  .article-content :global(img) { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: 1.5em 0; }
+  .article-content :global(ul),
+  .article-content :global(ol) { padding-left: 1.5em; margin: 0 0 1.25em; }
+  .article-content :global(ul) { list-style: disc; }
+  .article-content :global(ol) { list-style: decimal; }
+  .article-content :global(li) { margin: 0.4em 0; line-height: 1.75; color: var(--text-primary); }
+  .article-content :global(blockquote) {
     border-left: 4px solid var(--secondary);
     padding: 0.75em 1.25em;
     margin: 1.5em 0;
@@ -152,61 +504,145 @@ const related = (await getCollection('noticias', ({ data }) => !data.draft && da
     color: var(--text-secondary);
     font-style: italic;
   }
-  .article-body :global(code) { background: var(--bg-light); padding: 0.1em 0.35em; border-radius: var(--radius-sm); font-size: 0.9em; }
-  .article-body :global(pre) { background: var(--primary-dark); color: var(--text-light); padding: 1em; border-radius: var(--radius-sm); overflow-x: auto; margin: 1.5em 0; }
+  .article-content :global(code) { background: var(--bg-light); padding: 0.1em 0.35em; border-radius: var(--radius-sm); font-size: 0.9em; }
+  .article-content :global(pre) { background: var(--primary-dark); color: var(--text-light); padding: 1em; border-radius: var(--radius-sm); overflow-x: auto; margin: 1.5em 0; }
 
-  .article-back {
+  .article-footer {
     margin-top: 2.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-color);
+    text-align: center;
   }
 
+  /* --- Relacionadas con miniatura --- */
   .related-posts {
-    max-width: 780px;
+    max-width: 860px;
     margin: 3rem auto 0;
-    padding-top: 2rem;
-    border-top: 2px solid var(--border-color);
+    text-align: center;
   }
+
   .related-title {
     font-family: var(--font-title);
     font-size: 1.3rem;
-    margin-bottom: 1rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
   }
+
   .related-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 18px;
+    text-align: left;
   }
+
   .related-card {
     background: var(--bg-white);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    padding: 16px;
+    overflow: hidden;
     transition: var(--transition);
     color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 16px;
+    box-shadow: var(--shadow-sm);
   }
+
   .related-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
     box-shadow: var(--shadow-md);
     border-color: var(--secondary-light);
   }
-  .related-card i {
-    color: var(--primary);
-    font-size: 1.3rem;
-    margin-bottom: 8px;
+
+  .related-thumb {
+    display: block;
+    height: 130px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
   }
+
+  .related-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .related-card:hover .related-thumb img {
+    transform: scale(1.06);
+  }
+
+  .related-thumb--icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .related-thumb--icon i {
+    font-size: 2.2rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .related-category,
+  .related-card h4,
+  .related-date {
+    padding: 0 16px;
+  }
+
+  .related-card .related-category {
+    margin-top: 8px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--secondary);
+  }
+
   .related-card h4 {
     font-family: var(--font-title);
     font-size: 0.95rem;
+    font-weight: 600;
     line-height: 1.4;
-    margin-bottom: 6px;
+    flex-grow: 1;
+    margin: 0;
   }
-  .related-card span {
+
+  .related-card .related-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 0.8rem;
     color: var(--text-secondary);
   }
 
+  /* --- Responsive --- */
   @media (max-width: 768px) {
-    .related-grid { grid-template-columns: 1fr; }
+    .section--article {
+      padding: 50px 0 80px;
+    }
+
+    .article-body {
+      padding: 32px 22px;
+      border-radius: var(--radius-md);
+    }
+
+    .article-content > :global(p:first-of-type)::first-letter {
+      font-size: 2.6rem;
+    }
+
+    .article-intro {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .article-figure img {
+      height: 220px;
+    }
+
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

@@ -1,46 +1,105 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
 import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
-import { formatDate } from '../lib/content';
+import { formatDate, slugify } from '../lib/content';
 
 const noticias = (await getCollection('noticias', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const eventos = (await getCollection('eventos'));
 
 const avisos = (await getCollection('avisos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 const categorias = (await getCollection('categorias-noticias')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+// Categorías reales derivadas de las noticias publicadas (etiqueta y orden del CMS si la clave existe)
+const conteo = new Map<string, { label: string; count: number }>();
+for (const n of noticias) {
+  const label = n.data.category.trim();
+  const key = slugify(label);
+  const prev = conteo.get(key);
+  if (prev) prev.count += 1;
+  else conteo.set(key, { label, count: 1 });
+}
+const cmsPorKey = new Map(categorias.map((c) => [c.data.key, c]));
+const cats = [...conteo.entries()]
+  .map(([key, v]) => ({
+    key,
+    label: cmsPorKey.get(key)?.data.label ?? v.label,
+    count: v.count,
+    order: cmsPorKey.get(key)?.data.order ?? 99,
+  }))
+  .sort((a, b) => a.order - b.order || a.label.localeCompare(b.label, 'es'));
 ---
 
 <BaseLayout title="Actualidad – CRAI" description="Noticias, eventos académicos, culturales y avisos oficiales de nuestra comunidad universitaria.">
-  <PageHero
-    badge=""
-    title="Noticias y Eventos"
-    subtitle="Mantente informado de todo lo que sucede en nuestra comunidad"
-    crumb="Actualidad"
-  />
+  <!-- HERO MODERNO S/FOTO -->
+  <section class="hero hero--compact" aria-label="Actualidad">
+    <div class="hero-bg hero-bg--plain"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-symbols" aria-hidden="true">
+      <i class="fas fa-bullhorn hero-glyph hs-1"></i>
+      <i class="fas fa-calendar-days hero-glyph hs-2"></i>
+      <i class="fas fa-bell hero-glyph hs-3"></i>
+      <i class="fas fa-newspaper hero-glyph hs-4"></i>
+      <i class="fas fa-tags hero-glyph hs-5"></i>
+      <i class="fas fa-envelope hero-glyph hs-6"></i>
+      <i class="fas fa-map-marker-alt hero-glyph hs-7"></i>
+      <i class="fas fa-clock hero-glyph hs-8"></i>
+      <i class="fas fa-exclamation-circle hero-glyph hs-9"></i>
+    </div>
+    <div class="hero-particles" aria-hidden="true">
+      <div class="hero-particle" style="--x:15%;--y:20%;--s:60px;--d:0s;"></div>
+      <div class="hero-particle" style="--x:80%;--y:30%;--s:40px;--d:2s;"></div>
+      <div class="hero-particle" style="--x:25%;--y:70%;--s:50px;--d:4s;"></div>
+      <div class="hero-particle" style="--x:70%;--y:65%;--s:35px;--d:1s;"></div>
+      <div class="hero-particle" style="--x:50%;--y:15%;--s:45px;--d:3s;"></div>
+      <div class="hero-particle" style="--x:10%;--y:50%;--s:30px;--d:5s;"></div>
+      <div class="hero-particle" style="--x:90%;--y:55%;--s:55px;--d:2.5s;"></div>
+      <div class="hero-particle" style="--x:45%;--y:85%;--s:25px;--d:4.5s;"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge-wrapper">
+        <span class="hero-badge">
+          <img src="/images/305464304_448374310649340_2984277522454001566_n-Photoroom.png" alt="Logo UPR" class="univ-hero-logo" />
+          Actualidad
+        </span>
+      </div>
+      <h1 class="hero-title univ-hero-title">Noticias y Eventos</h1>
+      <p class="hero-subtitle">Mantente informado de todo lo que sucede en nuestra comunidad</p>
+    </div>
+  </section>
+
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        <li class="current" aria-current="page">Actualidad</li>
+      </ul>
+    </div>
+  </nav>
 
   <!-- BLOG SECTION -->
   <section class="section" aria-labelledby="blog-title">
     <SectionIcons icons={['fa-bullhorn', 'fa-calendar-days', 'fa-bell']} />
     <div class="container">
+      <span class="section-eyebrow">Comunidad</span>
       <h2 class="section-title" id="blog-title">Actualidad Universitaria</h2>
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Noticias, eventos académicos, culturales y avisos oficiales de nuestra comunidad</p>
 
       <!-- Category Filter -->
       <div class="news-filter" role="group" aria-label="Filtrar noticias por categoría">
-        <button class="news-filter-btn active" data-filter="all">Todas</button>
-        <button class="news-filter-btn" data-filter="academia">Academia</button>
-        <button class="news-filter-btn" data-filter="investigacion">Investigación</button>
-        <button class="news-filter-btn" data-filter="cultura">Cultura</button>
+        <button class="news-filter-btn active" data-filter="all">Todas <span class="filter-count">{noticias.length}</span></button>
+        {cats.map((c) => (
+          <button class="news-filter-btn" data-filter={c.key}>{c.label} <span class="filter-count">{c.count}</span></button>
+        ))}
       </div>
+      <p class="news-empty" id="news-empty" hidden>No hay noticias publicadas en esta categoría por ahora.</p>
 
       <div class="blog-grid">
         <!-- Main Posts Area -->
         <div class="blog-posts">
-          {noticias.map((n) => (
-            <article class="news-card reveal" data-category={n.data.category.toLowerCase()}>
+          {noticias.map((n, i) => (
+            <article class:list={['news-card', 'reveal', { 'news-card--featured': i === 0 }]} data-category={slugify(n.data.category.trim())}>
               <div class="news-card-img">
                 {n.data.heroImage ? (
                   <a href={`/actualidad/${n.id}`} class="news-img-link">
@@ -50,9 +109,12 @@ const categorias = (await getCollection('categorias-noticias')).sort((a, b) => (
                   <i class={n.data.icon ?? 'fas fa-newspaper'} aria-hidden="true"></i>
                 )}
                 <span class="date-badge">{formatDate(n.data.pubDate)}</span>
+                {i === 0 && (
+                  <span class="featured-ribbon"><i class="fas fa-star" aria-hidden="true"></i> Destacado</span>
+                )}
               </div>
               <div class="news-card-body">
-                <span class="news-category">{n.data.category}</span>
+                <span class="news-category">{n.data.category.trim()}</span>
                 <h3><a href={`/actualidad/${n.id}`}>{n.data.title}</a></h3>
                 <p>{n.data.description}</p>
                 <a href={`/actualidad/${n.id}`} class="read-more">Leer más <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
@@ -66,8 +128,8 @@ const categorias = (await getCollection('categorias-noticias')).sort((a, b) => (
           <div class="sidebar-card">
             <h3><i class="fas fa-tags" aria-hidden="true"></i> Categorías</h3>
             <ul class="sidebar-categories">
-              {categorias.map((c) => (
-                <li><a href="#" data-category={c.data.key}>{c.data.label} <span>({c.data.count})</span></a></li>
+              {cats.map((c) => (
+                <li><a href="#blog-title" data-category={c.key}>{c.label} <span class="cat-count">{c.count}</span></a></li>
               ))}
             </ul>
           </div>
