@@ -3861,6 +3861,53 @@ ul { list-style: none; }
   border-color: var(--primary);
 }
 
+/* Éxito de suscripción (mensaje inline, fondo degradado de la tarjeta) */
+.newsletter-success {
+  display: none;
+  text-align: center;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.95);
+  padding: 8px 4px 4px;
+}
+
+.newsletter-success.show {
+  display: block;
+}
+
+.newsletter-success i {
+  display: block;
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+/* Error de suscripción */
+.newsletter-error {
+  display: none;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #FFE1E1;
+  padding: 8px 4px 4px;
+}
+
+.newsletter-error.show {
+  display: block;
+}
+
+.newsletter-error i {
+  display: block;
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+  color: #FFC9C9;
+}
+
+/* Anclas del menú lateral (#eventos, #avisos, #newsletter) bajo el header fijo */
+.sidebar-card[id] {
+  scroll-margin-top: calc(var(--header-height) + 24px);
+}
+
 /* --- Responsive: actualidad --- */
 @media (max-width: 1100px) {
   .blog-posts .news-card {
@@ -4029,6 +4076,37 @@ ul { list-style: none; }
 .form-success i {
   font-size: 3rem;
   margin-bottom: 12px;
+}
+
+.form-error {
+  display: none;
+  text-align: center;
+  padding: 24px 32px;
+  color: #b02a37;
+}
+
+.form-error.show {
+  display: block;
+}
+
+.form-error i {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form-error p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Estado "enviando" de los botones */
+.btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 /* ============================================================

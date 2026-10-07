@@ -173,10 +173,14 @@ const faq = (await getCollection('faq')).sort(byOrder);
           </div>
           <button type="submit" class="btn btn-gold">Enviar mensaje</button>
         </form>
-        <div id="form-success" class="form-success" style="display: none;">
+        <div id="form-success" class="form-success">
           <i class="fas fa-check-circle"></i>
           <h3>¡Mensaje enviado con éxito!</h3>
           <p>Gracias por contactarnos. Te responderemos a la brevedad posible.</p>
+        </div>
+        <div id="form-error" class="form-error" role="alert">
+          <i class="fas fa-exclamation-circle"></i>
+          <p>No se pudo enviar el mensaje. Inténtalo de nuevo o escríbenos a crai_institucional@upr.edu.cu.</p>
         </div>
       </div>
     </div>

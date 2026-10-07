@@ -647,35 +647,59 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================================
-  // CONTACT FORM VALIDATION
+  // CONTACT FORM -> FormSubmit (AJAX, sin backend)
+  // El mensaje llega a la bandeja de crai_institucional@upr.edu.cu
   // ==========================================================
   const contactForm = document.getElementById('contact-form');
   const formSuccess = document.getElementById('form-success');
+  const formError = document.getElementById('form-error');
 
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const formData = new FormData(contactForm);
       const data = Object.fromEntries(formData.entries());
 
-      const subject = 'Contacto desde el sitio web — ' + data.nombre;
-      const body = 'CONTACTO DESDE EL SITIO WEB\n\n'
-        + 'Nombre: ' + data.nombre + '\n'
-        + 'Correo: ' + data.email + '\n'
-        + 'Mensaje: ' + data.mensaje + '\n\n'
-        + 'Enviado desde el sitio web del CRAI.';
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalLabel = submitBtn?.innerHTML ?? '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando…';
+      }
+      formError?.classList.remove('show');
 
-      const mailtoLink = 'mailto:crai_institucional@upr.edu.cu?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/crai_institucional@upr.edu.cu', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            nombre: data.nombre,
+            email: data.email,
+            mensaje: data.mensaje,
+            _subject: 'Contacto desde el sitio web — ' + data.nombre,
+            _captcha: 'false',
+            _honey: ''
+          })
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
 
-      window.location.href = mailtoLink;
-
-      setTimeout(() => {
         contactForm.reset();
+        contactForm.style.display = 'none';
         if (formSuccess) {
           formSuccess.classList.add('show');
-          setTimeout(() => formSuccess.classList.remove('show'), 5000);
+          setTimeout(() => {
+            formSuccess.classList.remove('show');
+            contactForm.style.display = '';
+          }, 6000);
         }
-      }, 1000);
+      } catch {
+        formError?.classList.add('show');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalLabel;
+        }
+      }
     });
   }
 
@@ -718,16 +742,51 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================================
-  // NEWSLETTER FORM
+  // NEWSLETTER -> FormSubmit (AJAX, sin backend)
+  // La suscripción llega a la bandeja de crai_institucional@upr.edu.cu
   // ==========================================================
   const newsletterForm = document.getElementById('newsletter-form');
+  const newsletterSuccess = document.getElementById('newsletter-success');
+  const newsletterError = document.getElementById('newsletter-error');
+
   if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
+    newsletterForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const input = newsletterForm.querySelector('input');
-      if (input?.value.trim()) {
-        alert('¡Gracias por suscribirte a nuestro newsletter!');
-        input.value = '';
+      const input = newsletterForm.querySelector('input[type="email"]');
+      const email = input?.value.trim();
+      if (!email) return;
+
+      const btn = newsletterForm.querySelector('button');
+      const btnLabel = btn?.querySelector('.btn-label');
+      if (btn) btn.disabled = true;
+      if (btnLabel) btnLabel.textContent = 'Enviando…';
+      newsletterError?.classList.remove('show');
+
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/crai_institucional@upr.edu.cu', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            email,
+            _subject: 'Suscripción al boletín informativo – CRAI',
+            _captcha: 'false',
+            _honey: ''
+          })
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+
+        newsletterForm.reset();
+        newsletterForm.style.display = 'none';
+        newsletterSuccess?.classList.add('show');
+        setTimeout(() => {
+          newsletterSuccess?.classList.remove('show');
+          newsletterForm.style.display = '';
+        }, 6000);
+      } catch {
+        newsletterError?.classList.add('show');
+      } finally {
+        if (btn) btn.disabled = false;
+        if (btnLabel) btnLabel.textContent = 'Suscribirse';
       }
     });
   }
