@@ -8,12 +8,20 @@ interface Props {
   crumb: string;
   parentLabel?: string;
   parentUrl?: string;
+  bgImage?: string;
 }
-const { badgeIcon = 'fa-university', badgeImg, badge = 'Centro de Recursos', title, subtitle, crumb, parentLabel = 'Inicio', parentUrl = '/' } = Astro.props;
+const { badgeIcon = 'fa-university', badgeImg, badge = 'Centro de Recursos', title, subtitle, crumb, parentLabel = 'Inicio', parentUrl = '/', bgImage } = Astro.props;
 ---
 
-<section class="hero hero--compact" aria-label={title}>
-  <div class="hero-bg hero-bg--plain"></div>
+<section class={`hero hero--compact${bgImage ? ' hero--photo' : ''}`} aria-label={title}>
+  {bgImage ? (
+    <div
+      class="hero-bg"
+      style={`background-image: url('${bgImage}'); background-color: #0F2B1C;`}
+    ></div>
+  ) : (
+    <div class="hero-bg hero-bg--plain"></div>
+  )}
   <div class="hero-overlay"></div>
   <div class="hero-content">
     {badge ? (

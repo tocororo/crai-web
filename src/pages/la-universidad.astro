@@ -13,9 +13,12 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
 ---
 
 <BaseLayout title="La Universidad – CRAI" description="Conoce la historia, misión, visión, valores y autoridades del CRAI.">
-  <!-- HERO MODERNO S/FOTO -->
+  <!-- HERO MODERNO CON FOTO -->
   <section class="hero hero--compact" aria-label="La Universidad">
-    <div class="hero-bg hero-bg--plain"></div>
+    <div
+      class="hero-bg"
+      style="background-image: url('/images/hero-universidad.jpg'); background-color: #0F2B1C;"
+    ></div>
     <div class="hero-overlay"></div>
     <div class="hero-symbols" aria-hidden="true">
       <i class="fas fa-landmark hero-glyph hs-1"></i>
@@ -45,7 +48,7 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
           Centro de Recursos
         </span>
       </div>
-      <h1 class="hero-title univ-hero-title">Universidad de Pinar del Río <br><span class="univ-hero-accent">CRAI</span></h1>
+      <h1 class="hero-title univ-hero-title"><span class="univ-hero-accent">CRAI</span> en la Universidad de Pinar del Río</h1>
       <p class="hero-subtitle">Conoce nuestra historia, misión, visión, valores y autoridades de nuestro centro.</p>
     </div>
   </section>
@@ -199,5 +202,22 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
       </div>
     </div>
   </section>
+
+  <style>
+    /* Overlay más claro que el del index para dar protagonismo a la foto */
+    .hero .hero-overlay {
+      background: linear-gradient(
+        180deg,
+        rgba(11, 32, 21, 0.42) 0%,
+        rgba(26, 74, 46, 0.2) 50%,
+        rgba(11, 32, 21, 0.46) 100%
+      );
+    }
+
+    /* "CRAI" alineado con el resto del título en una sola línea */
+    .hero .univ-hero-title .univ-hero-accent {
+      display: inline;
+    }
+  </style>
 </BaseLayout>
 

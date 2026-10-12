@@ -960,6 +960,18 @@ ul { list-style: none; }
   z-index: 1;
 }
 
+/* Photo heroes keep the image visible with a lighter, centered vignette */
+.hero--photo .hero-overlay {
+  background:
+    radial-gradient(
+      ellipse 70% 62% at 50% 54%,
+      rgba(11, 32, 21, 0.55) 0%,
+      rgba(11, 32, 21, 0.28) 55%,
+      transparent 75%
+    ),
+    linear-gradient(180deg, rgba(11, 32, 21, 0.38) 0%, rgba(26, 74, 46, 0.28) 50%, rgba(11, 32, 21, 0.48) 100%);
+}
+
 /* Floating particles */
 .hero-particles {
   position: absolute;
