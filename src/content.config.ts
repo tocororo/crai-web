@@ -564,6 +564,29 @@ const servicioCarreras = defineCollection({
   }),
 });
 
+// ============================================================
+// Estudios: buscadores y bases de datos para la investigación
+// ============================================================
+const buscadores = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/buscadores' }),
+  schema: z.object({
+    title: z.string(),
+    icon: z.string(),
+    desc: z.string().optional(),
+    order: z.number().optional(),
+    items: z.array(
+      z.object({
+        name: z.string(),
+        desc: z.string(),
+        url: z.string(),
+        logo: z.string().optional(),
+        access: z.enum(['abierto', 'mixto', 'institucional']).default('abierto'),
+        tip: z.string().optional(),
+      })
+    ),
+  }),
+});
+
 export const collections = {
   config,
   pages,
@@ -602,4 +625,5 @@ export const collections = {
   'asignaturas-servicio': asignaturasServicio,
   'materias-licenciatura': materiasLicenciatura,
   'servicio-carreras': servicioCarreras,
+  buscadores,
 };

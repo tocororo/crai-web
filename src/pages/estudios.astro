@@ -20,6 +20,14 @@ const yearLabels: Record<number, string> = {
 };
 
 const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+const buscadores = (await getCollection('buscadores')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+const accessLabel: Record<string, string> = {
+  abierto: 'Acceso abierto',
+  mixto: 'Acceso mixto',
+  institucional: 'Acceso institucional',
+};
 ---
 <BaseLayout title="Materias de la Carrera — CRAI" description="Explora las asignaturas de la Licenciatura en Ciencias de la Información en modalidad Curso por Encuentro.">
   <!-- HERO MODERNO S/FOTO -->
@@ -168,7 +176,103 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
           </tbody>
         </table>
       </div>
+
+      <div class="servicio-cta">
+        <div class="servicio-cta-text">
+          <h3>¿Vas a investigar?</h3>
+          <p>Descubre los buscadores y bases de datos recomendados para encontrar literatura científica y fuentes confiables.</p>
+        </div>
+        <a class="btn btn-primary" href="#buscadores">
+          <i class="fas fa-magnifying-glass-chart" aria-hidden="true"></i> Ver buscadores
+        </a>
+      </div>
     </div>
+</section>
+
+<section id="buscadores" class="section section--border-top section-engines" aria-labelledby="buscadores-title">
+  <SectionIcons icons={['fa-magnifying-glass-chart', 'fa-database', 'fa-book-open-reader']} align="left" />
+  <div class="container">
+    <span class="section-eyebrow">Recursos para investigar</span>
+    <h2 class="section-title" id="buscadores-title">Buscadores y bases de datos</h2>
+    <div class="section-divider" aria-hidden="true"></div>
+    <p class="section-subtitle">Herramientas recomendadas para encontrar artículos, datos y fuentes confiables en tus investigaciones. Explóralas por categoría.</p>
+
+    <div class="engine-filters" role="tablist" aria-label="Filtrar buscadores por categoría">
+      <button type="button" class="engine-filter active" data-engine-filter="all">
+        <i class="fas fa-layer-group" aria-hidden="true"></i> Todas
+      </button>
+      {buscadores.map((c) => (
+        <button type="button" class="engine-filter" data-engine-filter={c.id}>
+          <i class={c.data.icon} aria-hidden="true"></i> {c.data.title}
+        </button>
+      ))}
+    </div>
+
+    <div class="engine-groups">
+      {buscadores.map((c) => (
+        <div class="engine-group" data-engine-category={c.id}>
+          <div class="engine-group-head">
+            <div class="engine-group-icon"><i class={c.data.icon} aria-hidden="true"></i></div>
+            <div class="engine-group-text">
+              <h3>{c.data.title}</h3>
+              {c.data.desc && <p>{c.data.desc}</p>}
+            </div>
+          </div>
+          <div class="engine-grid">
+            {c.data.items.map((it) => (
+              <article class="engine-card">
+                <div class="engine-card-logo">
+                  {it.logo ? (
+                    <img src={it.logo} alt={`Logo de ${it.name}`} loading="lazy" decoding="async" />
+                  ) : (
+                    <span class="engine-card-monogram" aria-hidden="true">{it.name.charAt(0)}</span>
+                  )}
+                </div>
+                <div class="engine-card-body">
+                  <div class="engine-card-top">
+                    <h4>{it.name}</h4>
+                    <span class={`engine-access engine-access--${it.access}`}>
+                      <i class="fas fa-lock" aria-hidden="true"></i> {accessLabel[it.access]}
+                    </span>
+                  </div>
+                  <p class="engine-card-desc">{it.desc}</p>
+                  {it.tip && (
+                    <p class="engine-card-tip">
+                      <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                      <span>{it.tip}</span>
+                    </p>
+                  )}
+                  <a class="engine-card-link" href={it.url} target="_blank" rel="noopener noreferrer">
+                    Visitar buscador <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="engine-cheatsheet reveal">
+      <div class="engine-cheatsheet-head">
+        <div class="engine-cheatsheet-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div>
+        <div>
+          <h3>Cómo buscar mejor</h3>
+          <p>Combina estos operadores en cualquier buscador académico para obtener resultados más precisos.</p>
+        </div>
+      </div>
+      <div class="engine-cheatsheet-grid">
+        <div class="engine-op"><code>&quot;frase exacta&quot;</code><p>Encuentra esas palabras juntas y en ese orden.</p></div>
+        <div class="engine-op"><code>AND</code><p>Obliga a que aparezcan <strong>todos</strong> los términos.</p></div>
+        <div class="engine-op"><code>OR</code><p>Amplía la búsqueda con <strong>cualquiera</strong> de los términos o sinónimos.</p></div>
+        <div class="engine-op"><code>NOT</code><p>Excluye resultados que contengan esa palabra.</p></div>
+        <div class="engine-op"><code title="Ejemplo: educacion*">palabra*</code><p>El asterisco busca variantes y plurales de una raíz.</p></div>
+        <div class="engine-op"><code>site:</code><p>Limita los resultados a un dominio o sitio concreto.</p></div>
+        <div class="engine-op"><code>filetype:pdf</code><p>Recupera solo documentos de un formato específico.</p></div>
+        <div class="engine-op"><code>&quot;autor:&quot;</code><p>Localiza los trabajos de una autora o autor concreto.</p></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <script is:inline>
@@ -306,5 +410,20 @@ const asignaturasServicio = (await getCollection('asignaturas-servicio')).sort((
   } else {
     render();
   }
+
+  // Filtro de buscadores por categoría
+  const engineFilterBtns = Array.from(document.querySelectorAll('.engine-filter'));
+  const engineGroups = Array.from(document.querySelectorAll('.engine-group'));
+  engineFilterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      engineFilterBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.engineFilter || 'all';
+      engineGroups.forEach((group) => {
+        const show = filter === 'all' || group.dataset.engineCategory === filter;
+        group.hidden = !show;
+      });
+    });
+  });
 </script>
 </BaseLayout>

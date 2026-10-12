@@ -269,6 +269,33 @@ collections:
       - { label: "Horas", name: "horas", widget: "number" }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
+  - name: "buscadores"
+    label: "Estudios: Buscadores de investigación"
+    folder: "src/content/buscadores"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    identifier_field: "title"
+    fields:
+      - { label: "Título de categoría", name: "title", widget: "string" }
+      - { label: "Icono (clase fa-*)", name: "icon", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text", required: false }
+      - label: "Buscadores"
+        name: "items"
+        widget: "list"
+        fields:
+          - { label: "Nombre", name: "name", widget: "string" }
+          - { label: "Descripción", name: "desc", widget: "text" }
+          - { label: "URL", name: "url", widget: "string" }
+          - { label: "Logo (archivo en /images/buscadores)", name: "logo", widget: "string", required: false }
+          - label: "Tipo de acceso"
+            name: "access"
+            widget: "select"
+            options: ["abierto", "mixto", "institucional"]
+            default: "abierto"
+          - { label: "Consejo de búsqueda", name: "tip", widget: "text", required: false }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
   - name: "acreditaciones"
     label: "Acreditaciones"
     folder: "src/content/acreditaciones"

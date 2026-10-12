@@ -34,6 +34,8 @@ navigation:
         url: "/estudios#grado"
       - label: "Asignaturas de Servicio"
         url: "/estudios#asignaturas-servicio"
+      - label: "Buscadores de investigación"
+        url: "/estudios#buscadores"
   - label: "Admisión"
     url: "/admision"
     children:
