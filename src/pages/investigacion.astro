@@ -34,9 +34,12 @@ const colaboraciones = [
 ---
 
 <BaseLayout title="Investigación – CRAI" description="Investigación e Innovación en el CRAI. Grupos de investigación, proyectos activos, publicaciones científicas y convocatorias.">
-  <!-- HERO MODERNO S/FOTO -->
+  <!-- HERO CON FOTO: investigación e innovación -->
   <section class="hero hero--compact" aria-label="Investigación">
-    <div class="hero-bg hero-bg--plain"></div>
+    <div
+      class="hero-bg"
+      style="background-image: url('/images/hero-investigacion.jpg'); background-color: #0F2B1C;"
+    ></div>
     <div class="hero-overlay"></div>
     <div class="hero-symbols" aria-hidden="true">
       <i class="fas fa-microscope hero-glyph hs-1"></i>
@@ -200,3 +203,16 @@ const colaboraciones = [
   </section>
 
 </BaseLayout>
+
+<style>
+  .hero--compact .hero-overlay {
+    background:
+      radial-gradient(
+        ellipse 70% 62% at 50% 54%,
+        rgba(11, 32, 21, 0.55) 0%,
+        rgba(11, 32, 21, 0.28) 55%,
+        transparent 75%
+      ),
+      linear-gradient(180deg, rgba(11, 32, 21, 0.38) 0%, rgba(26, 74, 46, 0.28) 50%, rgba(11, 32, 21, 0.48) 100%);
+  }
+</style>

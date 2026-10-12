@@ -138,7 +138,7 @@ ul { list-style: none; }
 
 .section {
   position: relative;
-  padding: 150px 0;
+  padding: 80px 0;
 }
 
 /* El header es fixed: si no, al saltar a un #id la seccion queda debajo */
@@ -153,7 +153,7 @@ ul { list-style: none; }
 /* la sección con paginación cierra con menos aire: la paginación
    ya aporta separación respecto al divisor de la sección siguiente */
 #grado {
-  padding-bottom: 90px;
+  padding-bottom: 60px;
 }
 
 .section-eyebrow {
@@ -2691,7 +2691,7 @@ ul { list-style: none; }
 
 /* --- Bloque de búsqueda + filtros --- */
 .section-search {
-  padding-bottom: 90px;
+  padding-bottom: 60px;
 }
 
 .search-controls {

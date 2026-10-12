@@ -477,6 +477,7 @@ const informes = defineCollection({
     title: z.string(),
     desc: z.string(),
     order: z.number().optional(),
+    file: z.string().optional(),
   }),
 });
 
@@ -490,6 +491,7 @@ const normativas = defineCollection({
     title: z.string(),
     desc: z.string(),
     order: z.number().optional(),
+    file: z.string().optional(),
   }),
 });
 

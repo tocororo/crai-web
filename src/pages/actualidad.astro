@@ -31,20 +31,23 @@ const cats = [...conteo.entries()]
 ---
 
 <BaseLayout title="Actualidad – CRAI" description="Noticias, eventos académicos, culturales y avisos oficiales de nuestra comunidad universitaria.">
-  <!-- HERO MODERNO S/FOTO -->
+  <!-- HERO CON FOTO: estudiantes, investigación e innovación -->
   <section class="hero hero--compact" aria-label="Actualidad">
-    <div class="hero-bg hero-bg--plain"></div>
+    <div
+      class="hero-bg"
+      style="background-image: url('/images/hero-actualidad.jpg'); background-color: #0F2B1C;"
+    ></div>
     <div class="hero-overlay"></div>
     <div class="hero-symbols" aria-hidden="true">
-      <i class="fas fa-bullhorn hero-glyph hs-1"></i>
-      <i class="fas fa-calendar-days hero-glyph hs-2"></i>
-      <i class="fas fa-bell hero-glyph hs-3"></i>
-      <i class="fas fa-newspaper hero-glyph hs-4"></i>
-      <i class="fas fa-tags hero-glyph hs-5"></i>
-      <i class="fas fa-envelope hero-glyph hs-6"></i>
-      <i class="fas fa-map-marker-alt hero-glyph hs-7"></i>
-      <i class="fas fa-clock hero-glyph hs-8"></i>
-      <i class="fas fa-exclamation-circle hero-glyph hs-9"></i>
+      <i class="fab fa-facebook-f hero-glyph hs-1"></i>
+      <i class="fab fa-instagram hero-glyph hs-2"></i>
+      <i class="fab fa-x-twitter hero-glyph hs-3"></i>
+      <i class="fab fa-youtube hero-glyph hs-4"></i>
+      <i class="fab fa-tiktok hero-glyph hs-5"></i>
+      <i class="fab fa-whatsapp hero-glyph hs-6"></i>
+      <i class="fab fa-linkedin-in hero-glyph hs-7"></i>
+      <i class="fab fa-telegram hero-glyph hs-8"></i>
+      <i class="fab fa-pinterest hero-glyph hs-9"></i>
     </div>
     <div class="hero-particles" aria-hidden="true">
       <div class="hero-particle" style="--x:15%;--y:20%;--s:60px;--d:0s;"></div>
@@ -185,3 +188,16 @@ const cats = [...conteo.entries()]
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .hero--compact .hero-overlay {
+    background:
+      radial-gradient(
+        ellipse 70% 62% at 50% 54%,
+        rgba(11, 32, 21, 0.55) 0%,
+        rgba(11, 32, 21, 0.28) 55%,
+        transparent 75%
+      ),
+      linear-gradient(180deg, rgba(11, 32, 21, 0.38) 0%, rgba(26, 74, 46, 0.28) 50%, rgba(11, 32, 21, 0.48) 100%);
+  }
+</style>

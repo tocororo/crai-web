@@ -484,6 +484,7 @@ collections:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Archivo (PDF en /images/uploads)", name: "file", widget: "file" }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
   - name: "normativas"
@@ -496,6 +497,7 @@ collections:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Archivo (PDF en /images/uploads)", name: "file", widget: "file" }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
   - name: "datos-abiertos"
