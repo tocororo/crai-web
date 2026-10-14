@@ -53,12 +53,20 @@ Block collections all use optional `order` for page sorting. `pages` collection 
 **CMS config** at `public/admin/config.yml` mirrors these collections. Backend is `proxy` mode (local `decap-server`), not Netlify/Git Gateway. Working git branch is `dev` (`config.yml` `branch` matches it).
 
 **Key files:**
-- `src/lib/content.ts` — helpers: `getSiteConfig()`, `getNavigation()`, `slugify()`, `formatDate()`
-- `src/layouts/BaseLayout.astro` — single layout; hides Header/Footer/cookie/scripts on `/admin` routes
+- `src/lib/content.ts` — helpers: `getSiteConfig()`, `getNavigation()`, `slugify()`, `formatDate()`, `isPageEnabled()`, `getHiddenPages()`
+- `src/layouts/BaseLayout.astro` — single layout; hides Header/Footer/cookie/scripts on `/admin` routes; sets `data-hidden-pages` on `<html>`
 - `src/styles/global.css` — all styles in one file (~3300 lines); CSS variables drive theming
 - `src/scripts/main.js` — client-side JS (dark mode toggle, scroll reveal, carousels, counters)
 
 **Dynamic routes:** Only `src/pages/actualidad/[slug].astro` uses `getStaticPaths()` from the `noticias` collection.
+
+**Page visibility (feature flags):** Some pages can be shown/hidden by the developer from the CMS. The toggle lives in the global config (`src/content/config/global.yaml`) under `features:` (schema in `src/content.config.ts`), e.g. `features.admision`. In the admin panel it appears as **Configuración Global → Visibilidad de páginas**. Toggling a page there affects the whole site automatically:
+- top-level **nav** item and its submenu (filtered in `src/components/Header.astro`),
+- **footer** quick links (filtered in `src/components/Footer.astro`),
+- the client **search** index (`LOCAL_PAGES` in `src/scripts/main.js`, which reads `data-hidden-pages` set by `src/layouts/BaseLayout.astro`),
+- the page itself returns a redirect to `/` when disabled (e.g. `src/pages/admision.astro`).
+
+The URL→flag mapping and helpers (`isPageEnabled()`, `getHiddenPages()`) live in `src/lib/content.ts` (`PAGE_FEATURE_KEYS`). To make another page toggleable, add its path to `PAGE_FEATURE_KEYS`, a matching boolean to the `features` schema, a field in `public/admin/config.yml`, and the same `if (!isPageEnabled(config, '/ruta')) { return new Response(...) }` redirect guard in that page's frontmatter. Current state: **Admisión is hidden** (`features.admision: false`); set it to `true` to show it.
 
 ## Gotchas
 

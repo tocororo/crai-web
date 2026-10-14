@@ -2,13 +2,16 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
-import { formatDate, getSiteConfig } from '../lib/content';
+import { formatDate, getSiteConfig, slugify } from '../lib/content';
 
 const config = await getSiteConfig();
 const noticias = (await getCollection('noticias', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const eventos = (await getCollection('eventos')).filter((e) => e.data.featured).slice(0, 3);
 const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+const buscadores = (await getCollection('buscadores')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const engineItems = buscadores.flatMap((c) => c.data.items);
 ---
 
 <BaseLayout title={`${config?.siteName ?? 'CRAI'} - Centro de Recursos para el Aprendizaje y la Investigación`} description={config?.description}>
@@ -125,6 +128,47 @@ const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.dat
             </span>
           </a>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BUSCADORES Y REPOSITORIOS -->
+  <section class="section home-engines" aria-labelledby="home-engines-title">
+    <SectionIcons icons={['fa-magnifying-glass', 'fa-database', 'fa-book-open-reader']} align="left" />
+    <div class="container">
+      <span class="section-eyebrow">Investigación</span>
+      <h2 class="section-title" id="home-engines-title">Buscadores y repositorios recomendados</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Bases de datos, portales de acceso abierto y repositorios seleccionados por el CRAI para encontrar literatura científica y fuentes confiables.</p>
+
+      <div class="home-engines-grid">
+        {engineItems.map((it) => (
+          <a
+            class="home-engine-tile"
+            href={`/estudios#engine-${slugify(it.name)}`}
+            title={it.name}
+            aria-label={`Ver ${it.name} en buscadores de investigación`}
+          >
+            {it.logo ? (
+              <img src={it.logo} alt="" loading="lazy" decoding="async" />
+            ) : (
+              <span class="home-engine-monogram" aria-hidden="true">{it.name.charAt(0)}</span>
+            )}
+          </a>
+        ))}
+      </div>
+
+      <div class="home-engines-cta">
+        <div class="home-engines-stats">
+          <span class="home-engines-stat"><strong>{engineItems.length}</strong> buscadores</span>
+          <span class="home-engines-dot" aria-hidden="true"></span>
+          <span class="home-engines-stat"><strong>{buscadores.length}</strong> categorías</span>
+          <span class="home-engines-dot" aria-hidden="true"></span>
+          <span class="home-engines-stat">consejos de búsqueda</span>
+        </div>
+        <a href="/estudios#buscadores" class="btn btn-primary btn-lg">
+          <i class="fas fa-magnifying-glass-chart" aria-hidden="true"></i> Explorar buscadores
+        </a>
       </div>
     </div>
   </section>

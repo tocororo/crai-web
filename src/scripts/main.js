@@ -26,9 +26,7 @@ function initCarousel(id) {
   let dragIndex = 0;
 
   function getVisibleSlides() {
-    if (window.innerWidth <= 576) return 1;
-    if (window.innerWidth <= 992) return 2;
-    return 3;
+    return 1;
   }
 
   function getMaxIndex() {
@@ -37,26 +35,16 @@ function initCarousel(id) {
   }
 
   function getSlideWidth() {
-    const slide = slides[0];
-    const style = getComputedStyle(slide);
-    return slide.offsetWidth + parseFloat(style.marginLeft) + parseFloat(style.marginRight)
-      + parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
-  }
-
-  function getGap() {
-    if (slides.length < 2) return 0;
-    const a = slides[0].getBoundingClientRect();
-    const b = slides[1].getBoundingClientRect();
-    return b.left - a.right;
+    const trackWidth = track.getBoundingClientRect().width;
+    return trackWidth / getVisibleSlides();
   }
 
   function goTo(index, instant) {
     const max = getMaxIndex();
     currentIndex = Math.max(0, Math.min(index, max));
     const w = getSlideWidth();
-    const g = getGap();
     track.style.transition = instant ? 'none' : 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
-    track.style.transform = `translateX(-${currentIndex * (w + g)}px)`;
+    track.style.transform = `translateX(-${currentIndex * w}px)`;
     updateDots();
     updateProgress();
     updateActiveSlide();
@@ -151,7 +139,7 @@ function initCarousel(id) {
     if (!isDragging) return;
     const x = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
     dragOffset = x - startX;
-    const w = getSlideWidth() + getGap();
+    const w = getSlideWidth();
     track.style.transform = `translateX(${-(dragIndex * w) + dragOffset}px)`;
     if (e.cancelable) e.preventDefault();
   }
@@ -282,6 +270,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchIcon = document.getElementById('search-icon');
   const searchClear = document.getElementById('search-clear');
 
+  // Páginas desactivadas desde la Configuración Global (las inyecta BaseLayout).
+  const HIDDEN_PAGES = (() => {
+    try {
+      return JSON.parse(document.documentElement.dataset.hiddenPages || '[]');
+    } catch (e) {
+      return [];
+    }
+  })();
+  const normalizePath = (u) => (u || '').split('#')[0].replace(/\/$/, '') || '/';
+
   const LOCAL_PAGES = [
     { title: 'Inicio', url: '/', keywords: 'inicio, bienvenidos, crai' },
     { title: 'La Universidad', url: '/la-universidad', keywords: 'universidad, historia, mision, vision, autoridad, sedes, organigrama' },
@@ -291,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { title: 'Actualidad', url: '/actualidad', keywords: 'noticias, eventos, actualidad, agenda, avisos' },
     { title: 'Portal de Transparencia', url: '/transparencia', keywords: 'transparencia, informes, datos, presupuesto, normativas' },
     { title: 'Reservar Sala', url: '/reservar', keywords: 'reservar, sala, reserva, calendario' },
-  ];
+  ].filter((p) => !HIDDEN_PAGES.includes(normalizePath(p.url)));
 
   const MIN_CHARS = 2;
   let debounceTimer = null;

@@ -3,6 +3,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
+import { getSiteConfig, isPageEnabled } from '../lib/content';
+
+// Página ocultable desde la Configuración Global (features.admision).
+// Si está desactivada, se redirige a Inicio y no se enlaza desde el sitio.
+const config = await getSiteConfig();
+if (!isPageEnabled(config, '/admision')) {
+  return new Response(
+    '<!doctype html><html lang="es"><head><meta charset="utf-8">' +
+      '<meta http-equiv="refresh" content="0;url=/">' +
+      '<meta name="robots" content="noindex">' +
+      '<link rel="canonical" href="/">' +
+      '<title>Redirigiendo…</title></head>' +
+      '<body><a href="/">Ir al inicio</a></body></html>',
+    { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } }
+  );
+}
 
 const byOrder = (a: { data: { order?: number } }, b: { data: { order?: number } }) => (a.data.order ?? 0) - (b.data.order ?? 0);
 
@@ -14,9 +30,12 @@ const faq = (await getCollection('faq')).sort(byOrder);
 ---
 
 <BaseLayout title="Admisión - CRAI" description="Proceso de admisión al CRAI. Conoce los pasos, requisitos, calendario académico y opciones de becas disponibles.">
-  <!-- HERO MODERNO S/FOTO -->
+  <!-- HERO CON FOTO: proceso de admisión -->
   <section class="hero hero--compact" aria-label="Admisión">
-    <div class="hero-bg hero-bg--plain"></div>
+    <div
+      class="hero-bg"
+      style="background-image: url('/images/hero-admision.jpg'); background-color: #0F2B1C;"
+    ></div>
     <div class="hero-overlay"></div>
     <div class="hero-symbols" aria-hidden="true">
       <i class="fas fa-door-open hero-glyph hs-1"></i>
@@ -185,4 +204,23 @@ const faq = (await getCollection('faq')).sort(byOrder);
       </div>
     </div>
   </section>
+
+<style>
+  /* Scrim verde sobre la foto, igual que los demás heroes del sitio */
+  .hero--compact .hero-overlay {
+    background:
+      radial-gradient(
+        ellipse 70% 62% at 50% 54%,
+        rgba(11, 32, 21, 0.55) 0%,
+        rgba(11, 32, 21, 0.28) 55%,
+        transparent 75%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(11, 32, 21, 0.38) 0%,
+        rgba(26, 74, 46, 0.28) 50%,
+        rgba(11, 32, 21, 0.48) 100%
+      );
+  }
+</style>
 </BaseLayout>

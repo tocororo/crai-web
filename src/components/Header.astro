@@ -1,9 +1,14 @@
 ---
-import { getSiteConfig } from '../lib/content';
+import { getSiteConfig, isPageEnabled } from '../lib/content';
 import { getCollection } from 'astro:content';
 
 const config = await getSiteConfig();
-const nav = config?.navigation ?? [];
+const nav = (config?.navigation ?? [])
+  .filter((item) => isPageEnabled(config, item.url))
+  .map((item) => ({
+    ...item,
+    children: item.children?.filter((child) => isPageEnabled(config, child.url)),
+  }));
 const logo = config?.logo;
 const siteName = config?.siteName ?? 'CRAI';
 const siteSubtitle = config?.siteSubtitle ?? '';

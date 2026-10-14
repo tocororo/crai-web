@@ -57,6 +57,12 @@ const config = defineCollection({
       })
       .optional()
       .default({ enabled: true }),
+    features: z
+      .object({
+        admision: z.boolean().default(true),
+      })
+      .optional()
+      .default({ admision: true }),
   }),
 });
 

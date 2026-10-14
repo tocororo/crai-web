@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
+import { slugify } from '../lib/content';
 
 const carrerasAsignaturas = (await getCollection('materias-licenciatura'))
   .filter((c) => c.data.carrera === 'Licenciatura en Ciencias de la Información')
@@ -30,9 +31,12 @@ const accessLabel: Record<string, string> = {
 };
 ---
 <BaseLayout title="Materias de la Carrera — CRAI" description="Explora las asignaturas de la Licenciatura en Ciencias de la Información en modalidad Curso por Encuentro.">
-  <!-- HERO MODERNO S/FOTO -->
+  <!-- HERO CON FOTO: formación académica -->
   <section class="hero hero--compact" aria-label="Estudios">
-    <div class="hero-bg hero-bg--plain"></div>
+    <div
+      class="hero-bg"
+      style="background-image: url('/images/hero-estudios.jpg'); background-color: #0F2B1C;"
+    ></div>
     <div class="hero-overlay"></div>
     <div class="hero-symbols" aria-hidden="true">
       <i class="fas fa-magnifying-glass hero-glyph hs-1"></i>
@@ -220,7 +224,7 @@ const accessLabel: Record<string, string> = {
           </div>
           <div class="engine-grid">
             {c.data.items.map((it) => (
-              <article class="engine-card">
+              <article class="engine-card" id={`engine-${slugify(it.name)}`}>
                 <div class="engine-card-logo">
                   {it.logo ? (
                     <img src={it.logo} alt={`Logo de ${it.name}`} loading="lazy" decoding="async" />
@@ -426,4 +430,24 @@ const accessLabel: Record<string, string> = {
     });
   });
 </script>
+
+<style>
+  /* La foto de estudios es muy luminosa: scrim algo más fuerte que el estándar
+     para que el texto blanco lea bien sin ocultar la imagen */
+  .hero--compact .hero-overlay {
+    background:
+      radial-gradient(
+        ellipse 70% 68% at 50% 52%,
+        rgba(11, 32, 21, 0.68) 0%,
+        rgba(11, 32, 21, 0.4) 45%,
+        transparent 78%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(11, 32, 21, 0.42) 0%,
+        rgba(26, 74, 46, 0.22) 50%,
+        rgba(11, 32, 21, 0.5) 100%
+      );
+  }
+</style>
 </BaseLayout>

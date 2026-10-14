@@ -66,6 +66,12 @@ collections:
           - { label: "Mensaje del banner", name: "message", widget: "text", required: false }
           - { label: "Texto botón aceptar", name: "acceptLabel", widget: "string", required: false }
           - { label: "Texto botón rechazar", name: "declineLabel", widget: "string", required: false }
+      - label: "Visibilidad de páginas"
+        name: "features"
+        widget: "object"
+        hint: "Activa o desactiva páginas del sitio. Al desactivar una página, se oculta del menú, del pie de página y del buscador, y su URL redirige a Inicio."
+        fields:
+          - { label: "Página de Admisión", name: "admision", widget: "boolean", default: true }
 
   - name: "noticias"
     label: "Noticias / Blog"

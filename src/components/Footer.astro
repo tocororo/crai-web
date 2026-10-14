@@ -1,11 +1,12 @@
 ---
-import { getSiteConfig } from '../lib/content';
+import { getSiteConfig, isPageEnabled } from '../lib/content';
 
 const config = await getSiteConfig();
 const contact = config?.contact;
 const social = config?.social;
 const footer = config?.footer;
 const siteName = config?.siteName ?? 'CRAI';
+const quickLinks = (footer?.quickLinks ?? []).filter((link) => isPageEnabled(config, link.url));
 ---
 
 <footer class="footer" role="contentinfo">
@@ -31,7 +32,7 @@ const siteName = config?.siteName ?? 'CRAI';
       <div class="footer-col">
         <h3>{footer?.quickLinksTitle}</h3>
         <ul class="footer-links">
-          {footer?.quickLinks.map((link) => (
+          {quickLinks.map((link) => (
             <li><a href={link.url}><i class="fas fa-chevron-right" aria-hidden="true"></i> {link.label}</a></li>
           ))}
         </ul>

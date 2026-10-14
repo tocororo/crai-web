@@ -1,130 +1,137 @@
-siteName: "CRAI"
-siteSubtitle: "Centro de Recursos para el Aprendizaje y la Investigación"
-logo: "/images/305464304_448374310649340_2984277522454001566_n-Photoroom.png"
-description: "CRAI, institución líder en educación superior con más de 50 años de excelencia académica, investigación e innovación."
+siteName: CRAI
+siteSubtitle: Centro de Recursos para el Aprendizaje y la Investigación
+logo: /images/305464304_448374310649340_2984277522454001566_n-Photoroom.png
+description: CRAI, institución líder en educación superior con más de 50 años de
+  excelencia académica, investigación e innovación.
 contact:
-  address: "Calle José Martí No 300, Barrio Segundo Sur, e/27 de Noviembre y González Alcorta, Pinar del Río, Cuba, Pinar del Río, Cuba"
-  phone: "+53 48 779348"
-  email: "crai_institucional@upr.edu.cu"
+  address: Calle José Martí No 300, Barrio Segundo Sur, e/27 de Noviembre y
+    González Alcorta, Pinar del Río, Cuba, Pinar del Río, Cuba
+  phone: +53 48 779348
+  email: crai_institucional@upr.edu.cu
 social:
-  facebook: "https://www.facebook.com/share/g/1HKTULJenH/"
-  instagram: "https://instagram.com"
+  facebook: https://www.facebook.com/share/g/1HKTULJenH/
+  instagram: https://instagram.com
 navigation:
-  - label: "Inicio"
-    url: "/"
-  - label: "Sobre Nosotros"
-    url: "/la-universidad"
+  - label: Inicio
+    url: /
+  - label: Sobre Nosotros
+    url: /la-universidad
     children:
-      - label: "Historia"
-        url: "/la-universidad#historia"
-      - label: "Misión y Visión"
-        url: "/la-universidad#mvv"
-      - label: "Autoridades"
-        url: "/la-universidad#autoridades"
-      - label: "Organigrama"
-        url: "/la-universidad#organigrama"
-      - label: "Sedes"
-        url: "/la-universidad#sedes"
-  - label: "Estudios"
-    url: "/estudios"
+      - label: Historia
+        url: /la-universidad#historia
+      - label: Misión y Visión
+        url: /la-universidad#mvv
+      - label: Autoridades
+        url: /la-universidad#autoridades
+      - label: Organigrama
+        url: /la-universidad#organigrama
+      - label: Sedes
+        url: /la-universidad#sedes
+  - label: Estudios
+    url: /estudios
     children:
-      - label: "Oferta Académica"
-        url: "/estudios"
-      - label: "Materias de la Carrera"
-        url: "/estudios#grado"
-      - label: "Asignaturas de Servicio"
-        url: "/estudios#asignaturas-servicio"
-      - label: "Buscadores de investigación"
-        url: "/estudios#buscadores"
-  - label: "Admisión"
-    url: "/admision"
+      - label: Oferta Académica
+        url: /estudios
+      - label: Materias de la Carrera
+        url: /estudios#grado
+      - label: Asignaturas de Servicio
+        url: /estudios#asignaturas-servicio
+      - label: Buscadores de investigación
+        url: /estudios#buscadores
+  - label: Admisión
+    url: /admision
     children:
-      - label: "Proceso de Admisión"
-        url: "/admision"
-      - label: "Requisitos"
-        url: "/admision#requisitos"
-      - label: "Calendario"
-        url: "/admision#calendario"
-      - label: "Preguntas Frecuentes"
-        url: "/admision#faq"
-  - label: "Ciencia Abierta"
-    url: "/investigacion"
+      - label: Proceso de Admisión
+        url: /admision
+      - label: Requisitos
+        url: /admision#requisitos
+      - label: Calendario
+        url: /admision#calendario
+      - label: Preguntas Frecuentes
+        url: /admision#faq
+  - label: Ciencia Abierta
+    url: /investigacion
     children:
-      - label: "Grupos de Investigación"
-        url: "/investigacion"
-      - label: "Proyectos Activos"
-        url: "/investigacion#proyectos"
-      - label: "Publicaciones"
-        url: "/investigacion#publicaciones"
-      - label: "Convocatorias"
-        url: "/investigacion#convocatorias"
-  - label: "Actualidad"
-    url: "/actualidad"
+      - label: Grupos de Investigación
+        url: /investigacion
+      - label: Proyectos Activos
+        url: /investigacion#proyectos
+      - label: Publicaciones
+        url: /investigacion#publicaciones
+      - label: Convocatorias
+        url: /investigacion#convocatorias
+  - label: Actualidad
+    url: /actualidad
     children:
-      - label: "Noticias"
-        url: "/actualidad"
-      - label: "Eventos"
-        url: "/actualidad#eventos"
-      - label: "Avisos Oficiales"
-        url: "/actualidad#avisos"
-      - label: "Boletín"
-        url: "/actualidad#newsletter"
-  - label: "Transparencia"
-    url: "/transparencia"
+      - label: Noticias
+        url: /actualidad
+      - label: Eventos
+        url: /actualidad#eventos
+      - label: Avisos Oficiales
+        url: /actualidad#avisos
+      - label: Boletín
+        url: /actualidad#newsletter
+  - label: Transparencia
+    url: /transparencia
     children:
-      - label: "Informes"
-        url: "/transparencia"
-      - label: "Normativas"
-        url: "/transparencia#normativas"
-      - label: "Datos Abiertos"
-        url: "/transparencia#datos"
-      - label: "Estadísticas"
-        url: "/transparencia#estadisticas"
+      - label: Informes
+        url: /transparencia
+      - label: Normativas
+        url: /transparencia#normativas
+      - label: Datos Abiertos
+        url: /transparencia#datos
+      - label: Estadísticas
+        url: /transparencia#estadisticas
 footer:
-  description: "Centro de Recursos para el Aprendizaje y la Investigación comprometido con la excelencia académica, la investigación innovadora y el desarrollo social sostenible."
-  quickLinksTitle: "Enlaces Rápidos"
+  description: Centro de Recursos para el Aprendizaje y la Investigación
+    comprometido con la excelencia académica, la investigación innovadora y el
+    desarrollo social sostenible.
+  quickLinksTitle: Enlaces Rápidos
   quickLinks:
-    - label: "La Universidad"
-      url: "/la-universidad"
-    - label: "Materias"
-      url: "/estudios"
-    - label: "Admisión"
-      url: "/admision"
-    - label: "Investigación"
-      url: "/investigacion"
-    - label: "Actualidad"
-      url: "/actualidad"
-  servicesTitle: "Servicios"
+    - label: La Universidad
+      url: /la-universidad
+    - label: Materias
+      url: /estudios
+    - label: Admisión
+      url: /admision
+    - label: Investigación
+      url: /investigacion
+    - label: Actualidad
+      url: /actualidad
+  servicesTitle: Servicios
   services:
-    - label: "Catálogo"
-      url: "https://catalogo.upr.edu.cu"
-      icon: "fas fa-book-open"
-    - label: "Biblioteca Digital"
-      url: "https://earchivos.upr.edu.cu"
-      icon: "fas fa-cloud"
-    - label: "Repositorio Institucional"
-      url: "https://alma.upr.edu.cu"
-      icon: "fas fa-box-archive"
-    - label: "Gestión de Reserva"
-      url: "/reservar"
-      icon: "fas fa-calendar-check"
-  transparencyTitle: "Transparencia"
+    - label: Catálogo
+      url: https://catalogo.upr.edu.cu
+      icon: fas fa-book-open
+    - label: Biblioteca Digital
+      url: https://earchivos.upr.edu.cu
+      icon: fas fa-cloud
+    - label: Repositorio Institucional
+      url: https://alma.upr.edu.cu
+      icon: fas fa-box-archive
+    - label: Gestión de Reserva
+      url: /reservar
+      icon: fas fa-calendar-check
+  transparencyTitle: Transparencia
   transparency:
-    - label: "Informes Financieros"
-      url: "/transparencia"
-    - label: "Normativas"
-      url: "/transparencia#normativas"
-    - label: "Datos Abiertos"
-      url: "/transparencia#datos"
-    - label: "Estadísticas"
-      url: "/transparencia#estadisticas"
-    - label: "Política de Privacidad"
+    - label: Informes Financieros
+      url: /transparencia
+    - label: Normativas
+      url: /transparencia#normativas
+    - label: Datos Abiertos
+      url: /transparencia#datos
+    - label: Estadísticas
+      url: /transparencia#estadisticas
+    - label: Política de Privacidad
       url: "#"
-    - label: "Aviso Legal"
+    - label: Aviso Legal
       url: "#"
-  copyright: "© 2026 CRAI. Todos los derechos reservados."
+  copyright: © 2026 CRAI. Todos los derechos reservados.
 cookies:
   enabled: true
-  message: "Este sitio utiliza cookies para mejorar tu experiencia. Al continuar navegando aceptas nuestra"
-  acceptLabel: "Aceptar"
-  declineLabel: "Rechazar"
+  message: Este sitio utiliza cookies para mejorar tu experiencia. Al continuar
+    navegando aceptas nuestra
+  acceptLabel: Aceptar
+  declineLabel: Rechazar
+features:
+  admision: true
