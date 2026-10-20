@@ -134,4 +134,4 @@ cookies:
   acceptLabel: Aceptar
   declineLabel: Rechazar
 features:
-  admision: false
+  admision: true
