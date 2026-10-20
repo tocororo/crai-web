@@ -1,0 +1,218 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionIcons from '../components/SectionIcons.astro';
+import { getCollection } from 'astro:content';
+const grupos = (await getCollection('grupos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+
+const proyectos = (await getCollection('proyectos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+const publicaciones = [
+  { icon: 'fas fa-file-alt', title: 'Deep Reinforcement Learning for Autonomous Navigation in Dynamic Environments', authors: 'García, M., Rodríguez, L., & Kim, J.', meta: 'IEEE Transactions on Robotics, 2026' },
+  { icon: 'fas fa-dna', title: 'Engineering Synthetic Microbial Consortia for Enhanced Biodegradation of Hydrocarbon Pollutants', authors: 'Martínez, P., López, A., & Chen, S.', meta: 'Nature Biotechnology, 2025' },
+  { icon: 'fas fa-chart-bar', title: 'Social Innovation and Inclusive Development: A Participatory Action Research Framework for Latin American Cities', authors: 'Hernández, R., Ferreira, T., & Osei, K.', meta: 'Journal of Social Policy & Development, 2026' },
+];
+
+const transferencia = [
+  { area: 'Vinculación', icon: 'fas fa-handshake', title: 'Colaboración Empresa-Universidad', desc: 'Establecemos alianzas estratégicas con empresas y organizaciones para transferir conocimiento y tecnología, fomentando la innovación abierta y el desarrollo de soluciones aplicadas a desafíos reales del mercado.' },
+  { area: 'Innovación', icon: 'fas fa-lightbulb', title: 'Oficina de Patentes y Spin-offs', desc: 'Apoyamos a los investigadores en la protección de su propiedad intelectual y en la creación de empresas de base tecnológica. Hasta la fecha, se han generado 12 patentes internacionales y 5 spin-offs exitosas.' },
+  { area: 'Divulgación', icon: 'fas fa-chalkboard-teacher', title: 'Programas de Divulgación Científica', desc: 'Organizamos conferencias, talleres y ferias de ciencia para acercar el conocimiento académico a la comunidad. Nuestros investigadores participan activamente en medios de comunicación y foros de política científica.' },
+];
+
+const convocatorias = [
+  { icon: 'fas fa-trophy', area: 'Hasta 50.000 €', title: 'Ayudas a Proyectos de Investigación Joven', desc: 'Dirigido a investigadores emergentes para desarrollar proyectos innovadores con una duración máxima de 24 meses. Incluye financiación para equipamiento, personal y movilidad.' },
+  { icon: 'fas fa-globe', area: 'Hasta 200.000 €', title: 'Convocatoria de Innovación Social', desc: 'Proyectos interdisciplinarios que aborden desafíos sociales como desigualdad, cambio climático y salud comunitaria. Se valorará el impacto social y la participación de actores locales.' },
+  { icon: 'fas fa-exchange-alt', area: 'Hasta 15.000 €', title: 'Becas de Movilidad Internacional', desc: 'Apoyo a investigadores para estancias cortas en centros de excelencia internacional. Las solicitudes se evalúan de forma continua hasta agotar el presupuesto disponible.' },
+];
+
+const colaboraciones = [
+  { area: 'Europa', icon: 'fas fa-flask', title: 'Max Planck Institute (Alemania)', desc: 'Colaboración en inteligencia artificial y robótica avanzada. Programas de intercambio de investigadores y proyectos conjuntos financiados por la Unión Europea.' },
+  { area: 'América del Norte', icon: 'fas fa-university', title: 'Massachusetts Institute of Technology (EE.UU.)', desc: 'Proyectos conjuntos en biotecnología y ciencia de materiales. Programa de doble titulación doctoral y estancias de investigación para estudiantes de posgrado.' },
+  { area: 'Asia', icon: 'fas fa-leaf', title: 'Universidad de Tokio (Japón)', desc: 'Investigación colaborativa en energías renovables y desarrollo sostenible. Intercambio académico y organización conjunta de simposios internacionales.' },
+];
+---
+
+<BaseLayout title="Investigación – CRAI" description="Investigación e Innovación en el CRAI. Grupos de investigación, proyectos activos, publicaciones científicas y convocatorias.">
+  <!-- HERO CON FOTO: investigación e innovación -->
+  <section class="hero hero--compact" aria-label="Investigación">
+    <div
+      class="hero-bg"
+      style="background-image: url('/images/hero-investigacion.jpg'); background-color: #0F2B1C;"
+    ></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-symbols" aria-hidden="true">
+      <i class="fas fa-microscope hero-glyph hs-1"></i>
+      <i class="fas fa-chart-line hero-glyph hs-2"></i>
+      <i class="fas fa-flask hero-glyph hs-3"></i>
+      <i class="fas fa-newspaper hero-glyph hs-4"></i>
+      <i class="fas fa-file-lines hero-glyph hs-5"></i>
+      <i class="fas fa-quote-right hero-glyph hs-6"></i>
+      <i class="fas fa-diagram-project hero-glyph hs-7"></i>
+      <i class="fas fa-dna hero-glyph hs-8"></i>
+      <i class="fas fa-lightbulb hero-glyph hs-9"></i>
+    </div>
+    <div class="hero-particles" aria-hidden="true">
+      <div class="hero-particle" style="--x:15%;--y:20%;--s:60px;--d:0s;"></div>
+      <div class="hero-particle" style="--x:80%;--y:30%;--s:40px;--d:2s;"></div>
+      <div class="hero-particle" style="--x:25%;--y:70%;--s:50px;--d:4s;"></div>
+      <div class="hero-particle" style="--x:70%;--y:65%;--s:35px;--d:1s;"></div>
+      <div class="hero-particle" style="--x:50%;--y:15%;--s:45px;--d:3s;"></div>
+      <div class="hero-particle" style="--x:10%;--y:50%;--s:30px;--d:5s;"></div>
+      <div class="hero-particle" style="--x:90%;--y:55%;--s:55px;--d:2.5s;"></div>
+      <div class="hero-particle" style="--x:45%;--y:85%;--s:25px;--d:4.5s;"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge-wrapper">
+        <span class="hero-badge">
+          <img src="/images/305464304_448374310649340_2984277522454001566_n-Photoroom.png" alt="Logo UPR" class="univ-hero-logo" />
+          Investigación
+        </span>
+      </div>
+      <h1 class="hero-title univ-hero-title">Investigación e Innovación</h1>
+      <p class="hero-subtitle">Generamos conocimiento que transforma la sociedad</p>
+    </div>
+  </section>
+
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        <li class="current" aria-current="page">Investigación</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- GRUPOS DE INVESTIGACIÓN -->
+  <section class="section" aria-labelledby="grupos-title">
+    <SectionIcons icons={['fa-microscope', 'fa-chart-line', 'fa-flask']} />
+    <div class="container">
+      <span class="section-eyebrow">Equipos</span>
+      <h2 class="section-title" id="grupos-title">Grupos de Investigación</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Nuestros equipos multidisciplinarios trabajan en las fronteras del conocimiento</p>
+      <div class="research-grid">
+        {grupos.map((g) => (
+          <div class="research-card reveal">
+            <span class="research-area"><i class={g.data.icon} aria-hidden="true"></i> {g.data.area}</span>
+            <h3>{g.data.title}</h3>
+            <p>{g.data.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICACIONES RECIENTES -->
+  <section id="publicaciones" class="section" style="background: var(--bg-light);" aria-labelledby="publicaciones-title">
+    <SectionIcons icons={['fa-newspaper', 'fa-file-lines', 'fa-quote-right']} />
+    <div class="container">
+      <span class="section-eyebrow">Publicaciones</span>
+      <h2 class="section-title" id="publicaciones-title">Publicaciones Recientes</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Artículos científicos y contribuciones académicas de nuestros investigadores</p>
+      {publicaciones.map((pub) => (
+        <div class="publication-item reveal">
+          <div class="pub-icon"><i class={pub.icon} aria-hidden="true"></i></div>
+          <div class="pub-info">
+            <h4>{pub.title}</h4>
+            <p class="pub-authors">{pub.authors}</p>
+            <p class="pub-meta">{pub.meta}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- TRANSFERENCIA DE CONOCIMIENTO
+  <section class="section" style="background: var(--bg-warm);" aria-labelledby="transferencia-title">
+    <SectionIcons icons={['fa-box-archive', 'fa-cloud-arrow-up', 'fa-lock-open']} align="left" />
+    <div class="container">
+      <h2 class="section-title" id="transferencia-title">Transferencia de Conocimiento</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Llevamos los resultados de la investigación a la sociedad y al sector productivo</p>
+      <div class="research-grid">
+        {transferencia.map((t) => (
+          <div class="research-card reveal">
+            <span class="research-area"><i class={t.icon} aria-hidden="true"></i> {t.area}</span>
+            <h3>{t.title}</h3>
+            <p>{t.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  CONVOCATORIAS ABIERTAS
+  <section id="convocatorias" class="section" aria-labelledby="convocatorias-title">
+    <SectionIcons icons={['fa-bullhorn', 'fa-calendar-days', 'fa-bell']} />
+    <div class="container">
+      <h2 class="section-title" id="convocatorias-title">Convocatorias Abiertas</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Oportunidades de financiación para proyectos de investigación e innovación</p>
+      <div class="research-grid">
+        {convocatorias.map((c) => (
+          <div class="research-card reveal">
+            <span class="research-area"><i class={c.icon} aria-hidden="true"></i> {c.area}</span>
+            <h3>{c.title}</h3>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  COLABORACIONES INTERNACIONALES
+  <section class="section" style="background: var(--bg-light);" aria-labelledby="colaboraciones-title">
+    <SectionIcons icons={['fa-handshake', 'fa-globe', 'fa-earth-americas']} align="left" />
+    <div class="container">
+      <h2 class="section-title" id="colaboraciones-title">Colaboraciones Internacionales</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Nuestra red global de socios académicos y de investigación</p>
+      <div class="research-grid">
+        {colaboraciones.map((c) => (
+          <div class="research-card reveal">
+            <span class="research-area"><i class={c.icon} aria-hidden="true"></i> {c.area}</span>
+            <h3>{c.title}</h3>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section> -->
+
+  <!-- PROYECTOS ACTIVOS -->
+  <section id="proyectos" class="section" aria-labelledby="proyectos-title">
+    <SectionIcons icons={['fa-flask', 'fa-diagram-project', 'fa-dna']} align="left" />
+    <div class="container">
+      <span class="section-eyebrow">Proyectos</span>
+      <h2 class="section-title" id="proyectos-title">Proyectos Activos</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Proyectos de investigación financiados y en curso</p>
+      <div class="research-grid">
+        {proyectos.map((p) => (
+          <div class="research-card reveal">
+            <span class="research-area"><i class={p.data.icon} aria-hidden="true"></i> {p.data.area}</span>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.description}</p>
+            {p.data.coordinador && <p class="coordinador"><strong>Coordinador:</strong> {p.data.coordinador}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero--compact .hero-overlay {
+    background:
+      radial-gradient(
+        ellipse 70% 62% at 50% 54%,
+        rgba(11, 32, 21, 0.55) 0%,
+        rgba(11, 32, 21, 0.28) 55%,
+        transparent 75%
+      ),
+      linear-gradient(180deg, rgba(11, 32, 21, 0.38) 0%, rgba(26, 74, 46, 0.28) 50%, rgba(11, 32, 21, 0.48) 100%);
+  }
+</style>

@@ -8,11 +8,7 @@ const grupos = (await getCollection('grupos')).sort((a, b) => (a.data.order ?? 0
 
 const proyectos = (await getCollection('proyectos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
-const publicaciones = [
-  { icon: 'fas fa-file-alt', title: 'Deep Reinforcement Learning for Autonomous Navigation in Dynamic Environments', authors: 'García, M., Rodríguez, L., & Kim, J.', meta: 'IEEE Transactions on Robotics, 2026' },
-  { icon: 'fas fa-dna', title: 'Engineering Synthetic Microbial Consortia for Enhanced Biodegradation of Hydrocarbon Pollutants', authors: 'Martínez, P., López, A., & Chen, S.', meta: 'Nature Biotechnology, 2025' },
-  { icon: 'fas fa-chart-bar', title: 'Social Innovation and Inclusive Development: A Participatory Action Research Framework for Latin American Cities', authors: 'Hernández, R., Ferreira, T., & Osei, K.', meta: 'Journal of Social Policy & Development, 2026' },
-];
+const publicaciones = (await getCollection('publicaciones')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
 const transferencia = [
   { area: 'Vinculación', icon: 'fas fa-handshake', title: 'Colaboración Empresa-Universidad', desc: 'Establecemos alianzas estratégicas con empresas y organizaciones para transferir conocimiento y tecnología, fomentando la innovación abierta y el desarrollo de soluciones aplicadas a desafíos reales del mercado.' },
@@ -113,11 +109,11 @@ const colaboraciones = [
       <p class="section-subtitle">Artículos científicos y contribuciones académicas de nuestros investigadores</p>
       {publicaciones.map((pub) => (
         <div class="publication-item reveal">
-          <div class="pub-icon"><i class={pub.icon} aria-hidden="true"></i></div>
+          <div class="pub-icon"><i class={pub.data.icon} aria-hidden="true"></i></div>
           <div class="pub-info">
-            <h4>{pub.title}</h4>
-            <p class="pub-authors">{pub.authors}</p>
-            <p class="pub-meta">{pub.meta}</p>
+            <h4>{pub.data.title}</h4>
+            <p class="pub-authors">{pub.data.authors}</p>
+            <p class="pub-meta">{pub.data.meta}</p>
           </div>
         </div>
       ))}

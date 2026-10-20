@@ -1213,10 +1213,36 @@ ul { list-style: none; }
   .sedes-card { padding: 26px 22px 20px; }
 }
 
-/* Mejor responsividad: reducimos el padding de secciones en pantallas pequeñas */
+/* Mejor responsividad: ajustamos el height del hero por rangos de dispositivo */
+@media (max-width: 900px) {
+  .hero--compact {
+    min-height: 55vh;
+  }
+  .hero--compact .hero-bg {
+    background-position: center top;
+  }
+}
 @media (max-width: 768px) {
   .section {
     padding: 40px 0;
+  }
+  .hero--compact {
+    min-height: 60vh;
+  }
+  .hero--compact .hero-bg {
+    background-position: center top;
+  }
+}
+@media (max-width: 900px) {
+  .menu-toggle {
+    display: block;
+  }
+  .sidebar-card {
+    flex: 1;
+    min-height: auto;
+  }
+  .sidebar-card .calendar-event {
+    min-height: 140px;
   }
 }
 @keyframes sectionIconFloat {
