@@ -85,7 +85,7 @@ collections:
       - { label: "Sufijo", name: "suffix", widget: "string", default: "+" }
       - { label: "Etiqueta", name: "label", widget: "string" }
       - { label: "Orden", name: "order", widget: "number", required: false }
-      
+
   - name: "noticias"
     label: "Noticias / Blog"
     folder: "src/content/noticias"
@@ -156,6 +156,7 @@ collections:
     create: true
     identifier_field: "title"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Área", name: "area", widget: "string" }
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
@@ -163,8 +164,6 @@ collections:
       - { label: "Coordinador/a", name: "coordinador", widget: "string", required: false }
       - { label: "Descripción", name: "description", widget: "text" }
       - { label: "Orden", name: "order", widget: "number", required: false }
-
-
 
   - name: "grupos"
     label: "Grupos de Investigación"
@@ -172,6 +171,7 @@ collections:
     create: true
     identifier_field: "title"
     format: "yaml"
+    extension: "yaml"
     fields:
       - { label: "Área", name: "area", widget: "string" }
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
@@ -179,6 +179,20 @@ collections:
       - { label: "Coordinador/a", name: "coordinador", widget: "string", required: false }
       - { label: "Descripción", name: "description", widget: "text" }
       - { label: "Orden", name: "order", widget: "number", required: false }
+
+  - name: "publicaciones"
+    label: "Publicaciones"
+    folder: "src/content/publicaciones"
+    create: true
+    format: "yaml"
+    extension: "yaml"
+    fields:
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Autores", name: "authors", widget: "string" }
+      - { label: "Revista / Año", name: "meta", widget: "string" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
+
   - name: "timeline"
     label: "Historia (Timeline)"
     folder: "src/content/timeline"
@@ -347,17 +361,6 @@ collections:
       - { label: "Requisitos", name: "requisitos", widget: "list" }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
-  - name: "becas"
-    label: "Becas y Ayudas"
-    folder: "src/content/becas"
-    create: true
-    format: "yaml"
-    extension: "yaml"
-    fields:
-      - { label: "Icono (clase fa-*)", name: "icon", widget: "string" }
-      - { label: "Título", name: "title", widget: "string" }
-      - { label: "Descripción", name: "description", widget: "text" }
-      - { label: "Orden", name: "order", widget: "number", required: false }
 
   - name: "calendario-academico"
     label: "Calendario Académico"
@@ -384,18 +387,7 @@ collections:
       - { label: "Respuesta", name: "answer", widget: "text" }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
-  - name: "publicaciones"
-    label: "Publicaciones"
-    folder: "src/content/publicaciones"
-    create: true
-    format: "yaml"
-    extension: "yaml"
-    fields:
-      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
-      - { label: "Título", name: "title", widget: "string" }
-      - { label: "Autores", name: "authors", widget: "string" }
-      - { label: "Revista / Año", name: "meta", widget: "string" }
-      - { label: "Orden", name: "order", widget: "number", required: false }
+
 
   - name: "transferencia"
     label: "Transferencia de Conocimiento"
