@@ -353,34 +353,6 @@ const faq = defineCollection({
 });
 
 // ============================================================
-// Investigación: grupos
-// ============================================================
-const investigacionGrupos = defineCollection({
-  loader: glob({ pattern: '**/*.yaml', base: './src/content/investigacion-grupos' }),
-  schema: z.object({
-    icon: z.string(),
-    area: z.string(),
-    title: z.string(),
-    desc: z.string(),
-    order: z.number().optional(),
-  }),
-});
-
-// ============================================================
-// Investigación: proyectos activos
-// ============================================================
-const investigacionProyectos = defineCollection({
-  loader: glob({ pattern: '**/*.yaml', base: './src/content/investigacion-proyectos' }),
-  schema: z.object({
-    icon: z.string(),
-    area: z.string(),
-    title: z.string(),
-    desc: z.string(),
-    order: z.number().optional(),
-  }),
-});
-
-// ============================================================
 // Investigación: publicaciones
 // ============================================================
 const publicaciones = defineCollection({
@@ -615,8 +587,6 @@ export const collections = {
   becas,
   'calendario-academico': calendarioAcademico,
   faq,
-  'investigacion-grupos': investigacionGrupos,
-  'investigacion-proyectos': investigacionProyectos,
   publicaciones,
   transferencia,
   convocatorias,
