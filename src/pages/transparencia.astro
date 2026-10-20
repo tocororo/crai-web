@@ -72,28 +72,6 @@ const datosAbiertos = (await getCollection('datos-abiertos')).sort(byOrder);
     </div>
   </section>
 
-  <!-- Datos Abiertos -->
-  <section id="datos" class="section" aria-labelledby="datos-title">
-    <SectionIcons icons={['fa-database', 'fa-server', 'fa-cloud']} />
-    <div class="container">
-      <h2 class="section-title" id="datos-title">Datos Abiertos</h2>
-      <div class="section-divider" aria-hidden="true"></div>
-      <p class="section-subtitle">Información pública disponible para su reutilización y análisis</p>
-      <div class="content-grid">
-        {datosAbiertos.map((d) => (
-          <div class="content-card reveal">
-            <div class="content-card-icon"><i class={d.data.icon}></i></div>
-            <h3>{d.data.title}</h3>
-            <p>{d.data.desc}</p>
-          </div>
-        ))}
-      </div>
-      <div class="text-center" style="margin-top: 2rem;">
-        <a href="#" class="btn btn-gold"><i class="fas fa-download"></i> Acceder al Portal de Datos Abiertos</a>
-      </div>
-    </div>
-  </section>
-
   <!-- Estadísticas Institucionales -->
   <section id="estadisticas" class="stats-section" aria-labelledby="estadisticas-title">
     <SectionIcons icons={['fa-chart-line', 'fa-chart-bar', 'fa-chart-pie']} align="left" />

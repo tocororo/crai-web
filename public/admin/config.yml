@@ -154,6 +154,7 @@ collections:
     label: "Proyectos Activos"
     folder: "src/content/proyectos"
     create: true
+    identifier_field: "title"
     format: "yaml"
     fields:
       - { label: "Área", name: "area", widget: "string" }
@@ -180,6 +181,7 @@ collections:
     label: "Grupos de Investigación"
     folder: "src/content/grupos"
     create: true
+    identifier_field: "title"
     format: "yaml"
     fields:
       - { label: "Área", name: "area", widget: "string" }
