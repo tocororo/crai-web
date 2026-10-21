@@ -54,15 +54,17 @@ const engineItems = buscadores.flatMap((c) => c.data.items);
         <a href="/investigacion" class="btn btn-outline btn-lg"><i class="fas fa-flask"></i> Investigación</a>
       </div>
     </div>
-    <div class="hero-stats" aria-label="Estadísticas institucionales">
-      {estadisticas.filter((s) => s.data.value !== 0).map((s) => (
-        <div class="hero-stat">
-          <div class="hero-stat-icon"><i class="fas fa-chart-line"></i></div>
-          <span class="hero-stat-number" data-target={s.data.value}>0</span>
-          <span class="hero-stat-label">{s.data.label}</span>
-        </div>
-      ))}
-    </div>
+    {estadisticas.filter((s) => s.data.value !== 0).length > 0 && (
+      <div class="hero-stats" aria-label="Estadísticas institucionales">
+        {estadisticas.filter((s) => s.data.value !== 0).map((s) => (
+          <div class="hero-stat">
+            <div class="hero-stat-icon"><i class="fas fa-chart-line"></i></div>
+            <span class="hero-stat-number" data-target={s.data.value}>0</span>
+            <span class="hero-stat-label">{s.data.label}</span>
+          </div>
+        ))}
+      </div>
+    )}
   </section>
 
   <!-- NOTICIAS - CARRUSEL -->
