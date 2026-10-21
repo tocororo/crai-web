@@ -12,6 +12,8 @@ const estadisticas = (await getCollection('estadisticas')).sort((a, b) => (a.dat
 
 const buscadores = (await getCollection('buscadores')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 const engineItems = buscadores.flatMap((c) => c.data.items);
+const estadisticasVisibles = estadisticas.filter((s) => s.data.value !== 0);
+const totalEstadisticasVisibles = estadisticasVisibles.length;
 ---
 
 <BaseLayout title={`${config?.siteName ?? 'CRAI'} - Centro de Recursos para el Aprendizaje y la Investigación`} description={config?.description}>
@@ -54,9 +56,9 @@ const engineItems = buscadores.flatMap((c) => c.data.items);
         <a href="/investigacion" class="btn btn-outline btn-lg"><i class="fas fa-flask"></i> Investigación</a>
       </div>
     </div>
-    {estadisticas.filter((s) => s.data.value !== 0).length > 0 && (
-      <div class="hero-stats" aria-label="Estadísticas institucionales">
-        {estadisticas.filter((s) => s.data.value !== 0).map((s) => (
+    {totalEstadisticasVisibles > 0 && (
+      <div class="hero-stats" aria-label="Estadísticas institucionales" style={{gridTemplateColumns: `repeat(${totalEstadisticasVisibles}, 1fr)`}}>
+        {estadisticasVisibles.map((s) => (
           <div class="hero-stat">
             <div class="hero-stat-icon"><i class="fas fa-chart-line"></i></div>
             <span class="hero-stat-number" data-target={s.data.value}>0</span>
