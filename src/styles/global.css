@@ -66,6 +66,12 @@
   font-style: normal;
 }
 @font-face {
+  font-family: 'MyriadPro-Bold';
+  src: url('/fonts/MyriadPro-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
   font-family: 'Open Sans';
   src: url('/fonts/OpenSans-Regular.ttf') format('truetype');
   font-weight: 400;
@@ -370,7 +376,7 @@ ul { list-style: none; }
   color: var(--text-light);
   font-size: 1.2rem;
   font-weight: 700;
-  font-family: var(--font-title);
+  font-family: 'MyriadPro-Bold', sans-serif;
 }
 
 .logo-img img {
@@ -381,7 +387,7 @@ ul { list-style: none; }
 }
 
 .logo-text {
-  font-family: var(--font-title);
+  font-family: 'MyriadPro-Bold', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--primary);

@@ -2,9 +2,12 @@
 export interface Props {
   title?: string;
   subtitle?: string;
-  stats: { value: number; suffix: string; label: string }[];
+  stats: { value?: number; target?: number; suffix: string; label: string }[];
 }
 const { title = 'CRAI en cifras', subtitle = 'Más de cinco décadas formando profesionales que transforman el mundo', stats = [] } = Astro.props;
+
+// Obtener el valor: usa 'target' si existe (stats-universidad), sino 'value'
+const getStatValue = (s) => s.target !== undefined ? s.target : s.value;
 ---
 
 <section class="section-crai bg-primary-700 text-white" aria-labelledby="stats-title">
@@ -17,7 +20,7 @@ const { title = 'CRAI en cifras', subtitle = 'Más de cinco décadas formando pr
       {stats.map((s) => (
         <div class="reveal text-center">
           <div class="font-heading text-4xl font-extrabold text-secondary-300 sm:text-5xl">
-            <span data-count={s.value}>0</span><span>{s.suffix}</span>
+            <span data-count={getStatValue(s)}>0</span><span>{s.suffix}</span>
           </div>
           <div class="mt-2 text-sm text-white/80 sm:text-base">{s.label}</div>
         </div>

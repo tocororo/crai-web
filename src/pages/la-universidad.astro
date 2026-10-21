@@ -9,7 +9,7 @@ const timeline = (await getCollection('timeline')).sort((a, b) => (a.data.order 
 const mvv = (await getCollection('mvv')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 const organigrama = (await getCollection('organigrama')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 const campus = (await getCollection('campus')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
-const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const stats = (await getCollection('estadisticas')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 ---
 
 <BaseLayout title="La Universidad – CRAI" description="Conoce la historia, misión, visión, valores y autoridades del CRAI.">
@@ -193,9 +193,9 @@ const stats = (await getCollection('stats-universidad')).sort((a, b) => (a.data.
       <div class="section-divider" style="background: var(--secondary);" aria-hidden="true"></div>
       <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Más de cinco décadas formando profesionales que transforman el mundo</p>
       <div class="stats-grid">
-        {stats.map((s) => (
+        {stats.filter((s) => s.data.value !== 0).map((s) => (
           <div class="stat-item reveal">
-            <span class="stat-number" data-target={s.data.target}>0</span><span class="stat-plus">{s.data.suffix}</span>
+            <span class="stat-number" data-target={s.data.value}>0</span><span class="stat-plus">{s.data.suffix}</span>
             <span class="stat-label">{s.data.label}</span>
           </div>
         ))}

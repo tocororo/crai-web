@@ -186,7 +186,7 @@ const totalEstadisticasVisibles = estadisticasVisibles.length;
       <div class="section-divider" aria-hidden="true"></div>
       <p class="section-subtitle">Más de cinco décadas formando profesionales que transforman el mundo</p>
       <div class="stats-grid">
-        {estadisticas.map((s) => (
+        {estadisticasVisibles.map((s) => (
           <div class="stat-item reveal">
             <span class="stat-number" data-target={s.data.value}>0</span><span class="stat-plus">{s.data.suffix}</span>
             <span class="stat-label">{s.data.label}</span>
