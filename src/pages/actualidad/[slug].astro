@@ -25,7 +25,7 @@ const related = (await getCollection('noticias', ({ data }) => !data.draft && da
 ---
 
 <BaseLayout title={`${entry.data.title} – CRAI`} description={entry.data.description}>
-  <!-- HERO DE NOTICIA (propio de esta vista: verde institucional, más eslim, siempre sin foto) -->
+  <!-- HERO DE NOTICIA: con foto de la noticia -->
   <section class="hero hero--article" aria-label="Noticia">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
@@ -213,21 +213,36 @@ const related = (await getCollection('noticias', ({ data }) => !data.draft && da
 </script>
 
 <style>
-  /* --- Hero propio de la vista de noticia (no idéntico a las secciones) --- */
+  /* --- Hero propio de la vista de noticia (con foto de la noticia) --- */
   .hero--article {
     min-height: 40vh;
+    position: relative;
   }
 
   .hero--article .hero-bg {
     background-color: #176D3A;
-    background-image: linear-gradient(170deg, #176D3A 0%, #2C7A4B 50%, #176D3A 100%);
-    background-position: center;
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
   }
 
   .hero--article .hero-overlay {
-    background: linear-gradient(180deg, rgba(11, 32, 21, 0.5) 0%, rgba(26, 74, 46, 0.28) 50%, rgba(11, 32, 21, 0.55) 100%);
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(11,32,21,0.72) 0%, rgba(26,74,46,0.45) 50%, rgba(11,32,21,0.80) 100%);
+    z-index: 1;
+  }
+
+  .hero--article .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero--article .hero-badge-wrapper,
+  .hero--article .hero-title,
+  .hero--article .hero-subtitle {
+    color: var(--color-white, #fff);
   }
 
   /* --- Progreso de lectura --- */

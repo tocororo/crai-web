@@ -55,7 +55,7 @@ const engineItems = buscadores.flatMap((c) => c.data.items);
       </div>
     </div>
     <div class="hero-stats" aria-label="Estadísticas institucionales">
-      {estadisticas.map((s) => (
+      {estadisticas.filter((s) => s.data.value !== 0).map((s) => (
         <div class="hero-stat">
           <div class="hero-stat-icon"><i class="fas fa-chart-line"></i></div>
           <span class="hero-stat-number" data-target={s.data.value}>0</span>
