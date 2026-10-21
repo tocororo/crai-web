@@ -1,6 +1,6 @@
-# Universidad del Futuro - Sitio Web Institucional
+# Universidad de Pinar del Río "Hermanos Saíz Montes de Oca" - Sitio Web Institucional
 
-Sitio web completo e institucional para la **Universidad del Futuro**, diseñado con un estilo serio, profesional y accesible, similar al de las universidades públicas latinoamericanas.
+Sitio web completo e institucional para la **Universidad de Pinar del Río "Hermanos Saíz Montes de Oca"**, diseñado con un estilo serio, profesional y accesible, similar al de las universidades públicas latinoamericanas.
 
 ## Estructura del Sitio
 

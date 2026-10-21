@@ -130,3 +130,5 @@ Si la sección `cookies` no existe, el banner se muestra por defecto (`enabled: 
 - Sitio en español (`es-ES`).
 - Modo oscuro con `data-theme` en `<html>`, persistido en `localStorage`.
 - El directorio `crai-upr/` es el diseño HTML de partida; está excluido del `tsconfig.json` y no forma parte del sitio Astro.
+
+....
