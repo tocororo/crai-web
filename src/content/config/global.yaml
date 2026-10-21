@@ -30,8 +30,6 @@ navigation:
   - label: Estudios
     url: /estudios
     children:
-      - label: Oferta Académica
-        url: /estudios
       - label: Materias de la Carrera
         url: /estudios#grado
       - label: Asignaturas de Servicio
@@ -54,12 +52,10 @@ navigation:
     children:
       - label: Grupos de Investigación
         url: /investigacion
-      - label: Proyectos Activos
-        url: /investigacion#proyectos
       - label: Publicaciones
         url: /investigacion#publicaciones
-      - label: Convocatorias
-        url: /investigacion#convocatorias
+      - label: Proyectos Activos
+        url: /investigacion#proyectos
   - label: Actualidad
     url: /actualidad
     children:
@@ -118,14 +114,8 @@ footer:
       url: /transparencia
     - label: Normativas
       url: /transparencia#normativas
-    - label: Datos Abiertos
-      url: /transparencia#datos
     - label: Estadísticas
       url: /transparencia#estadisticas
-    - label: Política de Privacidad
-      url: "#"
-    - label: Aviso Legal
-      url: "#"
   copyright: © 2026 CRAI. Todos los derechos reservados.
 cookies:
   enabled: true

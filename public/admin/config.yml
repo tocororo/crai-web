@@ -33,11 +33,36 @@ collections:
         name: "social"
         widget: "object"
         fields:
-          - { label: "Facebook", name: "facebook", widget: "string", required: false }
-          - { label: "Twitter / X", name: "twitter", widget: "string", required: false }
-          - { label: "Instagram", name: "instagram", widget: "string", required: false }
-          - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
-          - { label: "YouTube", name: "youtube", widget: "string", required: false }
+          - {
+              label: "Facebook",
+              name: "facebook",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Twitter / X",
+              name: "twitter",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Instagram",
+              name: "instagram",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "LinkedIn",
+              name: "linkedin",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "YouTube",
+              name: "youtube",
+              widget: "string",
+              required: false,
+            }
       - label: "Navegación"
         name: "navigation"
         widget: "list"
@@ -56,22 +81,51 @@ collections:
         widget: "object"
         fields:
           - { label: "Descripción", name: "description", widget: "text" }
-          - { label: "Título enlaces rápidos", name: "quickLinksTitle", widget: "string" }
+          - {
+              label: "Título enlaces rápidos",
+              name: "quickLinksTitle",
+              widget: "string",
+            }
       - label: "Aviso de cookies"
         name: "cookies"
         widget: "object"
         hint: "Activa o desactiva el banner de cookies que aparece al abrir el sitio"
         fields:
-          - { label: "Mostrar banner de cookies", name: "enabled", widget: "boolean", default: true }
-          - { label: "Mensaje del banner", name: "message", widget: "text", required: false }
-          - { label: "Texto botón aceptar", name: "acceptLabel", widget: "string", required: false }
-          - { label: "Texto botón rechazar", name: "declineLabel", widget: "string", required: false }
+          - {
+              label: "Mostrar banner de cookies",
+              name: "enabled",
+              widget: "boolean",
+              default: true,
+            }
+          - {
+              label: "Mensaje del banner",
+              name: "message",
+              widget: "text",
+              required: false,
+            }
+          - {
+              label: "Texto botón aceptar",
+              name: "acceptLabel",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Texto botón rechazar",
+              name: "declineLabel",
+              widget: "string",
+              required: false,
+            }
       - label: "Visibilidad de páginas"
         name: "features"
         widget: "object"
         hint: "Activa o desactiva páginas del sitio. Al desactivar una página, se oculta del menú, del pie de página y del buscador, y su URL redirige a Inicio."
         fields:
-          - { label: "Página de Admisión", name: "admision", widget: "boolean", default: true }
+          - {
+              label: "Página de Admisión",
+              name: "admision",
+              widget: "boolean",
+              default: true,
+            }
 
   - name: "estadisticas"
     label: "Estadísticas"
@@ -109,9 +163,24 @@ collections:
       - { label: "Resumen", name: "description", widget: "text" }
       - { label: "Fecha de publicación", name: "pubDate", widget: "datetime" }
       - { label: "Autor", name: "author", widget: "string" }
-      - { label: "Categoría", name: "category", widget: "string", default: "Noticias" }
-      - { label: "Foto de portada", name: "heroImage", widget: "image", required: false }
-      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string", default: "fas fa-newspaper" }
+      - {
+          label: "Categoría",
+          name: "category",
+          widget: "string",
+          default: "Noticias",
+        }
+      - {
+          label: "Foto de portada",
+          name: "heroImage",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "Icono (clase Font Awesome)",
+          name: "icon",
+          widget: "string",
+          default: "fas fa-newspaper",
+        }
       - { label: "Contenido", name: "body", widget: "markdown" }
       - { label: "Borrador", name: "draft", widget: "boolean", default: false }
 
@@ -127,7 +196,12 @@ collections:
       - { label: "Mes", name: "month", widget: "string" }
       - { label: "Ubicación", name: "location", widget: "string" }
       - { label: "Hora", name: "time", widget: "string" }
-      - { label: "Destacado", name: "featured", widget: "boolean", default: false }
+      - {
+          label: "Destacado",
+          name: "featured",
+          widget: "boolean",
+          default: false,
+        }
 
   - name: "avisos"
     label: "Avisos Oficiales"
@@ -151,7 +225,12 @@ collections:
       - { label: "Área", name: "area", widget: "string" }
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
-      - { label: "Coordinador/a", name: "coordinador", widget: "string", required: false }
+      - {
+          label: "Coordinador/a",
+          name: "coordinador",
+          widget: "string",
+          required: false,
+        }
       - { label: "Descripción", name: "description", widget: "text" }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
@@ -166,7 +245,12 @@ collections:
       - { label: "Área", name: "area", widget: "string" }
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
-      - { label: "Coordinador/a", name: "coordinador", widget: "string", required: false }
+      - {
+          label: "Coordinador/a",
+          name: "coordinador",
+          widget: "string",
+          required: false,
+        }
       - { label: "Descripción", name: "description", widget: "text" }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
@@ -207,7 +291,12 @@ collections:
       - { label: "Cargo", name: "position", widget: "string" }
       - { label: "Biografía", name: "bio", widget: "text", required: false }
       - { label: "Foto", name: "photo", widget: "image", required: false }
-      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string", required: false }
+      - {
+          label: "Icono (clase Font Awesome)",
+          name: "icon",
+          widget: "string",
+          required: false,
+        }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
   - name: "mvv"
@@ -231,7 +320,12 @@ collections:
     extension: "yaml"
     fields:
       - { label: "Nivel", name: "level", widget: "number" }
-      - { label: "Nodos", name: "nodes", widget: "list", field: { label: "Nodo", name: "label", widget: "string" } }
+      - {
+          label: "Nodos",
+          name: "nodes",
+          widget: "list",
+          field: { label: "Nodo", name: "label", widget: "string" },
+        }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
   - name: "campus"
@@ -242,10 +336,10 @@ collections:
     format: "yaml"
     extension: "yaml"
     fields:
-       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
-       - { label: "Título", name: "title", widget: "string" }
-       - { label: "Descripción", name: "desc", widget: "text" }
-       - { label: "Orden", name: "order", widget: "number", required: false }
+      - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", required: false }
 
   - name: "asignaturas-servicio"
     label: "Asignaturas de Servicio"
@@ -303,13 +397,23 @@ collections:
           - { label: "Nombre", name: "name", widget: "string" }
           - { label: "Descripción", name: "desc", widget: "text" }
           - { label: "URL", name: "url", widget: "string" }
-          - { label: "Logo (archivo en /images/buscadores)", name: "logo", widget: "string", required: false }
+          - {
+              label: "Logo (archivo en /images/buscadores)",
+              name: "logo",
+              widget: "string",
+              required: false,
+            }
           - label: "Tipo de acceso"
             name: "access"
             widget: "select"
             options: ["abierto", "mixto", "institucional"]
             default: "abierto"
-          - { label: "Consejo de búsqueda", name: "tip", widget: "text", required: false }
+          - {
+              label: "Consejo de búsqueda",
+              name: "tip",
+              widget: "text",
+              required: false,
+            }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
   - name: "stats-universidad"
@@ -335,7 +439,11 @@ collections:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Descripción", name: "desc", widget: "text" }
-      - { label: "Archivo (PDF en /images/uploads)", name: "file", widget: "file" }
+      - {
+          label: "Archivo (PDF en /images/uploads)",
+          name: "file",
+          widget: "file",
+        }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
   - name: "normativas"
@@ -348,7 +456,11 @@ collections:
       - { label: "Icono (clase Font Awesome)", name: "icon", widget: "string" }
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Descripción", name: "desc", widget: "text" }
-      - { label: "Archivo (PDF en /images/uploads)", name: "file", widget: "file" }
+      - {
+          label: "Archivo (PDF en /images/uploads)",
+          name: "file",
+          widget: "file",
+        }
       - { label: "Orden", name: "order", widget: "number", required: false }
 
   - name: "datos-abiertos"
@@ -362,7 +474,6 @@ collections:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Descripción", name: "desc", widget: "text" }
       - { label: "Orden", name: "order", widget: "number", required: false }
-
 
   - name: "admision-pasos"
     label: "Admisión: Pasos"
@@ -455,6 +566,3 @@ collections:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Descripción", name: "desc", widget: "text" }
       - { label: "Orden", name: "order", widget: "number", required: false }
-
-
-

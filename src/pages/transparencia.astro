@@ -72,6 +72,25 @@ const datosAbiertos = (await getCollection('datos-abiertos')).sort(byOrder);
     </div>
   </section>
 
+  <!-- Datos Abiertos -->
+  <section id="datos-abiertos" class="section" aria-labelledby="datos-abiertos-title">
+    <SectionIcons icons={['fa-database', 'fa-folder', 'fa-download']} />
+    <div class="container">
+      <h2 class="section-title" id="datos-abiertos-title">Datos Abiertos</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="section-subtitle">Conjuntos de datos disponibles para descarga y reutilización</p>
+      <div class="data-grid">
+        {datosAbiertos.map((d) => (
+          <div class="data-item reveal">
+            <div class="data-icon"><i class={d.data.icon} aria-hidden="true"></i></div>
+            <h3>{d.data.title}</h3>
+            <p>{d.data.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Estadísticas Institucionales -->
   <section id="estadisticas" class="stats-section" aria-labelledby="estadisticas-title">
     <SectionIcons icons={['fa-chart-line', 'fa-chart-bar', 'fa-chart-pie']} align="left" />
