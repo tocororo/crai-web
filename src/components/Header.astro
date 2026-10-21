@@ -107,7 +107,7 @@ const hasChildrenActive = (item: { url: string; children?: { url: string }[] }) 
       </button>
     </div>
     <div class="search-hint">
-      <span>Busca <strong>páginas y materias</strong> del CRAI</span>
+      <span>Busca <strong>páginas y materias</strong> del CRAI {buscadores.length > 0 ? 'o buscadores' : ''}</span>
     </div>
     <div class="search-results" id="search-results"></div>
   </div>
