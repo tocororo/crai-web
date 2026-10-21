@@ -31,6 +31,18 @@ const materias = (await getCollection('materias-licenciatura'))
 // "<" se escapa para que un contenido con "</script>" no corte el bloque JSON
 const materiasJson = JSON.stringify(materias).replace(/</g, '\\u003c');
 
+// Índice que alimenta el buscador: los buscadores mostrados en la sección de Estudios.
+const buscadores = (await getCollection('buscadores'))
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
+  .map((b) => ({
+    title: b.data.title,
+    desc: b.data.desc ?? '',
+    keywords: b.data.title + ' ' + (b.data.desc ?? ''),
+    url: b.data.url,
+  }));
+
+const buscadoresJson = JSON.stringify(buscadores).replace(/</g, '\\u003c');
+
 const pathWithoutHash = currentPath.split('#')[0].replace(/\/$/, '') || '/';
 const isActive = (url: string) => {
   const u = url.split('#')[0].replace(/\/$/, '') || '/';
@@ -101,4 +113,5 @@ const hasChildrenActive = (item: { url: string; children?: { url: string }[] }) 
   </div>
 
   <script type="application/json" id="materias-index" set:html={materiasJson}></script>
+<script type="application/json" id="buscadores-index" set:html={buscadoresJson}></script>
 </header>

@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let highlightedIndex = -1;
   let currentItems = [];
 
-  // Materias inyectadas por Header.astro (fuera de este bundle)
+// Materias inyectadas por Header.astro (fuera de este bundle)
   const MATERIAS = (() => {
     try {
       const el = document.getElementById('materias-index');
@@ -306,7 +306,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
-  // Sin tildes ni mayúsculas: "gestion" debe encontrar "Gestión"
+// Buscadores inyectados por Header.astro (fuera de este bundle)
+  const BUSCADORES = (() => {
+    try {
+      const el = document.getElementById('buscadores-index');
+      return el ? JSON.parse(el.textContent || '[]') : [];
+    } catch (e) {
+      return [];
+    }
+  })();
+
+// Sin tildes ni mayúsculas: "gestion" debe encontrar "Gestión"
   const normalizeText = (s) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
   if (searchToggle && searchBar) {
@@ -422,6 +432,31 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>${escapeHtml(p.keywords.split(', ').slice(0, 3).join(' · '))}</p>
           </div>
           <span class="search-results-item-badge">Página</span>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    // Resultados de buscadores
+    const buscadorResults = BUSCADORES.filter(b =>
+      normalizeText(b.title).includes(q) ||
+      normalizeText(b.desc).includes(q) ||
+      normalizeText(b.keywords).includes(q)
+    );
+
+    if (buscadorResults.length > 0) {
+      html += `<div class="search-results-group">`;
+      html += `<div class="search-results-group-header"><i class="fas fa-flask"></i> Buscadores</div>`;
+      buscadorResults.slice(0, 6).forEach(b => {
+        currentItems.push({ url: b.url });
+        html += `
+        <div class="search-results-item" data-index="${currentItems.length - 1}">
+          <div class="search-results-item-icon buscador"><i class="fas fa-flask"></i></div>
+          <div class="search-results-item-content">
+            <h4>${escapeHtml(b.title)}</h4>
+            <p>${escapeHtml(b.desc)}</p>
+          </div>
+          <span class="search-results-item-badge buscador">Buscador</span>
         </div>`;
       });
       html += `</div>`;
