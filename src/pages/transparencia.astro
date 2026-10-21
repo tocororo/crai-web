@@ -99,7 +99,7 @@ const datosAbiertos = (await getCollection('datos-abiertos')).sort(byOrder);
       <div class="section-divider" style="background: var(--secondary);" aria-hidden="true"></div>
       <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Datos actualizados que reflejan nuestra dimensión y alcance institucional</p>
       <div class="stats-grid">
-        {stats.map((s) => (
+        {stats.filter((s) => s.data.value !== 0).map((s) => (
           <div class="stat-item reveal">
             <span class="stat-number" data-target={s.data.value}>0</span><span class="stat-plus">{s.data.suffix}</span>
             <span class="stat-label">{s.data.label}</span>
