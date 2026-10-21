@@ -5,7 +5,7 @@ description: Donación de textos sobre música cubana e internacional al Centro
   Provincial de la Música Argeliers León. Como parte del intercambio que
   mantiene el Crai Upr con diversas instituciones culturales de la provincia.
 pubDate: 2026-10-19T08:00:00.000-04:00
-author: Ivon Munoz
+author: Ivon Muñoz
 category: cultura
 heroImage: /images/uploads/whatsapp-image-2026-10-20-at-5.46.08-pm.jpeg
 icon: fas fa-newspaper
