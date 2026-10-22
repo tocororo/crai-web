@@ -31,6 +31,13 @@ const hiddenPages = getHiddenPages(siteConfig);
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="icon" type="image/png" href="/images/logo-crai.png" />
+  <!-- Fallback tipográfico autorizado por el Manual UPR: Source Sans Pro / Source Sans 3 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="/css/all.min.css" />
   <link rel="stylesheet" href="/css/leaflet.css" />
 </head>
@@ -57,7 +64,7 @@ const hiddenPages = getHiddenPages(siteConfig);
   {!hasAdmin && cookiesEnabled && (
     <div class="cookie-consent" id="cookie-consent">
       <div class="container">
-        <p>{cookiesMessage} <a href="#">política de cookies</a>.</p>
+        <p>{cookiesMessage} <a href="/politica-de-privacidad">política de cookies</a>.</p>
         <div class="cookie-buttons">
           <button class="btn btn-primary" id="cookie-accept">{cookiesAcceptLabel}</button>
           <button class="btn btn-secondary" id="cookie-decline">{cookiesDeclineLabel}</button>
