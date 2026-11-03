@@ -305,11 +305,11 @@ import SectionIcons from '../components/SectionIcons.astro';
   .cal-weekdays span { padding: 10px 4px; text-align: center; font-size: 0.8rem; font-weight: 600; }
   .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); }
   .cal-day { padding: 10px 4px; text-align: center; font-size: 0.85rem; border: 1px solid var(--border-color); cursor: pointer; transition: background 0.2s, color 0.2s; font-family: var(--font-body); color: var(--text-primary); background: var(--bg-white); }
-  .cal-day:hover:not(.reserved):not(.unavailable) { background: rgba(23,109,58,0.08); }
+  .cal-day:hover:not(.reserved):not(.unavailable) { background: rgba(0,121,63,0.08); }
   .cal-day.other-month { color: #ccc; cursor: default; }
   .cal-day.selected { background: var(--primary); color: var(--text-light); border-color: var(--primary); }
-  .cal-day.available { background: rgba(23,109,58,0.12); font-weight: 600; }
-  .cal-day.available:hover { background: rgba(23,109,58,0.22); }
+  .cal-day.available { background: rgba(0,121,63,0.12); font-weight: 600; }
+  .cal-day.available:hover { background: rgba(0,121,63,0.22); }
   .cal-day.reserved { background: var(--bg-light); color: #bbb; cursor: not-allowed; text-decoration: line-through; position: relative; }
   .cal-day.unavailable { background: #f5f5f5; color: #ddd; cursor: not-allowed; }
   .cal-day .cal-time { display: block; font-size: 0.65rem; color: var(--primary); font-weight: 700; margin-top: 2px; }
@@ -319,7 +319,7 @@ import SectionIcons from '../components/SectionIcons.astro';
   .form-group { display: flex; flex-direction: column; gap: 6px; }
   .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
   .form-group input, .form-group select, .form-group textarea { font-family: var(--font-body); font-size: 0.9rem; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-white); color: var(--text-primary); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(23,109,58,0.12); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,121,63,0.12); }
   .form-group input::placeholder, .form-group textarea::placeholder { color: #bbb; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .btn-reserva { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; border: none; border-radius: 10px; background: var(--primary); color: var(--text-light); font-family: var(--font-title); font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 8px; }

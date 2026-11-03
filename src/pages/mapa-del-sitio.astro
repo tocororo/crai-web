@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { getSiteConfig, isPageEnabled } from '../lib/content';
+
+const config = await getSiteConfig();
+const contact = config?.contact;
+const nav = (config?.navigation ?? [])
+  .filter((item) => isPageEnabled(config, item.url))
+  .map((item) => ({
+    ...item,
+    children: item.children?.filter((child) => isPageEnabled(config, child.url)),
+  }));
+const services = config?.footer?.services ?? [];
+const transparency = config?.footer?.transparency ?? [];
+
+const legalPages = [
+  { label: 'Aviso Legal', url: '/aviso-legal', icon: 'fa-scale-balanced' },
+  { label: 'Política de Privacidad', url: '/politica-de-privacidad', icon: 'fa-shield-halved' },
+  { label: 'Mapa del Sitio', url: '/mapa-del-sitio', icon: 'fa-sitemap' },
+];
+
+const isExternal = (url: string) => /^https?:\/\//.test(url);
+---
+
+<BaseLayout
+  title="Mapa del Sitio – CRAI"
+  description="Índice completo de las secciones, servicios y páginas del sitio web del Centro de Recursos para el Aprendizaje y la Investigación (CRAI)."
+>
+  <PageHero
+    badgeIcon="fa-sitemap"
+    badge="Navegación"
+    title="Mapa del Sitio"
+    subtitle="Encuentra rápidamente todas las secciones y servicios del CRAI"
+    crumb="Mapa del Sitio"
+  />
+
+  <section class="section" aria-labelledby="sitemap-title">
+    <div class="container">
+      <h2 class="section-title" id="sitemap-title">Todas las páginas</h2>
+      <p class="section-subtitle">Índice de contenidos del sitio web institucional</p>
+
+      <div class="sitemap-grid">
+        <!-- Páginas principales -->
+        <div class="sitemap-card">
+          <h3><i class="fas fa-compass" aria-hidden="true"></i> Páginas principales</h3>
+          <ul>
+            {nav.map((item) => (
+              <li>
+                <a href={item.url}>
+                  <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                  {item.label}
+                </a>
+                {item.children && item.children.length > 0 && (
+                  <ul class="sitemap-sub">
+                    {item.children.map((child) => (
+                      <li>
+                        <a href={child.url}>
+                          <i class="fas fa-angle-right" aria-hidden="true"></i>
+                          {child.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Servicios -->
+        <div class="sitemap-card">
+          <h3><i class="fas fa-book-open" aria-hidden="true"></i> Servicios CRAI</h3>
+          <ul>
+            {services.map((service) => (
+              <li>
+                <a
+                  href={service.url}
+                  target={isExternal(service.url) ? '_blank' : undefined}
+                  rel={isExternal(service.url) ? 'noopener noreferrer' : undefined}
+                >
+                  <i class={service.icon ?? 'fas fa-link'} aria-hidden="true"></i>
+                  {service.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Transparencia -->
+        <div class="sitemap-card">
+          <h3><i class="fas fa-balance-scale" aria-hidden="true"></i> Transparencia</h3>
+          <ul>
+            {transparency.map((link) => (
+              <li>
+                <a href={link.url}>
+                  <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href="/transparencia">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                Portal de Transparencia
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Información legal -->
+        <div class="sitemap-card">
+          <h3><i class="fas fa-file-contract" aria-hidden="true"></i> Información legal</h3>
+          <ul>
+            {legalPages.map((page) => (
+              <li>
+                <a href={page.url}>
+                  <i class={page.icon} aria-hidden="true"></i>
+                  {page.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Contacto -->
+        {contact && (
+          <div class="sitemap-card">
+            <h3><i class="fas fa-address-card" aria-hidden="true"></i> Contacto</h3>
+            <ul>
+              <li>
+                <a href={`mailto:${contact.email}`}>
+                  <i class="fas fa-envelope" aria-hidden="true"></i>
+                  {contact.email}
+                </a>
+              </li>
+              <li>
+                <a href={`tel:${contact.phone.replace(/\s+/g, '')}`}>
+                  <i class="fas fa-phone" aria-hidden="true"></i>
+                  {contact.phone}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.upr.edu.cu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fas fa-location-dot" aria-hidden="true"></i>
+                  Universidad de Pinar del Río
+                </a>
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

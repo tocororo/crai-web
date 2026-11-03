@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { getSiteConfig } from '../lib/content';
+
+const config = await getSiteConfig();
+const contact = config?.contact;
+const siteName = config?.siteName ?? 'CRAI';
+---
+
+<BaseLayout
+  title="Política de Privacidad – CRAI"
+  description="Política de privacidad y protección de datos del sitio web del Centro de Recursos para el Aprendizaje y la Investigación (CRAI)."
+>
+  <PageHero
+    badgeIcon="fa-shield-halved"
+    badge="Privacidad"
+    title="Política de Privacidad"
+    subtitle="Cómo tratamos y protegemos tus datos personales"
+    crumb="Política de Privacidad"
+  />
+
+  <section class="section" aria-labelledby="privacidad-title">
+    <div class="container">
+      <article class="legal-doc" aria-labelledby="privacidad-title">
+        <h2 id="privacidad-title">Política de Privacidad</h2>
+        <p class="legal-updated">Última actualización: octubre de 2026</p>
+
+        <h2>1. Responsable del tratamiento</h2>
+        <p>
+          El responsable del tratamiento de los datos personales recabados a través de este sitio web es el
+          <strong>{siteName}</strong>, con domicilio en {contact?.address}.
+        </p>
+        <ul>
+          <li><strong>Correo de contacto:</strong> <a href={`mailto:${contact?.email}`}>{contact?.email}</a></li>
+          <li><strong>Teléfono:</strong> {contact?.phone}</li>
+        </ul>
+
+        <h2>2. Datos que recopilamos</h2>
+        <p>Podemos recopilar las siguientes categorías de datos personales:</p>
+        <ul>
+          <li><strong>Datos de contacto:</strong> nombre, dirección de correo electrónico y teléfono, cuando el usuario los proporciona voluntariamente a través de formularios o por correo.</li>
+          <li><strong>Datos de uso:</strong> información técnica sobre la navegación, como dirección IP, tipo de navegador, dispositivo y páginas visitadas.</li>
+          <li><strong>Datos de reservas:</strong> nombre, departamento, correo electrónico y datos de la reserva de salas, cuando se utiliza el servicio de reservas.</li>
+        </ul>
+
+        <h2>3. Finalidad del tratamiento</h2>
+        <p>Los datos personales se tratan con las siguientes finalidades:</p>
+        <ul>
+          <li>Atender consultas, solicitudes de información y peticiones realizadas por los usuarios.</li>
+          <li>Gestionar los servicios ofrecidos por el CRAI, incluida la reserva de salas y el acceso a recursos.</li>
+          <li>Mejorar la calidad, la seguridad y la usabilidad del sitio web.</li>
+          <li>Cumplir con las obligaciones legales aplicables.</li>
+        </ul>
+
+        <h2>4. Base legal</h2>
+        <p>
+          El tratamiento se fundamenta en el consentimiento del usuario, en la ejecución de los servicios
+          solicitados y en el cumplimiento de las obligaciones legales que resulten aplicables al CRAI.
+        </p>
+
+        <h2>5. Conservación de los datos</h2>
+        <p>
+          Los datos se conservarán únicamente durante el tiempo necesario para la finalidad para la que fueron
+          recabados y, en su caso, durante los plazos exigidos por la normativa vigente.
+        </p>
+
+        <h2>6. Destinatarios y cesión</h2>
+        <p>
+          Con carácter general, los datos no se cederán a terceros salvo obligación legal o cuando sea
+          necesario para la prestación de un servicio solicitado por el usuario. En tal caso, la cesión se
+          realizará con las garantías adecuadas.
+        </p>
+
+        <h2>7. Derechos de los usuarios</h2>
+        <p>El usuario puede ejercer, en los términos previstos por la legislación aplicable, los siguientes derechos:</p>
+        <ul>
+          <li>Acceder a los datos personales que le conciernen.</li>
+          <li>Solicitar la rectificación de datos inexactos o incompletos.</li>
+          <li>Solicitar la supresión de los datos cuando ya no sean necesarios.</li>
+          <li>Oponerse o limitar el tratamiento en los supuestos legalmente previstos.</li>
+          <li>Solicitar la portabilidad de sus datos, cuando proceda.</li>
+        </ul>
+        <p>
+          Para ejercer estos derechos puede dirigirse a
+          <a href={`mailto:${contact?.email}`}>{contact?.email}</a>, indicando en el asunto «Protección de datos».
+        </p>
+
+        <h2>8. Cookies</h2>
+        <p>
+          Este sitio utiliza cookies técnicas y de preferencia necesarias para su correcto funcionamiento,
+          como el almacenamiento de las preferencias de tema (claro u oscuro) y la aceptación del aviso de
+          cookies. Puede gestionar o rechazar el uso de cookies a través del propio aviso mostrado en el sitio
+          y de la configuración de su navegador.
+        </p>
+        <div class="legal-note">
+          <p>
+            El rechazo de cookies estrictamente necesarias puede afectar al funcionamiento de algunas
+            funcionalidades del sitio.
+          </p>
+        </div>
+
+        <h2>9. Seguridad de la información</h2>
+        <p>
+          El CRAI adopta medidas técnicas y organizativas razonables para proteger los datos personales frente
+          a accesos no autorizados, pérdida, alteración o divulgación indebida.
+        </p>
+
+        <h2>10. Cambios en esta política</h2>
+        <p>
+          La presente Política de Privacidad puede actualizarse para adaptarse a novedades legislativas o
+          cambios en los servicios. La fecha de la última actualización se indica al inicio de este documento.
+        </p>
+
+        <h2>11. Contacto</h2>
+        <p>
+          Para cualquier duda sobre esta Política de Privacidad puede escribir a
+          <a href={`mailto:${contact?.email}`}>{contact?.email}</a> o llamar al {contact?.phone}.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

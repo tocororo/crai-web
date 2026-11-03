@@ -13,6 +13,22 @@ const quickLinks = (footer?.quickLinks ?? []).filter((link) => isPageEnabled(con
   <div class="container">
     <div class="footer-grid">
       <div class="footer-col footer-about">
+        <a
+          class="footer-upr"
+          href="https://www.upr.edu.cu"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Universidad de Pinar del Río Hermanos Saíz Montes de Oca"
+        >
+          <img
+            src="/images/upr.png"
+            alt="Universidad de Pinar del Río Hermanos Saíz Montes de Oca"
+            width="130"
+            height="151"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
         <h3>{siteName}</h3>
         <p>{footer?.description}</p>
         <ul class="footer-contact">
@@ -60,9 +76,9 @@ const quickLinks = (footer?.quickLinks ?? []).filter((link) => isPageEnabled(con
     <div class="footer-bottom">
       <p>{footer?.copyright}</p>
       <div class="footer-bottom-links">
-        <a href="#">Aviso Legal</a>
-        <a href="#">Política de Privacidad</a>
-        <a href="#">Mapa del Sitio</a>
+        <a href="/aviso-legal">Aviso Legal</a>
+        <a href="/politica-de-privacidad">Política de Privacidad</a>
+        <a href="/mapa-del-sitio">Mapa del Sitio</a>
       </div>
     </div>
   </div>

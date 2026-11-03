@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { getSiteConfig } from '../lib/content';
+
+const config = await getSiteConfig();
+const contact = config?.contact;
+const siteName = config?.siteName ?? 'CRAI';
+---
+
+<BaseLayout
+  title="Aviso Legal – CRAI"
+  description="Aviso legal y condiciones de uso del sitio web del Centro de Recursos para el Aprendizaje y la Investigación (CRAI)."
+>
+  <PageHero
+    badgeIcon="fa-scale-balanced"
+    badge="Información Legal"
+    title="Aviso Legal"
+    subtitle="Condiciones de uso del sitio web del CRAI"
+    crumb="Aviso Legal"
+  />
+
+  <section class="section" aria-labelledby="aviso-legal-title">
+    <div class="container">
+      <article class="legal-doc" aria-labelledby="aviso-legal-title">
+        <h2 id="aviso-legal-title">Aviso Legal</h2>
+        <p class="legal-updated">Última actualización: octubre de 2026</p>
+
+        <h2>1. Identificación del titular</h2>
+        <p>
+          El presente sitio web es titularidad del <strong>{siteName}</strong> (Centro de Recursos para el
+          Aprendizaje y la Investigación) de la Universidad de Pinar del Río «Hermanos Saíz Montes de Oca» (UPR),
+          con domicilio en {contact?.address}.
+        </p>
+        <ul>
+          <li><strong>Correo electrónico:</strong> <a href={`mailto:${contact?.email}`}>{contact?.email}</a></li>
+          <li><strong>Teléfono:</strong> {contact?.phone}</li>
+        </ul>
+
+        <h2>2. Objeto y ámbito de aplicación</h2>
+        <p>
+          Este Aviso Legal regula el acceso, la navegación y el uso del sitio web institucional del {siteName}.
+          La navegación por el sitio atribuye la condición de usuario e implica la aceptación plena de las
+          condiciones aquí recogidas.
+        </p>
+
+        <h2>3. Condiciones de uso</h2>
+        <p>El usuario se compromete a utilizar el sitio web y sus contenidos de forma lícita, responsable y respetuosa, y en particular a:</p>
+        <ul>
+          <li>No realizar actividades que puedan dañar, inutilizar, sobrecargar o deteriorar el sitio o impedir su normal utilización.</li>
+          <li>No intentar acceder a áreas restringidas, sistemas o datos sin la debida autorización.</li>
+          <li>No introducir programas, virus, macros o cualquier dispositivo susceptible de causar daños informáticos.</li>
+          <li>No utilizar los contenidos con fines contrarios a la ley, a la moral o al orden público.</li>
+        </ul>
+
+        <h2>4. Propiedad intelectual e industrial</h2>
+        <p>
+          Los contenidos de este sitio web —textos, fotografías, ilustraciones, iconos, logotipos, marcas,
+          diseño y código fuente— son propiedad del {siteName}, de la Universidad de Pinar del Río o de
+          terceros que han autorizado su uso, y están protegidos por la normativa vigente en materia de
+          propiedad intelectual e industrial.
+        </p>
+        <p>
+          Queda prohibida la reproducción, distribución, comunicación pública o transformación total o parcial
+          de dichos contenidos sin autorización expresa y por escrito del titular, salvo en los casos previstos
+          por la ley.
+        </p>
+
+        <h2>5. Enlaces a terceros</h2>
+        <p>
+          El sitio puede incluir enlaces a portales, bases de datos y servicios de terceros. El {siteName} no
+          controla ni asume responsabilidad alguna sobre sus contenidos, políticas de privacidad o prácticas.
+          El acceso a dichos sitios se realiza bajo la responsabilidad del usuario.
+        </p>
+
+        <h2>6. Exclusión de responsabilidad</h2>
+        <p>
+          El {siteName} realiza sus mejores esfuerzos para mantener la información actualizada y el sitio
+          operativo, pero no garantiza la ausencia de errores, interrupciones o incidencias técnicas. No se
+          asume responsabilidad por los daños derivados del uso del sitio o de la imposibilidad de acceder a él.
+        </p>
+
+        <h2>7. Modificaciones</h2>
+        <p>
+          El titular se reserva el derecho a modificar, actualizar o eliminar los contenidos de este sitio,
+          así como las presentes condiciones, en cualquier momento y sin previo aviso. Se recomienda revisar
+          periódicamente este Aviso Legal.
+        </p>
+
+        <h2>8. Legislación aplicable</h2>
+        <p>
+          Las presentes condiciones se rigen por la legislación vigente en la República de Cuba. Cualquier
+          controversia derivada del uso del sitio se someterá a los órganos competentes conforme a derecho.
+        </p>
+
+        <h2>9. Contacto</h2>
+        <p>
+          Para cualquier consulta relacionada con este Aviso Legal puede dirigirse a
+          <a href={`mailto:${contact?.email}`}>{contact?.email}</a> o al teléfono {contact?.phone}.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
