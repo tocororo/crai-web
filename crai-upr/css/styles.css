@@ -1306,6 +1306,14 @@ ul { list-style: none; }
   line-height: 1.6;
 }
 
+/* Divider between service groups */
+.service-divider {
+  grid-column: 1 / -1;
+  height: 1px;
+  background: var(--border-color);
+  margin: 32px 0;
+}
+
 /* ============================================================
    DATOS RÁPIDOS / STATS
    ============================================================ */

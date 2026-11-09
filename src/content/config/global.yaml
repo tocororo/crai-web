@@ -99,15 +99,19 @@ footer:
     - label: Catálogo
       url: https://catalogo.upr.edu.cu
       icon: fas fa-book-open
+      description: Consulta en línea libros, revistas y demás recursos del fondo bibliográfico.
     - label: Biblioteca Digital
       url: https://earchivos.upr.edu.cu
       icon: fas fa-cloud
+      description: Accede a colecciones digitales, tesis y documentos a texto completo.
     - label: Repositorio Institucional
       url: https://alma.upr.edu.cu
       icon: fas fa-box-archive
+      description: Explora la producción científica y académica de la UPR en acceso abierto.
     - label: Gestión de Reserva
       url: /reservar
       icon: fas fa-calendar-check
+      description: Solicita salas, equipos y espacios del CRAI de forma rápida y sencilla.
   transparencyTitle: Transparencia
   transparency:
     - label: Informes Financieros
@@ -123,5 +127,12 @@ cookies:
     navegando aceptas nuestra
   acceptLabel: Aceptar
   declineLabel: Rechazar
+heroes:
+  inicio: /images/hero-library.jpg
+  laUniversidad: /images/hero-universidad1.jpg
+  estudios: /images/hero-estudios.jpg
+  investigacion: /images/hero-investigacion.jpg
+  actualidad: /images/hero-actualidad.jpg
+  transparencia: /images/hero-transparencia.jpg
 features:
   admision: false

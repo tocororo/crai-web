@@ -3,7 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
+import { getSiteConfig } from '../lib/content';
 
+const config = await getSiteConfig();
 const byOrder = (a: { data: { order?: number } }, b: { data: { order?: number } }) => (a.data.order ?? 0) - (b.data.order ?? 0);
 
 const stats = (await getCollection('estadisticas')).sort(byOrder);
@@ -19,7 +21,7 @@ const datosAbiertos = (await getCollection('datos-abiertos')).sort(byOrder);
     title="Transparencia Institucional"
     subtitle="Compromiso con la rendición de cuentas y el acceso a la información"
     crumb="Portal de Transparencia"
-    bgImage="/images/hero-transparencia.jpg"
+    bgImage={config?.heroes?.transparencia ?? '/images/hero-transparencia.jpg'}
   />
 
   <!-- Informes -->

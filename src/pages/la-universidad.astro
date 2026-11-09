@@ -2,7 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
+import { getSiteConfig } from '../lib/content';
 
+const config = await getSiteConfig();
 const equipo = (await getCollection('equipo')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
 const timeline = (await getCollection('timeline')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
@@ -17,9 +19,10 @@ const stats = (await getCollection('estadisticas')).sort((a, b) => (a.data.order
   <section class="hero hero--compact" aria-label="La Universidad">
     <div
       class="hero-bg"
-      style="background-image: url('/images/hero-universidad.jpg'); background-color: #012D17;"
+      style={`background-image: url('${config?.heroes?.laUniversidad ?? '/images/hero-universidad1.jpg'}'); background-color: #012D17; filter: contrast(1.1) brightness(1.05) saturate(1.1) drop-shadow(0 0 1px rgba(0,0,0,0.2));`}
     ></div>
     <div class="hero-overlay"></div>
+    
     <div class="hero-symbols" aria-hidden="true">
       <i class="fas fa-landmark hero-glyph hs-1"></i>
       <i class="fas fa-compass hero-glyph hs-2"></i>

@@ -43,7 +43,7 @@ const config = defineCollection({
       quickLinksTitle: z.string(),
       quickLinks: z.array(z.object({ label: z.string(), url: z.string() })),
       servicesTitle: z.string(),
-      services: z.array(z.object({ label: z.string(), url: z.string(), icon: z.string().optional() })),
+      services: z.array(z.object({ label: z.string(), url: z.string(), icon: z.string().optional(), description: z.string().optional() })),
       transparencyTitle: z.string(),
       transparency: z.array(z.object({ label: z.string(), url: z.string() })),
       copyright: z.string(),
@@ -57,6 +57,17 @@ const config = defineCollection({
       })
       .optional()
       .default({ enabled: true }),
+    heroes: z
+      .object({
+        inicio: z.string().optional(),
+        laUniversidad: z.string().optional(),
+        estudios: z.string().optional(),
+        investigacion: z.string().optional(),
+        actualidad: z.string().optional(),
+        transparencia: z.string().optional(),
+      })
+      .optional()
+      .default({}),
     features: z
       .object({
         admision: z.boolean().default(true),

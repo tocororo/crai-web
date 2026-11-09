@@ -3,8 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
-import { slugify } from '../lib/content';
+import { getSiteConfig, slugify } from '../lib/content';
 
+const config = await getSiteConfig();
 const carrerasAsignaturas = (await getCollection('materias-licenciatura'))
   .filter((c) => c.data.carrera === 'Licenciatura en Ciencias de la Información')
   .sort((a, b) => (a.data.año ?? 0) - (b.data.año ?? 0) || (a.data.order ?? 0) - (b.data.order ?? 0));
@@ -35,7 +36,7 @@ const accessLabel: Record<string, string> = {
   <section class="hero hero--compact" aria-label="Estudios">
     <div
       class="hero-bg"
-      style="background-image: url('/images/hero-estudios.jpg'); background-color: #012D17;"
+      style={`background-image: url('${config?.heroes?.estudios ?? '/images/hero-estudios.jpg'}'); background-color: #012D17;`}
     ></div>
     <div class="hero-overlay"></div>
     <div class="hero-symbols" aria-hidden="true">

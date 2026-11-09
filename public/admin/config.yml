@@ -126,6 +126,17 @@ collections:
               widget: "boolean",
               default: true,
             }
+      - label: "Portadas de páginas"
+        name: "heroes"
+        widget: "object"
+        hint: "Imagen de fondo de la cabecera de cada página. Se recomienda una foto horizontal; el sitio la recorta automáticamente."
+        fields:
+          - { label: "Inicio", name: "inicio", widget: "image", required: false }
+          - { label: "La Universidad", name: "laUniversidad", widget: "image", required: false }
+          - { label: "Estudios", name: "estudios", widget: "image", required: false }
+          - { label: "Investigación", name: "investigacion", widget: "image", required: false }
+          - { label: "Actualidad", name: "actualidad", widget: "image", required: false }
+          - { label: "Transparencia", name: "transparencia", widget: "image", required: false }
 
   - name: "estadisticas"
     label: "Estadísticas"

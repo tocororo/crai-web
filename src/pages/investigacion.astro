@@ -3,6 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionIcons from '../components/SectionIcons.astro';
 import { getCollection } from 'astro:content';
+import { getSiteConfig } from '../lib/content';
+
+const config = await getSiteConfig();
 const grupos = (await getCollection('grupos')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
 
@@ -34,7 +37,7 @@ const colaboraciones = [
   <section class="hero hero--compact" aria-label="Investigación">
     <div
       class="hero-bg"
-      style="background-image: url('/images/hero-investigacion.jpg'); background-color: #012D17;"
+      style={`background-image: url('${config?.heroes?.investigacion ?? '/images/hero-investigacion.jpg'}'); background-color: #012D17;`}
     ></div>
     <div class="hero-overlay"></div>
     <div class="hero-symbols" aria-hidden="true">
